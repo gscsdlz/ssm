@@ -1,12 +1,22 @@
 package com.hospital.entity;
 
 public class Menu {
+    private int mainId;
     private int menuId;
     private String name;
     private String mainName;
     private String uri;
     private String icon;
     private int type;
+
+
+    public void setMainId(int mainId) {
+        this.mainId = mainId;
+    }
+
+    public int getMainId() {
+        return mainId;
+    }
 
     public void setMenuId(int menuId) {
         this.menuId = menuId;
@@ -54,5 +64,9 @@ public class Menu {
 
     public int getType() {
         return type;
+    }
+
+    public String toString() {
+        return menuId + ":" + name + ":" + mainName + ":" + uri + ":" + icon + ":" + type;
     }
 }

@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.MenuDao">
     <select id="getMenu" resultType="Menu" parameterType="int">
-        SELECT * FROM menu WHERE type = #{type}
+        SELECT * FROM menu LEFT JOIN main_menu ON (menu.main_id = main_menu.main_id) WHERE type = #{type}
     </select>
 </mapper>

@@ -1,9 +1,9 @@
 package com.hospital.service;
 
-import com.hospital.entity.Menu;
+import com.hospital.entity.MainMenu;
 
 import java.util.List;
 
 public interface MenuService {
-    List<Menu> getMenu(int type);
+    List<MainMenu> getMenu(int type);
 }
