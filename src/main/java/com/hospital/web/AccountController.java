@@ -6,15 +6,14 @@ import com.hospital.service.AccountService;
 import com.hospital.service.ElderUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("user")
 public class AccountController {
 
     @Autowired
@@ -33,6 +32,8 @@ public class AccountController {
         Account user = accountService.getUserByUsername(username);
 
         if (user != null && user.getPassword().equals(password) && act == user.getAct()) {
+            ModelAndView mav = new ModelAndView("session");
+            mav.addObject("user", user);
             return new Result<>(true, "");
         } else {
             return new Result<>(false, "用户名或者密码错误");

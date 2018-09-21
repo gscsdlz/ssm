@@ -10,4 +10,8 @@
     <insert id="addUser">
         INSERT INTO account (username, password, act) VALUES (#{username}, SHA1(#{password}), #{act});
     </insert>
+
+    <update id="updateUser">
+        UPDATE account SET
+    </update>
 </mapper>
