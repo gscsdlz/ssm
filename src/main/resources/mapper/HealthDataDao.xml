@@ -7,6 +7,6 @@
         SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id}
     </select>
     <select id="getHealthDataByDate" resultType="HealthData">
-        SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id} AND created_at >= #{l} AND created_at <= #{r}
+        SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id} AND created_at >= #{l} AND  #{r} >= created_at
     </select>
 </mapper>
