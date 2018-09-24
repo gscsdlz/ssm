@@ -34,10 +34,12 @@ public class WarningSetController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //TODO 测试Session
         List<Warning> warnings = warningService.getWarning(1, currPage, 10);
 
         WarningSetResponse response = new WarningSetResponse();
         response.setCurrentPage(currPage);
+        //TODO 分页还没有写好
         response.setTotalPage(1);
         response.setStatus(true);
         response.setData(warnings);
