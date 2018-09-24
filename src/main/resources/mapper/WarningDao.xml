@@ -6,6 +6,9 @@
     <select id="getWarning" resultType="Warning">
         SELECT * FROM warning WHERE account_id = #{account_id} LIMIT #{page}, #{total};
     </select>
+    <select id="getWarnings" resultType="Warning">
+        SELECT * FROM warning WHERE account_id = #{account_id} ORDER BY warning_id;
+    </select>
 
     <select id="getWarningTotal" resultType="int">
         SELECT count(*) FROM warning WHERE account_id = #{account_id}

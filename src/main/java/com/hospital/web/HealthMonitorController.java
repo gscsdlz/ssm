@@ -1,9 +1,6 @@
 package com.hospital.web;
 
-import com.hospital.entity.GPSInfo;
-import com.hospital.entity.MainMenu;
-import com.hospital.entity.Position;
-import com.hospital.entity.Warning;
+import com.hospital.entity.*;
 import com.hospital.service.MenuService;
 import com.hospital.service.PositionService;
 import com.hospital.service.WarningService;
@@ -27,6 +24,9 @@ public class HealthMonitorController {
 
     @Autowired
     private PositionService positionService;
+
+    @Autowired
+    private WarningService warningService;
 
     @RequestMapping("/position")
     private String position(@RequestParam Map<String, Object> param, Model model) {
@@ -55,5 +55,15 @@ public class HealthMonitorController {
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU);
         model.addAttribute("menuList", menuList);
         return "elder/warning_set";
+    }
+
+    @RequestMapping("warning_look")
+    private String warningLook(@RequestParam Map<String, Object> param, Model model) {
+
+        List<Alarm> list = warningService.getAlarm(1);
+        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU);
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("data", list);
+        return "elder/warning_look";
     }
 }

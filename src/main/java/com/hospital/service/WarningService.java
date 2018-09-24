@@ -1,5 +1,6 @@
 package com.hospital.service;
 
+import com.hospital.entity.Alarm;
 import com.hospital.entity.Warning;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface WarningService {
     List<Integer> delRows(String[] args);
 
     Map<Integer, String> addRow(String[] info, int accountId);
+
+    List<Alarm> getAlarm(int accountId);
+
 }
