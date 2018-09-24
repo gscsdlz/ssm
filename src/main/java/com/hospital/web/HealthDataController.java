@@ -4,15 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.entity.*;
 import com.hospital.service.HealthDataService;
 import com.hospital.service.MenuService;
-import com.sun.xml.internal.bind.v2.TODO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.management.openmbean.OpenMBeanConstructorInfo;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,6 +29,7 @@ public class HealthDataController {
         List<String> date = handleDefaultDate(param);
         String lDate = date.get(0);
         String rDate = date.get(1);
+        //TODO 测试用Session
         healthData = healthDataService.getHealthDataByDate(HealthData.HTYPE_BLOOD_PRESSURE, 1, lDate, rDate);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -55,7 +53,7 @@ public class HealthDataController {
     }
 
     @RequestMapping("/blood_sugar")
-    private String BloodSugar(@RequestParam Map<String, Object> param, Model model) {
+    private String bloodSugar(@RequestParam Map<String, Object> param, Model model) {
         List<HealthData> healthData;
         List<String> date = handleDefaultDate(param);
         String lDate = date.get(0);
@@ -84,7 +82,7 @@ public class HealthDataController {
     }
 
     @RequestMapping("height_weight")
-    private String HeightWeight(@RequestParam Map<String, Object> param, Model model) {
+    private String heightWeight(@RequestParam Map<String, Object> param, Model model) {
         List<HealthData> healthData;
         List<String> date = handleDefaultDate(param);
         String lDate = date.get(0);
