@@ -4,9 +4,11 @@ public class HealthData {
     private int dataId;
     private String data;
     private int type;
-    private String created_at;
+    private String createdAt;
 
-    public static  int HTYPE_BLOOD_PRESSURE = 1;
+    public static int HTYPE_BLOOD_PRESSURE = 1;
+    public static int HTYPE_BLOOD_SUGAR = 2;
+    public static int HTYPE_HEIGHT_WEIGHT = 3;
 
     public void setDataId(int dataId) {
         this.dataId = dataId;
@@ -20,9 +22,6 @@ public class HealthData {
         this.type = type;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
 
     public int getDataId() {
         return dataId;
@@ -32,11 +31,16 @@ public class HealthData {
         return data;
     }
 
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
     public int getType() {
         return type;
     }
 
-    public String getCreated_at() {
-        return created_at;
-    }
 }

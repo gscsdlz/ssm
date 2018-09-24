@@ -313,7 +313,6 @@
 
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo"/>
                         <span class="user-info"><small>管理员</small></span>
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
@@ -363,7 +362,7 @@
                     <b class="arrow"></b>
                     <ul class="submenu">
                         <c:forEach items="${row.menu}" var="cel">
-                            <li><a href="${cel.uri}" class="dropdown-toggle"><i class="menu-icon fa fa-caret-right"></i> ${cel.name} <b class="arrow"></b></a></li>
+                            <li><a href="${cel.uri}"><i class="menu-icon fa fa-caret-right"></i> ${cel.name} <b class="arrow"></b></a></li>
                         </c:forEach>
                     </ul>
                 </li>

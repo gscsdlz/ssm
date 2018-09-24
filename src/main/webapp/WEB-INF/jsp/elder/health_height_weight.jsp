@@ -3,7 +3,7 @@
 <%@ include file="../common/header.jsp" %>
 <div class="page-header">
     <h1>
-        血压指标
+        身高体重
         <small>${l} ~ ${r}</small>
     </h1>
 </div>
@@ -31,18 +31,18 @@
                             <thead>
                             <tr>
                                 <th>时间</th>
-                                <th>收缩压（mmHg）</th>
-                                <th>舒张压（mmHg）</th>
-                                <th>脉搏（次/分）</th>
+                                <th>身高（cm）</th>
+                                <th>体重（kg）</th>
+                                <th>BMI</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${data}" var="row">
                                 <tr>
                                     <td>${row.date}</td>
-                                    <td>${row.systolic}</td>
-                                    <td>${row.diastolic}</td>
-                                    <td>${row.pulse}</td>
+                                    <td>${row.height}</td>
+                                    <td>${row.weight}</td>
+                                    <td>${row.bmi}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -92,7 +92,7 @@
                         }
                     },
                     legend: {
-                        data: ['舒张压', '收缩压', '脉搏']
+                        data: ['身高', '体重', 'BMI']
                     },
                     grid: {
                         left: '3%',
@@ -117,29 +117,29 @@
                     ],
                     series: [
                         {
-                            name: '舒张压',
+                            name: '身高',
                             type: 'bar',
                             data: [
                                 <c:forEach items="${data}" var="row" >
-                                    ${row.systolic},
+                                    ${row.height},
                                 </c:forEach>
                             ]
                         },
                         {
-                            name: '收缩压',
+                            name: '体重',
                             type: 'bar',
                             data: [
                                 <c:forEach items="${data}" var="row" >
-                                    ${row.diastolic},
+                                    ${row.weight},
                                 </c:forEach>
                             ]
                         },
                         {
-                            name: '脉搏',
+                            name: 'BMI',
                             type: 'bar',
                             data: [
                                 <c:forEach items="${data}" var="row" >
-                                    ${row.pulse},
+                                    ${row.bmi},
                                 </c:forEach>
                             ]
                         }

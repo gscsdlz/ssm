@@ -3,7 +3,7 @@
 <%@ include file="../common/header.jsp" %>
 <div class="page-header">
     <h1>
-        血压指标
+        血糖指标
         <small>${l} ~ ${r}</small>
     </h1>
 </div>
@@ -31,18 +31,16 @@
                             <thead>
                             <tr>
                                 <th>时间</th>
-                                <th>收缩压（mmHg）</th>
-                                <th>舒张压（mmHg）</th>
-                                <th>脉搏（次/分）</th>
+                                <th>血糖值</th>
+                                <th>与上次用餐的时间差</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${data}" var="row">
                                 <tr>
                                     <td>${row.date}</td>
-                                    <td>${row.systolic}</td>
-                                    <td>${row.diastolic}</td>
-                                    <td>${row.pulse}</td>
+                                    <td>${row.value}</td>
+                                    <td>${row.duration}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -85,65 +83,26 @@
                 })
                 var chart = echarts.init(document.getElementById("main"));
                 var option = {
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
+                    xAxis: {
+                        type: 'category',
+                        data: [
+                            <c:forEach items="${data}" var="row" >
+                            '${row.date}',
+                            </c:forEach>
+                        ]
                     },
-                    legend: {
-                        data: ['舒张压', '收缩压', '脉搏']
+                    yAxis: {
+                        type: 'value'
                     },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis: [
-                        {
-                            type: 'category',
-                            data: [
-                                <c:forEach items="${data}" var="row" >
-                                    '${row.date}',
-                                </c:forEach>
-                            ]
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: 'value'
-                        }
-                    ],
-                    series: [
-                        {
-                            name: '舒张压',
-                            type: 'bar',
-                            data: [
-                                <c:forEach items="${data}" var="row" >
-                                    ${row.systolic},
-                                </c:forEach>
-                            ]
-                        },
-                        {
-                            name: '收缩压',
-                            type: 'bar',
-                            data: [
-                                <c:forEach items="${data}" var="row" >
-                                    ${row.diastolic},
-                                </c:forEach>
-                            ]
-                        },
-                        {
-                            name: '脉搏',
-                            type: 'bar',
-                            data: [
-                                <c:forEach items="${data}" var="row" >
-                                    ${row.pulse},
-                                </c:forEach>
-                            ]
-                        }
-                    ]
+                    series: [{
+                        data: [
+                            <c:forEach items="${data}" var="row" >
+                                ${row.value},
+                            </c:forEach>
+                        ],
+                        type: 'line',
+                        smooth: true
+                    }]
                 };
                 chart.setOption(option)
             })

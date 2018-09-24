@@ -37,4 +37,8 @@ public class BloodPressure {
     public int getPulse() {
         return pulse;
     }
+
+    public String toString() {
+        return date + ": 收缩压：" + systolic + " 舒张压：" + diastolic + " 脉搏：" + pulse;
+    }
 }

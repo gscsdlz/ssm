@@ -4,9 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.HealthDataDao">
     <select id="getHealthData" resultType="HealthData">
-        SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id}
+        SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id} ORDER BY created_at ASC
     </select>
     <select id="getHealthDataByDate" resultType="HealthData">
-        SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id} AND created_at >= #{l} AND  #{r} >= created_at
+        SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id} AND created_at >= #{l} AND  #{r} >= created_at ORDER BY created_at ASC
     </select>
 </mapper>
