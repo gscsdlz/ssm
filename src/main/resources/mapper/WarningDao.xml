@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.dao.WarningDao">
+    <select id="getWarning" resultType="Warning">
+        SELECT * FROM warning WHERE account_id = #{account_id} LIMIT #{page}, #{total};
+    </select>
+
+    <select id="getWarningTotal" resultType="int">
+        SELECT count(*) FROM warning WHERE account_id = #{account_id}
+    </select>
+
+    <update id="updateWarningRow">
+        UPDATE warning SET key_name = #{key_name}, min_val = #{min_val}, max_val = #{max_val} WHERE warning_id = #{warning_id};
+    </update>
+
+    <delete id="delWarningRow">
+        DELETE FROM warning WHERE warning_id = #{warning_id};
+    </delete>
+
+    <insert id="addWarningRow">
+      INSERT INTO warning (key_name, min_val, max_val, account_id) VALUES (#{key_name}, #{min_val}, #{max_val}, #{account_id});
+    </insert>
+</mapper>
