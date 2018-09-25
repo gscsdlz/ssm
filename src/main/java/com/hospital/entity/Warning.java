@@ -9,7 +9,6 @@ public class Warning {
     private float minVal;
     private float maxVal;
     private String createdAt;
-    private int handle;
 
     public static Map<String, String> keyNames;
     static {
@@ -24,14 +23,6 @@ public class Warning {
 
     public void setWarningId(int warningId) {
         this.warningId = warningId;
-    }
-
-    public void setHandle(int handle) {
-        this.handle = handle;
-    }
-
-    public int getHandle() {
-        return handle;
     }
 
     public void setKeyName(String keyName) {

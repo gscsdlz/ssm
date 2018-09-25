@@ -6,6 +6,15 @@ import java.util.Map;
 public class Alarm extends Warning {
     private float healthValue;
     private String date;
+    private int handle;
+
+    public void setHandle(int handle) {
+        this.handle = handle;
+    }
+
+    public int getHandle() {
+        return handle;
+    }
 
     public static int ALARM_UNHANDLE = 0;
     public static int ALARM_HANDLE = 1;
@@ -21,11 +30,11 @@ public class Alarm extends Warning {
         this.setKeyName(parent.getKeyName());
         this.setMinVal(parent.getMinVal());
         this.setMaxVal(parent.getMaxVal());
-        this.setHandle(parent.getHandle());
         this.setCreatedAt(parent.getCreatedAt());
 
         this.healthValue = healthValue;
         this.date = date;
+        this.handle = ALARM_UNHANDLE;
     }
 
     public void setHealthValue(float healthValue) {
