@@ -26,7 +26,7 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Override
     public void updateAlarm(int accountId) {
-        List<Warning> list = warningDao.getWarnings(accountId);
+        List<Warning> list = warningDao.getWarningForAlarm(accountId);
         List<HealthData> list1 = healthDataDao.getHealthData(HealthData.HTYPE_HEIGHT_WEIGHT, accountId);
         List<HealthData> list2 = healthDataDao.getHealthData(HealthData.HTYPE_BLOOD_PRESSURE, accountId);
         List<HealthData> list3 = healthDataDao.getHealthData(HealthData.HTYPE_BLOOD_SUGAR, accountId);
@@ -120,7 +120,10 @@ public class AlarmServiceImpl implements AlarmService {
                 } break;
             }
         }
-        //TODO INSERT INTO
+        for(Alarm a : res) {
+            alarmDao.addAlarm(a.getWarningId(), a.getHealthValue(), a.getHandle());
+            warningDao.checkUsed(a.getWarningId(), 1);
+        }
     }
 
     @Override
@@ -135,5 +138,14 @@ public class AlarmServiceImpl implements AlarmService {
     @Override
     public void doHandle(int alarmId, int handle) {
         alarmDao.doHandle(alarmId, handle);
+    }
+
+    @Override
+    public void removeAlarm(int accountId) {
+        List<Integer> ids = warningDao.getUsedPrepare(accountId);
+        for(int id : ids) {
+            warningDao.checkUsed(id, 0);
+            alarmDao.removeAlarm(id);
+        }
     }
 }

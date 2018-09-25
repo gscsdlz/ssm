@@ -1,5 +1,7 @@
 package com.hospital.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hospital.dto.NormalResponse;
 import com.hospital.entity.*;
 import com.hospital.service.AlarmService;
 import com.hospital.service.MenuService;
@@ -9,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,15 +62,41 @@ public class HealthMonitorController {
         return "elder/warning_set";
     }
 
-    @RequestMapping("warning_look")
-    private String warningLook(@RequestParam Map<String, Object> param, Model model) {
+    @RequestMapping("alarm_show")
+    private String alarmShow(@RequestParam Map<String, Object> param, Model model) {
 
+        int handle = 0;
+        try {
+            handle = Integer.parseInt(param.get("handle").toString());
+        } catch (Exception e) {
+
+        }
         //TODO 测试Session
-        List<Alarm> list = alarmService.getAlarm(1, Alarm.ALARM_UNHANDLE);
-
+        List<Alarm> list = alarmService.getAlarm(1, handle);
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU);
         model.addAttribute("menuList", menuList);
         model.addAttribute("data", list);
-        return "elder/warning_look";
+        model.addAttribute("handle", handle);
+        model.addAttribute("keyNameMap", Warning.keyNames);
+        return "elder/alarm_show";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "do_handle", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    private String doHandle(@RequestParam Map<String, Object> param) {
+        int alarmId = Integer.parseInt(param.get("alarmId").toString());
+        int handle = Alarm.ALARM_HANDLE;
+        alarmService.doHandle(alarmId, handle);
+
+        NormalResponse response = new NormalResponse();
+        response.setStatus(true);
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(response);
+        } catch (Exception e) {
+            return "";
+        }
+
     }
 }

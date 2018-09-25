@@ -11,4 +11,8 @@ public interface AlarmDao {
     List<Alarm> getAlarmCase(@Param("account_id") int accountId, @Param("handle") int handle);
 
     int doHandle(@Param("alarm_id") int alarmId, @Param("handle") int handle);
+
+    int addAlarm(@Param("warning_id") int warningId, @Param("health_value") float healthValue, @Param("handle") int handle);
+
+    int removeAlarm(@Param("warning_id") int warningId);
 }

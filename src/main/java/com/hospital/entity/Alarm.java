@@ -4,9 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Alarm extends Warning {
+    private int alarmId;
     private float healthValue;
-    private String date;
+    private String createdAt;
     private int handle;
+
+    public void setAlarmId(int alarmId) {
+        this.alarmId = alarmId;
+    }
+
+    public int getAlarmId() {
+        return alarmId;
+    }
 
     public void setHandle(int handle) {
         this.handle = handle;
@@ -31,9 +40,10 @@ public class Alarm extends Warning {
         this.setMinVal(parent.getMinVal());
         this.setMaxVal(parent.getMaxVal());
         this.setCreatedAt(parent.getCreatedAt());
+        this.setUsed(parent.getUsed());
 
         this.healthValue = healthValue;
-        this.date = date;
+        this.createdAt = date;
         this.handle = ALARM_UNHANDLE;
     }
 
@@ -41,15 +51,15 @@ public class Alarm extends Warning {
         this.healthValue = healthValue;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreatedAt(String date) {
+        this.createdAt = date;
     }
 
     public float getHealthValue() {
         return healthValue;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreatedAt() {
+        return this.createdAt;
     }
 }

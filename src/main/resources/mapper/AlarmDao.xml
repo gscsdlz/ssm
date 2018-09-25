@@ -8,11 +8,19 @@
     </select>
 
     <select id="getAlarmCase" resultType="Alarm">
-        SELECT * FROM alarm LEFT JOIN warninn ON (alarm.warning_id = warning.warning_id) WHERE account_id = #{account_id} AND handle = #{handle};
+        SELECT * FROM alarm LEFT JOIN warning ON (alarm.warning_id = warning.warning_id) WHERE account_id = #{account_id} AND handle = #{handle};
     </select>
 
     <update id="doHandle">
         UPDATE alarm SET handle = #{handle} WHERE alarm_id = #{alarm_id}
     </update>
+
+    <insert id="addAlarm">
+        INSERT INTO alarm (warning_id, health_value, handle) VALUES (#{warning_id}, #{health_value}, #{handle});
+    </insert>
+
+    <delete id="removeAlarm">
+        DELETE FROM alarm WHERE warning_id = #{warning_id}
+    </delete>
 
 </mapper>

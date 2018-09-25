@@ -9,6 +9,15 @@ public class Warning {
     private float minVal;
     private float maxVal;
     private String createdAt;
+    private int used;
+
+    public void setUsed(int used) {
+        this.used = used;
+    }
+
+    public int getUsed() {
+        return used;
+    }
 
     public static Map<String, String> keyNames;
     static {

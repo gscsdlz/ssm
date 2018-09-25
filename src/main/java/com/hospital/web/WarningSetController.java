@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.hospital.dto.*;
 import com.hospital.entity.Warning;
+import com.hospital.service.AlarmService;
 import com.hospital.service.WarningService;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class WarningSetController {
 
     @Autowired
     private WarningService warningService;
+
+    @Autowired
+    private AlarmService alarmService;
 
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
@@ -70,7 +74,9 @@ public class WarningSetController {
         }
 
         warningService.updateRows(updateStringList);
-
+        //TODO 测试Session
+        alarmService.removeAlarm(1);
+        alarmService.updateAlarm(1);
         NormalResponse response = new NormalResponse();
         response.setStatus(true);
         ObjectMapper mapper = new ObjectMapper();
@@ -106,13 +112,14 @@ public class WarningSetController {
         //TODO 测试Session
         Map<Integer, String> errors = warningService.addRow(info, 1);
 
+
         AddResponse response = new AddResponse();
-        if (errors.size() == 0)
+        if (errors.size() == 0) {
+            alarmService.updateAlarm(1);
             response.setStatus(true);
-        else
+        } else
             response.setStatus(false);
         response.setErrors(errors);
-
         ObjectMapper mapper = new ObjectMapper();
 
         try {

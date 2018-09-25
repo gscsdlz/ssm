@@ -9,13 +9,16 @@
     <select id="getWarnings" resultType="Warning">
         SELECT * FROM warning WHERE account_id = #{account_id} ORDER BY warning_id;
     </select>
+    <select id="getWarningForAlarm" resultType="Warning">
+        SELECT * FROM warning WHERE account_id = #{account_id} AND used = 0;
+    </select>
 
     <select id="getWarningTotal" resultType="int">
         SELECT count(*) FROM warning WHERE account_id = #{account_id}
     </select>
 
     <update id="updateWarningRow">
-        UPDATE warning SET key_name = #{key_name}, min_val = #{min_val}, max_val = #{max_val} WHERE warning_id = #{warning_id};
+        UPDATE warning SET key_name = #{key_name}, min_val = #{min_val}, max_val = #{max_val}, used = 2 WHERE warning_id = #{warning_id};
     </update>
 
     <delete id="delWarningRow">
@@ -25,4 +28,12 @@
     <insert id="addWarningRow">
       INSERT INTO warning (key_name, min_val, max_val, account_id) VALUES (#{key_name}, #{min_val}, #{max_val}, #{account_id});
     </insert>
+
+    <update id="checkUsed">
+        UPDATE warning SET used = #{used} WHERE warning_id = #{warning_id}
+    </update>
+
+    <select id="getUsedPrepare" resultType="int">
+        SELECT warning_id FROM warning WHERE account_id = #{account_id} AND used = 2
+    </select>
 </mapper>

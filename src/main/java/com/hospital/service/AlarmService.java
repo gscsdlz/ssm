@@ -14,4 +14,5 @@ public interface AlarmService {
 
     void doHandle(int alarmId, int handle);
 
+    void removeAlarm(int accountId);
 }
