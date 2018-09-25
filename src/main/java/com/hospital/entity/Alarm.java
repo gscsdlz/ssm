@@ -3,13 +3,17 @@ package com.hospital.entity;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Alarm extends Warning{
-   private float healthValue;
-   private String date;
+public class Alarm extends Warning {
+    private float healthValue;
+    private String date;
+
+    public static int ALARM_UNHANDLE = 0;
+    public static int ALARM_HANDLE = 1;
 
     public Alarm() {
 
     }
+
 
     public Alarm(Warning parent, float healthValue, String date) {
         super();

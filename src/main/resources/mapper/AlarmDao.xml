@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.dao.AlarmDao">
+    <select id="getAlarm" resultType="Alarm">
+        SELECT * FROM alarm LEFT JOIN warninn ON (alarm.warning_id = warning.warning_id) WHERE account_id = #{account_id};
+    </select>
+
+    <select id="getAlarmCase" resultType="Alarm">
+        SELECT * FROM alarm LEFT JOIN warninn ON (alarm.warning_id = warning.warning_id) WHERE account_id = #{account_id} AND handle = #{handle};
+    </select>
+
+    <update id="doHandle">
+        UPDATE alarm SET handle = #{handle} WHERE alarm_id = #{alarm_id}
+    </update>
+
+</mapper>

@@ -1,6 +1,7 @@
 package com.hospital.web;
 
 import com.hospital.entity.*;
+import com.hospital.service.AlarmService;
 import com.hospital.service.MenuService;
 import com.hospital.service.PositionService;
 import com.hospital.service.WarningService;
@@ -26,7 +27,7 @@ public class HealthMonitorController {
     private PositionService positionService;
 
     @Autowired
-    private WarningService warningService;
+    private AlarmService alarmService;
 
     @RequestMapping("/position")
     private String position(@RequestParam Map<String, Object> param, Model model) {
@@ -60,7 +61,9 @@ public class HealthMonitorController {
     @RequestMapping("warning_look")
     private String warningLook(@RequestParam Map<String, Object> param, Model model) {
 
-        List<Alarm> list = warningService.getAlarm(1);
+        //TODO 测试Session
+        List<Alarm> list = alarmService.getAlarm(1, Alarm.ALARM_UNHANDLE);
+
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU);
         model.addAttribute("menuList", menuList);
         model.addAttribute("data", list);
