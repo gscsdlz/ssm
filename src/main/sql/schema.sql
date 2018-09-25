@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-09-25 05:40:44
+-- Generation Time: 2018-09-25 14:08:08
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -58,12 +58,21 @@ DROP TABLE IF EXISTS `alarm`;
 CREATE TABLE IF NOT EXISTS `alarm` (
   `alarm_id` int(11) NOT NULL AUTO_INCREMENT,
   `warning_id` int(11) NOT NULL,
-  `value` float NOT NULL,
+  `health_value` float NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `handle` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`alarm_id`),
   KEY `warning_id` (`warning_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `alarm`
+--
+
+INSERT INTO `alarm` (`alarm_id`, `warning_id`, `health_value`, `created_at`, `handle`) VALUES
+(2, 3, 177.3, '2018-09-25 20:47:04', 1),
+(3, 5, 123, '2018-09-25 20:47:04', 1),
+(5, 8, 67, '2018-09-25 21:08:52', 0);
 
 -- --------------------------------------------------------
 
@@ -163,9 +172,9 @@ INSERT INTO `menu` (`menu_id`, `name`, `uri`, `main_id`) VALUES
 (2, '血糖指标', '/health_data/blood_sugar', 1),
 (3, '身高体重指标', '/health_data/height_weight', 1),
 (4, '地图定位', '/health_monitor/position', 2),
-(5, '异常指标', '', 2),
+(5, '异常指标', '/health_monitor/alarm_show', 2),
 (6, '预警设置', '/health_monitor/warning_set', 2),
-(7, '提醒设置', '', 2),
+(7, '提醒设置', '/health_monitor/notice_show', 2),
 (8, '个人档案', '', 3),
 (9, '门诊病历', '', 3),
 (10, '检验项目', '', 3),
@@ -175,6 +184,24 @@ INSERT INTO `menu` (`menu_id`, `name`, `uri`, `main_id`) VALUES
 (14, '健康档案查询', '', 4),
 (15, '医生专家库', '', 5),
 (16, '我的咨询', '', 5);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `notice`
+--
+
+DROP TABLE IF EXISTS `notice`;
+CREATE TABLE IF NOT EXISTS `notice` (
+  `notice_id` int(11) NOT NULL AUTO_INCREMENT,
+  `notice_type` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
+  `frequency` varchar(100) NOT NULL,
+  PRIMARY KEY (`notice_id`),
+  KEY `account_id` (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -211,18 +238,21 @@ CREATE TABLE IF NOT EXISTS `warning` (
   `key_name` varchar(10) NOT NULL,
   `min_val` float NOT NULL,
   `max_val` float NOT NULL,
+  `used` int(11) NOT NULL DEFAULT '0',
   `account_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`warning_id`),
   KEY `account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `warning`
 --
 
-INSERT INTO `warning` (`warning_id`, `key_name`, `min_val`, `max_val`, `account_id`, `created_at`) VALUES
-(3, 'height', 50, 55, 1, '2018-09-24 18:33:14');
+INSERT INTO `warning` (`warning_id`, `key_name`, `min_val`, `max_val`, `used`, `account_id`, `created_at`) VALUES
+(3, 'height', 50, 55, 1, 1, '2018-09-24 18:33:14'),
+(5, 'systolic', 100, 120, 1, 1, '2018-09-25 20:47:03'),
+(8, 'diastolic', 60, 66, 1, 1, '2018-09-25 20:56:02');
 
 --
 -- 限制导出的表
@@ -232,7 +262,7 @@ INSERT INTO `warning` (`warning_id`, `key_name`, `min_val`, `max_val`, `account_
 -- 限制表 `alarm`
 --
 ALTER TABLE `alarm`
-  ADD CONSTRAINT `alarm_warning` FOREIGN KEY (`warning_id`) REFERENCES `warning` (`warning_id`);
+  ADD CONSTRAINT `alarm_warning` FOREIGN KEY (`warning_id`) REFERENCES `warning` (`warning_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `menu`
