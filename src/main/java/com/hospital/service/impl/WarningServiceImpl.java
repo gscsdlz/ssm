@@ -6,6 +6,7 @@ import com.hospital.dao.WarningDao;
 import com.hospital.entity.*;
 import com.hospital.service.WarningService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,7 +42,11 @@ public class WarningServiceImpl implements WarningService {
     }
 
     public void updateRow(int warningId, String keyName, float minVal, float maxVal) {
-        warningDao.updateWarningRow(warningId, keyName, minVal, maxVal);
+        try {
+            warningDao.updateWarningRow(warningId, keyName, minVal, maxVal);
+        } catch (DuplicateKeyException e) {
+            ;
+        }
     }
 
     @Override
@@ -71,7 +76,11 @@ public class WarningServiceImpl implements WarningService {
             if (minVal > maxVal) {
                 errors.put(2, "最大值不能小于最小值");
             } else {
-                warningDao.addWarningRow(keyName, minVal, maxVal, accountId);
+                try {
+                    warningDao.addWarningRow(keyName, minVal, maxVal, accountId);
+                } catch (DuplicateKeyException e) {
+                    errors.put(0, "不能设置重复预警");
+                }
             }
         }
         return errors;
