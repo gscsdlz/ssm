@@ -48,7 +48,7 @@ public class HealthMonitorController {
         //TODO 测试用Session
         Position p = positionService.getPosition(1, date);
 
-        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU);
+        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康监护", "地图定位");
         model.addAttribute("menuList", menuList);
         model.addAttribute("position", p);
         return "elder/position";
@@ -57,7 +57,7 @@ public class HealthMonitorController {
     @RequestMapping("/warning_set")
     //具体方法使用AJAX在WarningSetController中
     private String warningSet(@RequestParam Map<String, Object> param, Model model) {
-        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU);
+        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康监护", "预警设置");
         model.addAttribute("menuList", menuList);
         return "elder/warning_set";
     }
@@ -73,7 +73,7 @@ public class HealthMonitorController {
         }
         //TODO 测试Session
         List<Alarm> list = alarmService.getAlarm(1, handle);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU);
+        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康监护", "异常指标");
         model.addAttribute("menuList", menuList);
         model.addAttribute("data", list);
         model.addAttribute("handle", handle);

@@ -1,13 +1,26 @@
 package com.hospital.entity;
 
+import sun.applet.Main;
+
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainMenu {
     private String mainName;
     private String icon;
     private int type;
     private List<Menu> menus;
+    private boolean active;
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
 
     public MainMenu() {
         menus = new ArrayList<>();
@@ -63,5 +76,13 @@ public class MainMenu {
     @Override
     public String toString() {
         return mainName;
+    }
+
+    public void setSubMenuActive(String name) {
+        for (Menu m : menus) {
+            if (m.getName() == name) {
+                m.setActive(true);
+            }
+        }
     }
 }

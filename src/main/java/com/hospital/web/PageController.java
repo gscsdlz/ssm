@@ -20,7 +20,7 @@ public class PageController {
 
     @RequestMapping("/home")
     private String index(Model model) {
-        List<MainMenu> menuList = menuService.getMenu(1);
+        List<MainMenu> menuList = menuService.getMenu(1, "", "");
         model.addAttribute("menuList", menuList);
         return "index";
     }

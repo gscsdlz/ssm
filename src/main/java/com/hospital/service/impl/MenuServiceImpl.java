@@ -18,7 +18,7 @@ public class MenuServiceImpl implements MenuService {
     private MenuDao menuDao;
 
     @Override
-    public List<MainMenu> getMenu(int type) {
+    public List<MainMenu> getMenu(int type, String mainMenu, String subMenu) {
         List<Menu> menu =  menuDao.getMenu(type);
         TreeMap list = new TreeMap();
 
@@ -28,6 +28,11 @@ public class MenuServiceImpl implements MenuService {
             if (m == null) {
                 m = new MainMenu(aMenu.getMainName(), aMenu.getIcon());
             }
+            if (mainMenu.equals(m.getMainName()))
+                m.setActive(true);
+            if (aMenu.getName().equals(subMenu))
+                aMenu.setActive(true);
+
             m.addMenu(aMenu);
             list.put(aMenu.getMainId(), m);
         }

@@ -41,7 +41,7 @@ public class NoticeController {
         }
         //TODO 测试Session
         List<Notice> list = noticeService.getNotice(1, type, status);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU);
+        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康监护", "提醒设置");
         model.addAttribute("menuList", menuList);
         model.addAttribute("data", list);
         model.addAttribute("noticeTypes", Notice.noticeTypes);

@@ -347,7 +347,7 @@
             }
         </script>
         <ul class="nav nav-list">
-            <li class="active">
+            <li class="">
                 <a href="/home">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> 首页 </span>
@@ -355,7 +355,12 @@
                 <b class="arrow"></b>
             </li>
             <c:forEach items="${menuList}" var="row">
-                <li>
+                <c:if test="${row.active == true}">
+                    <li class="active open">
+                </c:if>
+                <c:if test="${row.active == false}">
+                    <li>
+                </c:if>
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa ${row.icon}"></i>
                         <span class="menu-text"> ${row.mainName} </span>
@@ -364,7 +369,13 @@
                     <b class="arrow"></b>
                     <ul class="submenu">
                         <c:forEach items="${row.menu}" var="cel">
-                            <li><a href="${cel.uri}"><i class="menu-icon fa fa-caret-right"></i> ${cel.name} <b class="arrow"></b></a></li>
+                            <c:if test="${cel.active == true}">
+                                <li class="active">
+                            </c:if>
+                            <c:if test="${cel.active == false}">
+                                <li>
+                            </c:if>
+                                <a href="${cel.uri}"><i class="menu-icon fa fa-caret-right"></i> ${cel.name} <b class="arrow"></b></a></li>
                         </c:forEach>
                     </ul>
                 </li>

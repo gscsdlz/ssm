@@ -8,5 +8,5 @@ public interface MenuService {
 
     int ELDER_MENU = 1;
 
-    List<MainMenu> getMenu(int type);
+    List<MainMenu> getMenu(int type, String mainMenu, String subMenu);
 }

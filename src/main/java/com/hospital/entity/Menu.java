@@ -8,7 +8,15 @@ public class Menu {
     private String uri;
     private String icon;
     private int type;
+    private boolean active;
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
 
     public void setMainId(int mainId) {
         this.mainId = mainId;

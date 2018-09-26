@@ -44,7 +44,7 @@ public class HealthDataController {
                 e.printStackTrace();
             }
         }
-        List<MainMenu> menuList = menuService.getMenu(1);
+        List<MainMenu> menuList = menuService.getMenu(1, "健康监测", "血压指标");
         model.addAttribute("menuList", menuList);
 
         model.addAttribute("data", list);
@@ -72,7 +72,7 @@ public class HealthDataController {
                 e.printStackTrace();
             }
         }
-        List<MainMenu> menuList = menuService.getMenu(1);
+        List<MainMenu> menuList = menuService.getMenu(1, "健康监测", "血糖指标");
         model.addAttribute("menuList", menuList);
         model.addAttribute("data", list);
         model.addAttribute("l", lDate);
@@ -101,7 +101,7 @@ public class HealthDataController {
                 e.printStackTrace();
             }
         }
-        List<MainMenu> menuList = menuService.getMenu(1);
+        List<MainMenu> menuList = menuService.getMenu(1, "健康监测", "身高体重指标");
         model.addAttribute("menuList", menuList);
         model.addAttribute("data", list);
         model.addAttribute("l", lDate);
