@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/assets/css/fonts.googleapis.com.css" />
     <link rel="stylesheet" href="/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
@@ -17,21 +18,22 @@
     <script src="/assets/js/ace-extra.min.js"></script>
     <script src="/assets/js/jquery-2.1.4.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/moment.min.js"></script>
     <script src="/assets/js/bootstrap-datepicker.min.js"></script>
     <script src="/assets/js/bootstrap-timepicker.min.js"></script>
-    <script src="/assets/js/moment.min.js"></script>
+    <script src="/assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="/assets/js/daterangepicker.min.js"></script>
     <script src="/assets/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="/assets/js/bootstrap-colorpicker.min.js"></script>
     <script src="/assets/js/jquery-ui.custom.min.js"></script>
     <script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
-    <script src="/assets/js/jquery.easypiechart.min.js"></script>
     <script src="/assets/js/jquery.sparkline.index.min.js"></script>
     <script src="/assets/js/jquery.flot.min.js"></script>
     <script src="/assets/js/jquery.flot.pie.min.js"></script>
     <script src="/assets/js/jquery.flot.resize.min.js"></script>
     <script src="/assets/js/ace-elements.min.js"></script>
     <script src="/assets/js/ace.min.js"></script>
+    <script src="/assets/js/bootbox.js"></script>
+
 </head>
 <body class="no-skin">
 <div id="navbar" class="navbar navbar-default ace-save-state">

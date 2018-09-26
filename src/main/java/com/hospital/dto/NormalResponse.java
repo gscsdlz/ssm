@@ -1,5 +1,7 @@
 package com.hospital.dto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class NormalResponse {
     private boolean status;
     private String info;
@@ -18,5 +20,15 @@ public class NormalResponse {
 
     public String getInfo() {
         return info;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

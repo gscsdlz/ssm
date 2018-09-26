@@ -9,7 +9,16 @@ public class Notice {
     private int noticeType;
     private String start;
     private String end;
+    private String last;
     private String frequency;
+
+    public void setLast(String last) {
+        this.last = last;
+    }
+
+    public String getLast() {
+        return last;
+    }
 
     public static Map<Integer, String> noticeTypes;
     static {
@@ -59,13 +68,8 @@ public class Notice {
      * [1 - 12], [1 - 30], [1 - 12]
      * @return List<Integer>
      */
-    public List<Integer> getFrequency() {
-        String[] args = frequency.split(":");
-        List<Integer> res = new ArrayList<>();
-        for(String s : args) {
-            res.add(Integer.parseInt(s));
-        }
-        return res;
+    public String getFrequency() {
+        return this.frequency;
     }
 
     /**

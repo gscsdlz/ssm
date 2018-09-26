@@ -6,4 +6,16 @@
     <select id="getNotice" resultType="Notice">
         SELECT * FROM notice WHERE account_id = #{account_id}
     </select>
+
+    <insert id="addNotice">
+        INSERT INTO notice (notice_type, account_id, start, end, frequency, last) VALUES (#{notice_type}, #{account_id}, #{start}, #{end}, #{frequency}, #{start})
+    </insert>
+
+    <update id="updateNotice">
+        UPDATE notice SET notice_type = #{notice_type}, start = #{start}, end = #{end}, frequency = #{frequency} WHERE notice_id = #{notice_id}
+    </update>
+
+    <delete id="delNotice">
+        DELETE FROM notice WHERE notice_id = #{notice_id}
+    </delete>
 </mapper>
