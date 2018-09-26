@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-09-25 14:08:08
+-- Generation Time: 2018-09-26 13:49:52
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS `account` (
 --
 
 INSERT INTO `account` (`account_id`, `username`, `password`, `act`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, '2018-09-19 20:41:52', '2018-09-19 20:41:52'),
-(2, 'root', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-19 20:43:19', '2018-09-19 20:43:19');
+                                                                                                       (1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, '2018-09-19 20:41:52', '2018-09-19 20:41:52'),
+                                                                                                       (2, 'root', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-19 20:43:19', '2018-09-19 20:43:19');
 
 -- --------------------------------------------------------
 
@@ -70,9 +70,9 @@ CREATE TABLE IF NOT EXISTS `alarm` (
 --
 
 INSERT INTO `alarm` (`alarm_id`, `warning_id`, `health_value`, `created_at`, `handle`) VALUES
-(2, 3, 177.3, '2018-09-25 20:47:04', 1),
-(3, 5, 123, '2018-09-25 20:47:04', 1),
-(5, 8, 67, '2018-09-25 21:08:52', 0);
+                                                                                              (2, 3, 177.3, '2018-09-25 20:47:04', 1),
+                                                                                              (3, 5, 123, '2018-09-25 20:47:04', 1),
+                                                                                              (5, 8, 67, '2018-09-25 21:08:52', 0);
 
 -- --------------------------------------------------------
 
@@ -116,10 +116,10 @@ CREATE TABLE IF NOT EXISTS `health_data` (
 --
 
 INSERT INTO `health_data` (`data_id`, `data`, `account_id`, `type`, `created_at`) VALUES
-(1, '{\"systolic\": 123,\"diastolic\": 67,\"pulse\": 80}', 1, 1, '2018-09-24'),
-(2, '{\"value\":3.5,\"duration\":8}', 1, 2, '2018-09-23'),
-(3, '{\"value\":3.6,\"duration\":8}', 1, 2, '2018-09-24'),
-(4, '{\"height\":177.3,\"weight\":45, \"bmi\":23}', 1, 3, '2018-09-24');
+                                                                                         (1, '{\"systolic\": 123,\"diastolic\": 67,\"pulse\": 80}', 1, 1, '2018-09-24'),
+                                                                                         (2, '{\"value\":3.5,\"duration\":8}', 1, 2, '2018-09-23'),
+                                                                                         (3, '{\"value\":3.6,\"duration\":8}', 1, 2, '2018-09-24'),
+                                                                                         (4, '{\"height\":177.3,\"weight\":45, \"bmi\":23}', 1, 3, '2018-09-24');
 
 -- --------------------------------------------------------
 
@@ -141,11 +141,11 @@ CREATE TABLE IF NOT EXISTS `main_menu` (
 --
 
 INSERT INTO `main_menu` (`main_id`, `main_name`, `icon`, `type`) VALUES
-(1, '健康监测', '', 1),
-(2, '健康监护', '', 1),
-(3, '健康档案', '', 1),
-(4, '亲人关怀', '', 1),
-(5, '家庭医生', '', 1);
+                                                                        (1, '健康监测', '', 1),
+                                                                        (2, '健康监护', '', 1),
+                                                                        (3, '健康档案', '', 1),
+                                                                        (4, '亲人关怀', '', 1),
+                                                                        (5, '家庭医生', '', 1);
 
 -- --------------------------------------------------------
 
@@ -168,22 +168,22 @@ CREATE TABLE IF NOT EXISTS `menu` (
 --
 
 INSERT INTO `menu` (`menu_id`, `name`, `uri`, `main_id`) VALUES
-(1, '血压指标', '/health_data/blood_pressure', 1),
-(2, '血糖指标', '/health_data/blood_sugar', 1),
-(3, '身高体重指标', '/health_data/height_weight', 1),
-(4, '地图定位', '/health_monitor/position', 2),
-(5, '异常指标', '/health_monitor/alarm_show', 2),
-(6, '预警设置', '/health_monitor/warning_set', 2),
-(7, '提醒设置', '/health_monitor/notice_show', 2),
-(8, '个人档案', '', 3),
-(9, '门诊病历', '', 3),
-(10, '检验项目', '', 3),
-(11, '用药记录', '', 3),
-(12, '健康档案调阅申请', '', 4),
-(13, '健康档案调阅授权', '', 4),
-(14, '健康档案查询', '', 4),
-(15, '医生专家库', '', 5),
-(16, '我的咨询', '', 5);
+                                                                (1, '血压指标', '/health_data/blood_pressure', 1),
+                                                                (2, '血糖指标', '/health_data/blood_sugar', 1),
+                                                                (3, '身高体重指标', '/health_data/height_weight', 1),
+                                                                (4, '地图定位', '/health_monitor/position', 2),
+                                                                (5, '异常指标', '/health_monitor/alarm_show', 2),
+                                                                (6, '预警设置', '/health_monitor/warning_set', 2),
+                                                                (7, '提醒设置', '/health_monitor/notice_show', 2),
+                                                                (8, '个人档案', '', 3),
+                                                                (9, '门诊病历', '', 3),
+                                                                (10, '检验项目', '', 3),
+                                                                (11, '用药记录', '', 3),
+                                                                (12, '健康档案调阅申请', '', 4),
+                                                                (13, '健康档案调阅授权', '', 4),
+                                                                (14, '健康档案查询', '', 4),
+                                                                (15, '医生专家库', '', 5),
+                                                                (16, '我的咨询', '', 5);
 
 -- --------------------------------------------------------
 
@@ -198,10 +198,19 @@ CREATE TABLE IF NOT EXISTS `notice` (
   `account_id` int(11) NOT NULL,
   `start` datetime NOT NULL,
   `end` datetime NOT NULL,
-  `frequency` varchar(100) NOT NULL,
+  `frequency` varchar(10) NOT NULL,
+  `last` datetime NOT NULL,
   PRIMARY KEY (`notice_id`),
   KEY `account_id` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `notice`
+--
+
+INSERT INTO `notice` (`notice_id`, `notice_type`, `account_id`, `start`, `end`, `frequency`, `last`) VALUES
+                                                                                                            (1, 2, 1, '2018-09-27 00:00:00', '2018-09-29 13:30:00', '2:2', '2018-09-18 00:00:00'),
+                                                                                                            (3, 1, 1, '2018-09-18 00:00:00', '2018-09-29 13:30:00', '2:5', '2018-09-18 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -224,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `position` (
 --
 
 INSERT INTO `position` (`id`, `account_id`, `gps_data`, `created_at`) VALUES
-(1, 1, '[{\"longitude\":113.56,\"latitude\":34.5666},{\"longitude\":113.86,\"latitude\":34.5666},{\"longitude\":113.57,\"latitude\":35.5666}]', '2018-09-24');
+                                                                             (1, 1, '[{\"longitude\":113.56,\"latitude\":34.5666},{\"longitude\":113.86,\"latitude\":34.5666},{\"longitude\":113.57,\"latitude\":35.5666}]', '2018-09-24');
 
 -- --------------------------------------------------------
 
@@ -242,17 +251,18 @@ CREATE TABLE IF NOT EXISTS `warning` (
   `account_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`warning_id`),
+  UNIQUE KEY `uni_account_type` (`account_id`,`key_name`),
   KEY `account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `warning`
 --
 
 INSERT INTO `warning` (`warning_id`, `key_name`, `min_val`, `max_val`, `used`, `account_id`, `created_at`) VALUES
-(3, 'height', 50, 55, 1, 1, '2018-09-24 18:33:14'),
-(5, 'systolic', 100, 120, 1, 1, '2018-09-25 20:47:03'),
-(8, 'diastolic', 60, 66, 1, 1, '2018-09-25 20:56:02');
+                                                                                                                  (3, 'height', 50, 55, 1, 1, '2018-09-24 18:33:14'),
+                                                                                                                  (5, 'systolic', 100, 120, 1, 1, '2018-09-25 20:47:03'),
+                                                                                                                  (8, 'diastolic', 60, 66, 1, 1, '2018-09-25 20:56:02');
 
 --
 -- 限制导出的表
