@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-09-26 13:49:52
+-- Generation Time: 2018-09-27 14:10:41
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `account`
@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS `account` (
 
 INSERT INTO `account` (`account_id`, `username`, `password`, `act`, `created_at`, `updated_at`) VALUES
                                                                                                        (1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, '2018-09-19 20:41:52', '2018-09-19 20:41:52'),
-                                                                                                       (2, 'root', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-19 20:43:19', '2018-09-19 20:43:19');
+                                                                                                       (2, 'root', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-19 20:43:19', '2018-09-19 20:43:19'),
+                                                                                                       (3, 'doctor', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-27 20:03:42', '2018-09-27 20:03:42');
 
 -- --------------------------------------------------------
 
@@ -63,16 +64,104 @@ CREATE TABLE IF NOT EXISTS `alarm` (
   `handle` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`alarm_id`),
   KEY `warning_id` (`warning_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `alarm`
 --
 
 INSERT INTO `alarm` (`alarm_id`, `warning_id`, `health_value`, `created_at`, `handle`) VALUES
-                                                                                              (2, 3, 177.3, '2018-09-25 20:47:04', 1),
                                                                                               (3, 5, 123, '2018-09-25 20:47:04', 1),
-                                                                                              (5, 8, 67, '2018-09-25 21:08:52', 0);
+                                                                                              (6, 3, 177.3, '2018-09-27 21:58:04', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `check_history`
+--
+
+DROP TABLE IF EXISTS `check_history`;
+CREATE TABLE IF NOT EXISTS `check_history` (
+  `ch_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) NOT NULL,
+  `hospital_name` varchar(100) NOT NULL,
+  `section` varchar(100) NOT NULL,
+  `check_name` varchar(100) NOT NULL,
+  `check_reason` varchar(100) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ch_id`),
+  KEY `doctor_id` (`doctor_id`),
+  KEY `account_id` (`account_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `check_history`
+--
+
+INSERT INTO `check_history` (`ch_id`, `account_id`, `hospital_name`, `section`, `check_name`, `check_reason`, `doctor_id`, `created_at`) VALUES
+                                                                                                                                                (1, 1, '郫县人民医院', '骨科', '骨质疏松', '诊断骨质', 1, '2018-09-27 20:36:00');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `doctor_user`
+--
+
+DROP TABLE IF EXISTS `doctor_user`;
+CREATE TABLE IF NOT EXISTS `doctor_user` (
+  `doctor_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) NOT NULL,
+  `realname` varchar(20) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `icon` varchar(30) DEFAULT NULL,
+  `gender` int(11) DEFAULT '0',
+  `birth` date DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`doctor_id`),
+  UNIQUE KEY `account_id` (`account_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `doctor_user`
+--
+
+INSERT INTO `doctor_user` (`doctor_id`, `account_id`, `realname`, `phone`, `address`, `icon`, `gender`, `birth`, `created_at`, `updated_at`) VALUES
+                                                                                                                                                    (1, 3, '胡康玲', '18181818181', '四川省成都市', NULL, 0, '1968-09-10', '2018-09-27 20:04:35', '2018-09-27 20:04:35');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `drug_history`
+--
+
+DROP TABLE IF EXISTS `drug_history`;
+CREATE TABLE IF NOT EXISTS `drug_history` (
+  `dh_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) NOT NULL,
+  `hospital_name` varchar(100) NOT NULL,
+  `drug_name` varchar(100) NOT NULL,
+  `total_size` varchar(100) NOT NULL,
+  `once_size` varchar(100) NOT NULL,
+  `unit` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL,
+  `drug_type` varchar(100) NOT NULL,
+  `type_detail` varchar(100) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`dh_id`),
+  KEY `doctor_id` (`doctor_id`),
+  KEY `account_id` (`account_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `drug_history`
+--
+
+INSERT INTO `drug_history` (`dh_id`, `account_id`, `hospital_name`, `drug_name`, `total_size`, `once_size`, `unit`, `status`, `drug_type`, `type_detail`, `doctor_id`, `created_at`) VALUES
+                                                                                                                                                                                            (1, 1, '四川省肿瘤医院', '益赛普', '10只/每盒', '每次25毫克，皮下注射', '25毫克/每只', 1, '西药', '败血症', 1, '2018-09-27 20:52:17');
 
 -- --------------------------------------------------------
 
@@ -134,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `main_menu` (
   `icon` varchar(20) NOT NULL,
   `type` int(11) NOT NULL,
   PRIMARY KEY (`main_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `main_menu`
@@ -145,7 +234,20 @@ INSERT INTO `main_menu` (`main_id`, `main_name`, `icon`, `type`) VALUES
                                                                         (2, '健康监护', '', 1),
                                                                         (3, '健康档案', '', 1),
                                                                         (4, '亲人关怀', '', 1),
-                                                                        (5, '家庭医生', '', 1);
+                                                                        (5, '家庭医生', '', 1),
+                                                                        (6, '咨询问题', '', 2),
+                                                                        (7, '医生评估', '', 2),
+                                                                        (8, '老人信息', '', 3),
+                                                                        (9, '告警信息', '', 3),
+                                                                        (10, '地图定位', '', 3),
+                                                                        (11, '档案管理', '', 4),
+                                                                        (12, '工单管理', '', 4),
+                                                                        (13, '投诉管理', '', 4),
+                                                                        (14, '预警管理', '', 4),
+                                                                        (15, '基础数据', '', 5),
+                                                                        (16, '调度过程', '', 5),
+                                                                        (17, '决策分析', '', 5),
+                                                                        (18, '个体预警', '', 5);
 
 -- --------------------------------------------------------
 
@@ -161,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `main_id` int(11) NOT NULL,
   PRIMARY KEY (`menu_id`),
   KEY `main_id` (`main_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `menu`
@@ -176,14 +278,34 @@ INSERT INTO `menu` (`menu_id`, `name`, `uri`, `main_id`) VALUES
                                                                 (6, '预警设置', '/health_monitor/warning_set', 2),
                                                                 (7, '提醒设置', '/health_monitor/notice_show', 2),
                                                                 (8, '个人档案', '', 3),
-                                                                (9, '门诊病历', '', 3),
-                                                                (10, '检验项目', '', 3),
-                                                                (11, '用药记录', '', 3),
+                                                                (9, '门诊病历', '/health_history/sick_history', 3),
+                                                                (10, '检验项目', '/health_history/check_history', 3),
+                                                                (11, '用药记录', '/health_history/drug_history', 3),
                                                                 (12, '健康档案调阅申请', '', 4),
                                                                 (13, '健康档案调阅授权', '', 4),
                                                                 (14, '健康档案查询', '', 4),
                                                                 (15, '医生专家库', '', 5),
-                                                                (16, '我的咨询', '', 5);
+                                                                (16, '我的咨询', '', 5),
+                                                                (17, '查看详情', '', 6),
+                                                                (18, '查看详情', '', 7),
+                                                                (19, '亲人档案', '', 8),
+                                                                (20, '异常指标信息', '', 9),
+                                                                (21, '老人定位', '', 10),
+                                                                (22, '老人档案', '', 11),
+                                                                (23, '家庭医生', '', 11),
+                                                                (24, '老人定位', '', 11),
+                                                                (25, '工单信息', '', 12),
+                                                                (26, '工单处理', '', 12),
+                                                                (27, '待处投诉', '', 13),
+                                                                (28, '已处理投诉', '', 13),
+                                                                (29, '总投诉量', '', 13),
+                                                                (30, '基础数据统计', '', 15),
+                                                                (31, '老人档案', '', 15),
+                                                                (32, '医生档案', '', 15),
+                                                                (33, '养老院档案', '', 15),
+                                                                (34, '查看详情', '', 16),
+                                                                (35, '查看详情', '', 17),
+                                                                (36, '查看详情', '', 18);
 
 -- --------------------------------------------------------
 
@@ -238,6 +360,34 @@ INSERT INTO `position` (`id`, `account_id`, `gps_data`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `sick_history`
+--
+
+DROP TABLE IF EXISTS `sick_history`;
+CREATE TABLE IF NOT EXISTS `sick_history` (
+  `sh_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) NOT NULL,
+  `hospital_name` varchar(100) NOT NULL,
+  `section` varchar(100) NOT NULL,
+  `result` varchar(100) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `method` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`sh_id`),
+  KEY `account_id` (`account_id`),
+  KEY `doctor_id` (`doctor_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sick_history`
+--
+
+INSERT INTO `sick_history` (`sh_id`, `account_id`, `hospital_name`, `section`, `result`, `doctor_id`, `method`, `created_at`) VALUES
+                                                                                                                                     (1, 1, '成都军区机关医院', '口腔科', '口腔溃疡', 1, '镇痛防感染', '2018-09-27 20:03:10');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `warning`
 --
 
@@ -253,16 +403,16 @@ CREATE TABLE IF NOT EXISTS `warning` (
   PRIMARY KEY (`warning_id`),
   UNIQUE KEY `uni_account_type` (`account_id`,`key_name`),
   KEY `account_id` (`account_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `warning`
 --
 
 INSERT INTO `warning` (`warning_id`, `key_name`, `min_val`, `max_val`, `used`, `account_id`, `created_at`) VALUES
-                                                                                                                  (3, 'height', 50, 55, 1, 1, '2018-09-24 18:33:14'),
+                                                                                                                  (3, 'height', 165, 175, 1, 1, '2018-09-24 18:33:14'),
                                                                                                                   (5, 'systolic', 100, 120, 1, 1, '2018-09-25 20:47:03'),
-                                                                                                                  (8, 'diastolic', 60, 66, 1, 1, '2018-09-25 20:56:02');
+                                                                                                                  (8, 'diastolic', 60, 70, 0, 1, '2018-09-25 20:56:02');
 
 --
 -- 限制导出的表
@@ -278,7 +428,7 @@ ALTER TABLE `alarm`
 -- 限制表 `menu`
 --
 ALTER TABLE `menu`
-  ADD CONSTRAINT `menu_main_id_FK` FOREIGN KEY (`main_id`) REFERENCES `menu` (`menu_id`);
+  ADD CONSTRAINT `menu_main_id_FK` FOREIGN KEY (`main_id`) REFERENCES `main_menu` (`main_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
