@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
     <link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="/assets/css/dynamicTableView.css" />
     <script src="/assets/js/ace-extra.min.js"></script>
     <script src="/assets/js/jquery-2.1.4.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
@@ -33,6 +34,7 @@
     <script src="/assets/js/ace-elements.min.js"></script>
     <script src="/assets/js/ace.min.js"></script>
     <script src="/assets/js/bootbox.js"></script>
+    <script src="/assets/js/dynamicTableView.js"></script>
 
 </head>
 <body class="no-skin">
