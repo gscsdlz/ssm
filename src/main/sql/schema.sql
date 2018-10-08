@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-09-27 14:10:41
+-- Generation Time: 2018-10-08 13:50:02
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -173,15 +173,28 @@ DROP TABLE IF EXISTS `elder_user`;
 CREATE TABLE IF NOT EXISTS `elder_user` (
   `account_id` int(11) NOT NULL,
   `realname` varchar(20) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `icon` varchar(30) DEFAULT NULL,
   `gender` int(11) DEFAULT '0',
   `birth` date DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `id_card` varchar(30) DEFAULT NULL,
+  `ss_id` varchar(30) DEFAULT NULL,
+  `has_allergy` tinyint(1) NOT NULL DEFAULT '0',
+  `has_trauma` tinyint(1) NOT NULL DEFAULT '0',
+  `has_operation` tinyint(1) NOT NULL DEFAULT '0',
+  `has_inheritance` tinyint(1) NOT NULL DEFAULT '0',
+  `icon` varchar(30) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `elder_user`
+--
+
+INSERT INTO `elder_user` (`account_id`, `realname`, `gender`, `birth`, `address`, `phone`, `id_card`, `ss_id`, `has_allergy`, `has_trauma`, `has_operation`, `has_inheritance`, `icon`, `created_at`, `updated_at`) VALUES
+                                                                                                                                                                                                                           (1, '测试', 1, '2018-10-08', '北京市·朝阳区·哒哒哒哒哒哒', '12345678910', '12345678998765431', '12345678998765431', 1, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11');
 
 -- --------------------------------------------------------
 
