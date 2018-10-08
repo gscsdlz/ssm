@@ -22,7 +22,7 @@
                         <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
                             <div class="inline position-relative">
                                 <a href="#" class="user-title-label">
-                                    <span class="white">Alex M. Doe</span>
+                                    <span class="white"> <c:out value="${user.realname}"/> </span>
                                 </a>
                             </div>
                         </div>
@@ -71,31 +71,43 @@
         </div>
     </div>
 </div>
+
+<script src="/assets/js/userInfo.js"></script>
 <script>
-    var infoData = [
-        {'key': '用户名', 'val': 'root', 'icon': ''},
-        {'key': '姓名', 'val': '狗蛋', 'icon': ''},
-        {'key': '性别', 'val': '男', 'icon': ''},
-        {'key': '年龄', 'val': '77', 'icon': ''},
-        {'key': '联系方式', 'val': '134,5678,9101', 'icon': ''},
-        {'key': '家庭住址', 'val': '四川省，成都市，武侯区，XXX，XXXX', 'icon': ''},
-        {'key': '身份证号', 'val': '123456，78912312，3121', 'icon': ''},
-        {'key': '社保编号', 'val': '123456', 'icon': ''},
-        {'key': '有无过敏史', 'val': '无', 'icon': ''},
-        {'key': '有无外伤', 'val': '有', 'icon': ''},
-        {'key': '有无手术史', 'val': '无', 'icon': ''},
-        {'key': '有无遗传病', 'val': '有', 'icon': ''},
+    let radioData = [
+        {
+            'key': '有', 'val': '1',
+        },
+        {
+            'key': '无', 'val': '0',
+        }
+    ];
+    let infoData = [
+        {'key': '用户名', 'val': '<c:out value="${user.username}" />'},
+        {'key': '姓名', 'val': '<c:out value="${user.realname}" />', 'name': 'realname', 'type': 'text'},
+        {'key': '性别', 'val': '<c:out value="${user.gender}" />', 'name': 'gender', 'type': 'radio', 'option': [
+            {
+                'key': '男', 'val': '0'
+            },
+                {
+                    'key': '女', 'val': '1'
+                }
+            ]},
+        {'key': '年龄', 'val': '<c:out value="${user.age}" />', 'name': 'age', 'type': 'text'},
+        {'key': '联系方式', 'val': '<c:out value="${user.phone}" />', 'name': 'phone', 'type': 'text'},
+        {'key': '家庭住址', 'val': '<c:out value="${user.address}" />', 'name': 'address', 'type': 'text'},
+        {'key': '身份证号', 'val': '<c:out value="${user.idCard}" />', 'name': 'id_card', 'type': 'text'},
+        {'key': '社保编号', 'val': '<c:out value="${user.ssId}" />', 'name': 'ss_id', 'type': 'text'},
+        {'key': '有无过敏史', 'val': '<c:out value="${user.hasAllergy}" />', 'name': 'has_allergy', 'type': 'radio', 'option': radioData},
+        {'key': '有无外伤', 'val': '<c:out value="${user.hasTrauma}" />', 'name': 'has_trauma', 'type': 'radio', 'option': radioData},
+        {'key': '有无手术史', 'val': '<c:out value="${user.hasOperation}" />', 'name': 'has_operation', 'type': 'radio', 'option': radioData},
+        {'key': '有无遗传病', 'val': '<c:out value="${user.hasInheritance}" />', 'name': 'has_inheritance', 'type': 'radio', 'option': radioData},
     ];
     $(document).ready(function () {
-        for (let i = 0; i < infoData.length; i++) {
-            $("#infoRow").append('' +
-                '<div class="profile-info-row">' +
-                '    <div class="profile-info-name"> ' + infoData[i].key + ' </div>' +
-                '    <div class="profile-info-value">' +
-                '        <span class="editable editable-click"> ' + infoData[i].val + ' </span>' +
-                '    </div>' +
-                '</div>')
-        }
+        $("#infoRow").userInfo({
+            'data': infoData,
+            'updateURL': '/elder_user/update'
+        })
     })
 </script>
 <%@ include file="../common/footer.jsp" %>
