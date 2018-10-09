@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-08 13:50:02
+-- Generation Time: 2018-10-09 11:54:02
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `elder_user` (
   `account_id` int(11) NOT NULL,
   `realname` varchar(20) DEFAULT NULL,
   `gender` int(11) DEFAULT '0',
-  `birth` date DEFAULT NULL,
+  `age` int(11) DEFAULT '60',
   `address` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `id_card` varchar(30) DEFAULT NULL,
@@ -193,8 +193,8 @@ CREATE TABLE IF NOT EXISTS `elder_user` (
 -- 转存表中的数据 `elder_user`
 --
 
-INSERT INTO `elder_user` (`account_id`, `realname`, `gender`, `birth`, `address`, `phone`, `id_card`, `ss_id`, `has_allergy`, `has_trauma`, `has_operation`, `has_inheritance`, `icon`, `created_at`, `updated_at`) VALUES
-                                                                                                                                                                                                                           (1, '测试', 1, '2018-10-08', '北京市·朝阳区·哒哒哒哒哒哒', '12345678910', '12345678998765431', '12345678998765431', 1, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11');
+INSERT INTO `elder_user` (`account_id`, `realname`, `gender`, `age`, `address`, `phone`, `id_card`, `ss_id`, `has_allergy`, `has_trauma`, `has_operation`, `has_inheritance`, `icon`, `created_at`, `updated_at`) VALUES
+                                                                                                                                                                                                                         (1, '测试1', 1, 70, '北京市·朝阳区·哒哒哒哒哒?', '12345678920', '12345678998765432', '12345678998765432', 1, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11');
 
 -- --------------------------------------------------------
 
@@ -369,6 +369,25 @@ CREATE TABLE IF NOT EXISTS `position` (
 
 INSERT INTO `position` (`id`, `account_id`, `gps_data`, `created_at`) VALUES
                                                                              (1, 1, '[{\"longitude\":113.56,\"latitude\":34.5666},{\"longitude\":113.86,\"latitude\":34.5666},{\"longitude\":113.57,\"latitude\":35.5666}]', '2018-09-24');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `record_authorization`
+--
+
+DROP TABLE IF EXISTS `record_authorization`;
+CREATE TABLE IF NOT EXISTS `record_authorization` (
+  `record_id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_id` int(11) NOT NULL,
+  `to_id` int(11) NOT NULL,
+  `stat` int(11) NOT NULL DEFAULT '0',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`record_id`),
+  KEY `from_id` (`from_id`),
+  KEY `to_id` (`to_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
