@@ -56,7 +56,7 @@ public class ElderUserController {
             elderUserService.updateUser(user);
 
         } catch (Exception e) {
-            ;
+            e.printStackTrace();
         }
         if (user != null) {
             response.setStatus(true);

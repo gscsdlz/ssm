@@ -9,10 +9,10 @@
     <select id="getElderUser" resultType="ElderUser">
         SELECT elder_user.*, username FROM elder_user LEFT JOIN account USING (account_id) WHERE account_id = #{account_id};
     </select>
-    <update id="updateElderuser">
+    <update id="updateElderUser">
         UPDATE elder_user SET realname = #{realname},
                               gender = #{gender},
-                              birth = #{birth},
+                              age = #{age},
                               address = #{address},
                               phone = #{phone},
                               id_card = #{id_card},

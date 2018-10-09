@@ -27,8 +27,8 @@ public class ElderUserServiceImpl implements ElderUserService {
         return elderUserDao.updateElderUser(
                 user.getAccountId(),
                 user.getRealname(),
-                user.getGender(),
-                user.getBirth(),
+                user.getGenderInt(),
+                user.getAge(),
                 user.getAddress(),
                 user.getPhone(),
                 user.getIdCard(),

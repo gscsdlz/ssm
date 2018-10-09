@@ -1,7 +1,6 @@
 package com.hospital.dao;
 
 import com.hospital.entity.ElderUser;
-import com.sun.tracing.dtrace.ProviderAttributes;
 import org.apache.ibatis.annotations.Param;
 
 public interface ElderUserDao {
@@ -12,7 +11,7 @@ public interface ElderUserDao {
     int updateElderUser(@Param("account_id") int accountId,
                         @Param("realname") String realname,
                         @Param("gender") int gender,
-                        @Param("birth") String birth,
+                        @Param("age") int age,
                         @Param("address") String address,
                         @Param("phone") String phone,
                         @Param("id_card") String idCard,

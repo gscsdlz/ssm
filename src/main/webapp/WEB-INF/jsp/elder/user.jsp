@@ -96,12 +96,12 @@
         {'key': '年龄', 'val': '<c:out value="${user.age}" />', 'name': 'age', 'type': 'text'},
         {'key': '联系方式', 'val': '<c:out value="${user.phone}" />', 'name': 'phone', 'type': 'text'},
         {'key': '家庭住址', 'val': '<c:out value="${user.address}" />', 'name': 'address', 'type': 'text'},
-        {'key': '身份证号', 'val': '<c:out value="${user.idCard}" />', 'name': 'id_card', 'type': 'text'},
-        {'key': '社保编号', 'val': '<c:out value="${user.ssId}" />', 'name': 'ss_id', 'type': 'text'},
-        {'key': '有无过敏史', 'val': '<c:out value="${user.hasAllergy}" />', 'name': 'has_allergy', 'type': 'radio', 'option': radioData},
-        {'key': '有无外伤', 'val': '<c:out value="${user.hasTrauma}" />', 'name': 'has_trauma', 'type': 'radio', 'option': radioData},
-        {'key': '有无手术史', 'val': '<c:out value="${user.hasOperation}" />', 'name': 'has_operation', 'type': 'radio', 'option': radioData},
-        {'key': '有无遗传病', 'val': '<c:out value="${user.hasInheritance}" />', 'name': 'has_inheritance', 'type': 'radio', 'option': radioData},
+        {'key': '身份证号', 'val': '<c:out value="${user.idCard}" />', 'name': 'idCard', 'type': 'text'},
+        {'key': '社保编号', 'val': '<c:out value="${user.ssId}" />', 'name': 'ssId', 'type': 'text'},
+        {'key': '有无过敏史', 'val': '<c:out value="${user.hasAllergy}" />', 'name': 'hasAllergy', 'type': 'radio', 'option': radioData},
+        {'key': '有无外伤', 'val': '<c:out value="${user.hasTrauma}" />', 'name': 'hasTrauma', 'type': 'radio', 'option': radioData},
+        {'key': '有无手术史', 'val': '<c:out value="${user.hasOperation}" />', 'name': 'hasOperation', 'type': 'radio', 'option': radioData},
+        {'key': '有无遗传病', 'val': '<c:out value="${user.hasInheritance}" />', 'name': 'hasInheritance', 'type': 'radio', 'option': radioData},
     ];
     $(document).ready(function () {
         $("#infoRow").userInfo({

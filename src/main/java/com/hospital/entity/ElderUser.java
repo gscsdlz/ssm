@@ -7,15 +7,15 @@ public class ElderUser {
     private String username;
     private String realname;
     private int gender;
-    private String birth;
+    private int age;
     private String address;
     private String phone;
     private String idCard;
     private String ssId; //social security
-    private boolean hasAllergy;
-    private boolean hasTrauma;
-    private boolean hasOperation;
-    private boolean hasInheritance;
+    private int hasAllergy;
+    private int hasTrauma;
+    private int hasOperation;
+    private int hasInheritance;
 
     public int getAccountId() {
         return accountId;
@@ -37,10 +37,6 @@ public class ElderUser {
         this.gender = gender;
     }
 
-    public void setBirth(String birth) {
-        this.birth = birth;
-    }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -57,19 +53,19 @@ public class ElderUser {
         this.ssId = ssId;
     }
 
-    public void setHasAllergy(boolean hasAllergy) {
+    public void setHasAllergy(int hasAllergy) {
         this.hasAllergy = hasAllergy;
     }
 
-    public void setHasTrauma(boolean hasTrauma) {
+    public void setHasTrauma(int hasTrauma) {
         this.hasTrauma = hasTrauma;
     }
 
-    public void setHasOperation(boolean hasOperation) {
+    public void setHasOperation(int hasOperation) {
         this.hasOperation = hasOperation;
     }
 
-    public void setHasInheritance(boolean hasInheritance) {
+    public void setHasInheritance(int hasInheritance) {
         this.hasInheritance = hasInheritance;
     }
 
@@ -81,16 +77,20 @@ public class ElderUser {
         return realname;
     }
 
-    public int getGender() {
+    public String getGender() {
+        return gender == 0 ? "男" : "女";
+    }
+
+    public int getGenderInt() {
         return gender;
     }
 
-    public String getBirth() {
-        return birth;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public int getAge() {
-        return 1;
+        return age;
     }
 
     public String getAddress() {
@@ -110,21 +110,19 @@ public class ElderUser {
     }
 
     public String getHasAllergy() {
-        return hasAllergy ? "有" : "无";
+        return hasAllergy == 1 ? "有" : "无";
     }
 
     public String getHasTrauma() {
-        return hasTrauma ? "有" : "无";
+        return hasTrauma == 1 ? "有" : "无";
     }
 
     public String getHasOperation() {
-        return hasOperation ? "有" : "无";
+        return hasOperation == 1 ? "有" : "无";
     }
 
     public String getHasInheritance() {
-        return hasInheritance ? "有" : "无";
+        return hasInheritance == 1 ? "有" : "无";
     }
-
-
 
 }

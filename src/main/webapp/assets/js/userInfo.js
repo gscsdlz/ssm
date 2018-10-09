@@ -71,9 +71,9 @@
                 str += '<div class="radio">';
                 for (let i = 0; i < options.length; i++) {
                     if (value === options[i].key) {
-                        str += '<label><input class="ace" name="' + name + '" value="' + options[i].val + '" type="radio"><span class="lbl">' + options[i].key + '</span></label>'
-                    } else {
                         str += '<label><input class="ace" checked name="' + name + '" value="' + options[i].val + '" type="radio"><span class="lbl">' + options[i].key + '</span></label>'
+                    } else {
+                        str += '<label><input class="ace" name="' + name + '" value="' + options[i].val + '" type="radio"><span class="lbl">' + options[i].key + '</span></label>'
                     }
                 }
                 str += '</div>'
@@ -81,9 +81,9 @@
                 str += '<div class="checkbox">';
                 for (let i = 0; i < options.length; i++) {
                     if (value === options[i].key) {
-                        str += '<label><input class="ace" name="' + name + '" value="' + options[i].val + '" type="checkbox"><span class="lbl">' + options[i].key + '</span></label>'
-                    } else {
                         str += '<label><input class="ace" checked name="' + name + '" value="' + options[i].val + '" type="checkbox"><span class="lbl">' + options[i].key + '</span></label>'
+                    } else {
+                        str += '<label><input class="ace" name="' + name + '" value="' + options[i].val + '" type="checkbox"><span class="lbl">' + options[i].key + '</span></label>'
                     }
                 }
                 str += '</div>'
