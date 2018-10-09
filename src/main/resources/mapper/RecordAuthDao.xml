@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.dao.RecordAuthDao">
+    <select id="getRecords" resultType="RecordAuth">
+        SELECT record_authorization.*, realname FROM record_authorization LEFT JOIN elder_user ON (record_authorization.from_id = elder_user.account_id) WHERE record_authorization.to_id = #{to_id}
+    </select>
+
+    <insert id="addRecord">
+        INSERT INTO record_authorization (from_id, to_id) VALUES (#{from_id}, #{to_id});
+    </insert>
+
+    <update id="updateRecord">
+    </update>
+
+    <delete id="delRecord">
+    </delete>
+</mapper>

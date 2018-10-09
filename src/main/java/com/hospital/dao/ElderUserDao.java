@@ -3,6 +3,8 @@ package com.hospital.dao;
 import com.hospital.entity.ElderUser;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface ElderUserDao {
     boolean addUser(int accountId);
 
@@ -21,4 +23,6 @@ public interface ElderUserDao {
                         @Param("has_operation") int v3,
                         @Param("has_inheritance") int v4
                         );
+
+    List<ElderUser> getElderUserByRealnameOrPhone(@Param("realname") String realname, @Param("phone") String phone);
 }

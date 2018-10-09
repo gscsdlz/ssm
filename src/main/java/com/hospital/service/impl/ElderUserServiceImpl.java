@@ -6,6 +6,8 @@ import com.hospital.service.ElderUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ElderUserServiceImpl implements ElderUserService {
 
@@ -37,5 +39,10 @@ public class ElderUserServiceImpl implements ElderUserService {
                 user.getHasTrauma().equals("有") ? 1 : 0,
                 user.getHasOperation().equals("有") ? 1 : 0,
                 user.getHasInheritance().equals("有") ? 1 : 0);
+    }
+
+    @Override
+    public List<ElderUser> getElderUserByRealnameOrPhone(String realname, String phone) {
+        return elderUserDao.getElderUserByRealnameOrPhone(realname, phone);
     }
 }

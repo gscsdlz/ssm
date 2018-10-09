@@ -22,4 +22,8 @@
                               has_operation = #{has_operation},
                               has_inheritance = #{has_inheritance} WHERE account_id = #{account_id}
     </update>
+
+    <select id="getElderUserByRealnameOrPhone" resultType="ElderUser">
+        SELECT * FROM elder_user WHERE realname = #{realname} OR phone = #{phone}
+    </select>
 </mapper>
