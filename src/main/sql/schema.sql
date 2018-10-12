@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-12 15:20:09
+-- Generation Time: 2018-10-12 16:14:44
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 
 INSERT INTO `account` (`account_id`, `username`, `password`, `act`, `created_at`, `updated_at`) VALUES
                                                                                                        (1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, '2018-09-19 20:41:52', '2018-09-19 20:41:52'),
-                                                                                                       (2, 'root', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-19 20:43:19', '2018-09-19 20:43:19'),
+                                                                                                       (2, 'root', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1, '2018-09-19 20:43:19', '2018-09-19 20:43:19'),
                                                                                                        (3, 'doctor', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-27 20:03:42', '2018-09-27 20:03:42');
 
 -- --------------------------------------------------------
@@ -73,6 +73,24 @@ CREATE TABLE IF NOT EXISTS `alarm` (
 INSERT INTO `alarm` (`alarm_id`, `warning_id`, `health_value`, `created_at`, `handle`) VALUES
                                                                                               (3, 5, 123, '2018-09-25 20:47:04', 1),
                                                                                               (6, 3, 177.3, '2018-09-27 21:58:04', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `answer`
+--
+
+DROP TABLE IF EXISTS `answer`;
+CREATE TABLE IF NOT EXISTS `answer` (
+  `answer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `answer_content` varchar(300) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `user_type` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`answer_id`),
+  KEY `question_id` (`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -105,6 +123,42 @@ INSERT INTO `check_history` (`ch_id`, `account_id`, `hospital_name`, `section`, 
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `connection`
+--
+
+DROP TABLE IF EXISTS `connection`;
+CREATE TABLE IF NOT EXISTS `connection` (
+  `connection_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`connection_id`),
+  KEY `account_id` (`account_id`),
+  KEY `doctor_id` (`doctor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `doctor_evaluate`
+--
+
+DROP TABLE IF EXISTS `doctor_evaluate`;
+CREATE TABLE IF NOT EXISTS `doctor_evaluate` (
+  `evaluate_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `evaluate` varchar(300) NOT NULL,
+  `suggest` varchar(300) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`evaluate_id`),
+  KEY `account_id` (`account_id`),
+  KEY `doctor_id` (`doctor_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `doctor_user`
 --
 
@@ -114,9 +168,11 @@ CREATE TABLE IF NOT EXISTS `doctor_user` (
   `realname` varchar(20) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
+  `hospital_name` varchar(30) DEFAULT NULL,
+  `section` varchar(30) DEFAULT NULL,
   `icon` varchar(30) DEFAULT NULL,
   `gender` int(11) DEFAULT '0',
-  `birth` date DEFAULT NULL,
+  `age` int(11) DEFAULT '30',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_id`)
@@ -126,8 +182,8 @@ CREATE TABLE IF NOT EXISTS `doctor_user` (
 -- 转存表中的数据 `doctor_user`
 --
 
-INSERT INTO `doctor_user` (`account_id`, `realname`, `phone`, `address`, `icon`, `gender`, `birth`, `created_at`, `updated_at`) VALUES
-                                                                                                                                       (3, '胡康玲', '18181818181', '四川省成都市', NULL, 0, '1968-09-10', '2018-09-27 20:04:35', '2018-09-27 20:04:35');
+INSERT INTO `doctor_user` (`account_id`, `realname`, `phone`, `address`, `hospital_name`, `section`, `icon`, `gender`, `age`, `created_at`, `updated_at`) VALUES
+                                                                                                                                                                 (3, '胡康玲', '18181818181', '四川省成都市', NULL, NULL, NULL, 0, 30, '2018-09-27 20:04:35', '2018-09-27 20:04:35');
 
 -- --------------------------------------------------------
 
@@ -368,6 +424,26 @@ CREATE TABLE IF NOT EXISTS `position` (
 
 INSERT INTO `position` (`id`, `account_id`, `gps_data`, `created_at`) VALUES
                                                                              (1, 1, '[{\"longitude\":113.56,\"latitude\":34.5666},{\"longitude\":113.86,\"latitude\":34.5666},{\"longitude\":113.57,\"latitude\":35.5666}]', '2018-09-24');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `question`
+--
+
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE IF NOT EXISTS `question` (
+  `quesion_id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` int(11) NOT NULL,
+  `question_content` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  PRIMARY KEY (`quesion_id`),
+  KEY `account_id` (`account_id`),
+  KEY `doctor_id` (`doctor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
