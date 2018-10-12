@@ -1,11 +1,9 @@
 package com.hospital.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.dto.DynamicTableViewResponse;
 import com.hospital.entity.*;
-import com.hospital.service.CheckHistoryService;
-import com.hospital.service.DrugHistoryService;
-import com.hospital.service.MenuService;
-import com.hospital.service.SickHistoryService;
+import com.hospital.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +28,9 @@ public class HealthHistoryController {
 
     @Autowired
     private DrugHistoryService drugHistoryService;
+
+    @Autowired
+    private HealthDataService healthDataService;
 
     @RequestMapping("/sick_history")
     private String sickHistoryShow(Model model) {
@@ -86,5 +87,34 @@ public class HealthHistoryController {
         response.setTotalPage(1);
         response.setData(data);
         return response.toString();
+    }
+
+    @RequestMapping("/me")
+    private String myHistoryShow(Model model) {
+        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康档案", "个人档案");
+
+        //TODO
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            HealthData data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_PRESSURE, 1);
+            BloodPressure bp = mapper.readValue(data.getData(), BloodPressure.class);
+            bp.setDate(data.getCreatedAt());
+            model.addAttribute("bpData", bp);
+
+            data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_SUGAR, 1);
+            BloodSugar bs = mapper.readValue(data.getData(), BloodSugar.class);
+            bs.setDate(data.getCreatedAt());
+            model.addAttribute("bsData", bs);
+
+            data = healthDataService.getLastHealthData(HealthData.HTYPE_HEIGHT_WEIGHT, 1);
+            HeightWeight hw = mapper.readValue(data.getData(), HeightWeight.class);
+            hw.setDate(data.getCreatedAt());
+            model.addAttribute("hwData", hw);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("menuList", menuList);
+        return "/elder/my_history_show";
     }
 }

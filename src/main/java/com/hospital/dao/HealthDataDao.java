@@ -9,4 +9,8 @@ public interface HealthDataDao {
     List<HealthData> getHealthData(@Param("type") int type, @Param("account_id") int account_id);
 
     List<HealthData> getHealthDataByDate(@Param("type") int type, @Param("account_id") int account_id, @Param("l") String l, @Param("r") String r);
+
+    HealthData getLastHealthData(@Param("type") int type, @Param("account_id") int accountId);
+
+    int countHealthData(@Param("account_id") int accountId);
 }

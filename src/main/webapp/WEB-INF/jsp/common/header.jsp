@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title>Dashboard - Ace Admin</title>
+    <title>医养结合信息服务与预警平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/css/bootstrap-datepicker3.min.css" />
@@ -49,7 +49,7 @@
 
         <div class="navbar-header pull-left">
             <a href="index.html" class="navbar-brand">
-                <small><i class="fa fa-leaf"></i>XXX信息服务与预警平台</small>
+                <small><i class="fa fa-leaf"></i>医养结合信息服务与预警平台</small>
             </a>
         </div>
 
@@ -322,9 +322,10 @@
                     </a>
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <!--<li><a href="#"><i class="ace-icon fa fa-cog"></i>设置</a></li>
-                        <li><a href="profile.html"><i class="ace-icon fa fa-user"></i>Profile</a></li>
-                        <li class="divider"></li>-->
+                        <li>
+                            <a href="/user/me"><i class="ace-icon fa fa-cog"></i>个人中心</a>
+                        </li>
+                            <li class="divider"></li>
                         <li>
                             <a href="#"><i class="ace-icon fa fa-power-off"></i>退出登录</a>
                         </li>

@@ -7,4 +7,6 @@ public interface AccountDao {
     Account getUserByUsername(String username);
 
     int addUser(@Param("username") String username, @Param("password") String password, @Param("act") int act);
+
+    int countJoin(@Param("account_id") int accountId);
 }

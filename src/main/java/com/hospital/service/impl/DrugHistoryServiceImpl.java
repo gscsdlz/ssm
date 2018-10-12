@@ -12,10 +12,15 @@ import java.util.List;
 public class DrugHistoryServiceImpl implements DrugHistoryService {
 
     @Autowired
-    private DrugHistoryDao checkHistoryDao;
+    private DrugHistoryDao drugHistoryDao;
 
     @Override
     public List<DrugHistory> getAllDH(int accountId) {
-        return checkHistoryDao.getAllDH(accountId);
+        return drugHistoryDao.getAllDH(accountId);
+    }
+
+    @Override
+    public int countDrugs(int accountId) {
+        return drugHistoryDao.countDrugs(accountId);
     }
 }

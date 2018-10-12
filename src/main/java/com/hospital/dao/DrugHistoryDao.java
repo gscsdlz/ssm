@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface DrugHistoryDao {
     List<DrugHistory> getAllDH(@Param("account_id") int account_id);
+
+    int countDrugs(@Param("account_id") int accountId);
 }

@@ -12,6 +12,9 @@
     </insert>
 
     <update id="updateUser">
-        UPDATE account SET
     </update>
+
+    <select id="countJoin" resultType="int">
+        SELECT TIMESTAMPDIFF(DAY,created_at,NOW()) FROM account WHERE account_id = #{account_id};
+    </select>
 </mapper>

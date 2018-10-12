@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CheckHistoryDao {
     List<CheckHistory> getAllCH(@Param("account_id") int account_id);
+
+    int countChecks(@Param("account_id") int accountId);
 }

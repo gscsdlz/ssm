@@ -18,4 +18,9 @@ public class SickHistoryServiceImpl implements SickHistoryService {
     public List<SickHistory> getAllSH(int accountId) {
         return sickHistoryDao.getAllSH(accountId);
     }
+
+    @Override
+    public int countSicks(int accountId) {
+        return sickHistoryDao.countSicks(accountId);
+    }
 }

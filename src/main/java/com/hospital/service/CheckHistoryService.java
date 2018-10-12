@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface CheckHistoryService {
     List<CheckHistory> getAllCH(int accountId);
+
+    int countChecks(int accountId);
 }

@@ -6,6 +6,7 @@ import com.hospital.service.AccountService;
 import com.hospital.service.ElderUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,5 +72,11 @@ public class AccountController {
             System.out.println(e);
         }
         return new Result<>(false, "注册失败");
+    }
+
+    @RequestMapping("me")
+    private ModelAndView userCenter() {
+        ModelAndView mv = new ModelAndView("redirect:/elder_user/me");
+        return mv;
     }
 }

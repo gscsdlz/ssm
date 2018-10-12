@@ -9,4 +9,10 @@
     <select id="getHealthDataByDate" resultType="HealthData">
         SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id} AND created_at >= #{l} AND  #{r} >= created_at ORDER BY created_at ASC
     </select>
+    <select id="getLastHealthData" resultType="HealthData">
+        SELECT * FROM health_data WHERE type = #{type} AND account_id = #{account_id} ORDER BY created_at DESC LIMIT 1;
+    </select>
+    <select id="countHealthData" resultType="int">
+            SELECT count(*) FROM health_data WHERE account_id = #{account_id};
+    </select>
 </mapper>

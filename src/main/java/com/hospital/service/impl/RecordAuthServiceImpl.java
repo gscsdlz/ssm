@@ -23,4 +23,14 @@ public class RecordAuthServiceImpl implements RecordAuthService {
     public List<RecordAuth> getRecords(int accountId) {
         return recordAuthDao.getRecords(accountId);
     }
+
+    @Override
+    public int recordStatChange(int recordId, int stat) {
+        return recordAuthDao.recordStatChange(recordId, stat);
+    }
+
+    @Override
+    public List<RecordAuth> getRecordsTo(int accountId) {
+        return recordAuthDao.getRecordsTo(accountId);
+    }
 }

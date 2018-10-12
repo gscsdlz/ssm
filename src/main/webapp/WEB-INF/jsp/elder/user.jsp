@@ -29,37 +29,37 @@
                     </div>
                     <div class="space-12"></div>
                     <div class="center">
-                        <span class="btn btn-app btn-sm btn-light no-hover">
-                            <span class="line-height-1 bigger-170 blue"> 1,411 </span>
+                         <span class="btn btn-app btn-sm btn-light no-hover">
+                            <span class="line-height-1 bigger-170 blue" id="healthDataCount"> 0 </span>
                             <br>
                             <span class="line-height-1 smaller-90"> 总测量次数 </span>
                         </span>
                         <span class="btn btn-app btn-sm btn-yellow no-hover">
-                                <span class="line-height-1 bigger-170"> 32 </span>
+                                <span class="line-height-1 bigger-170" id="join"> 0 </span>
                                 <br>
                                 <span class="line-height-1 smaller-90"> 累积加入 </span>
                         </span>
                         <span class="btn btn-app btn-sm btn-pink no-hover">
-                            <span class="line-height-1 bigger-170"> 4 </span>
+                            <span class="line-height-1 bigger-170" id="sicks"> 0 </span>
                             <br>
                             <span class="line-height-1 smaller-90"> 病历记录数 </span>
                         </span>
                     </div>
                     <div class="center">
-                        <span class="btn btn-app btn-sm btn-grey no-hover">
-                            <span class="line-height-1 bigger-170"> 23 </span>
+                       <span class="btn btn-app btn-sm btn-grey no-hover">
+                            <span class="line-height-1 bigger-170" id="checks"> 0 </span>
                             <br>
                             <span class="line-height-1 smaller-90"> 检验记录数 </span>
                         </span>
                         <span class="btn btn-app btn-sm btn-success no-hover">
-                            <span class="line-height-1 bigger-170"> 7 </span>
+                            <span class="line-height-1 bigger-170" id="drugs"> 0 </span>
                             <br>
                             <span class="line-height-1 smaller-90"> 用药记录数 </span>
                         </span>
                         <span class="btn btn-app btn-sm btn-primary no-hover">
-                            <span class="line-height-1 bigger-170"> 55 </span>
+                            <span class="line-height-1 bigger-170" id="doctor"> 0 </span>
                             <br>
-                            <span class="line-height-1 smaller-90"> 待定 </span>
+                            <span class="line-height-1 smaller-90"> 家庭医生数 </span>
                         </span>
                     </div>
                 </div>
@@ -107,6 +107,19 @@
         $("#infoRow").userInfo({
             'data': infoData,
             'updateURL': '/elder_user/update'
+        })
+
+        $.get("/user_count/elder", function (response) {
+            if (response.status) {
+                $("#healthDataCount").html(response.healthDataCount);
+                $("#join").html(response.join);
+                $("#sicks").html(response.sicks);
+                $("#checks").html(response.checks);
+                $("#drugs").html(response.drugs);
+                $("#doctor").html(response.doctor);
+            } else {
+                alert(response.info);
+            }
         })
     })
 </script>

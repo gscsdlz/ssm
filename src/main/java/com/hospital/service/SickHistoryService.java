@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SickHistoryService {
     List<SickHistory> getAllSH(int accountId);
+
+    int countSicks(int accountId);
 }

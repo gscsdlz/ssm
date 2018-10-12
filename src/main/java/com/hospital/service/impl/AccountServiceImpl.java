@@ -21,4 +21,9 @@ public class AccountServiceImpl implements AccountService {
     public int addUser(String username, String password, int act) {
         return accountDao.addUser(username, password, act);
     }
+
+    @Override
+    public int countJoin(int accountId) {
+        return accountDao.countJoin(accountId);
+    }
 }

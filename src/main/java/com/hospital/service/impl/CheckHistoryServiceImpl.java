@@ -21,4 +21,9 @@ public class CheckHistoryServiceImpl implements CheckHistoryService {
     public List<CheckHistory> getAllCH(int accountId) {
         return checkHistoryDao.getAllCH(accountId);
     }
+
+    @Override
+    public int countChecks(int accountId) {
+        return checkHistoryDao.countChecks(accountId);
+    }
 }

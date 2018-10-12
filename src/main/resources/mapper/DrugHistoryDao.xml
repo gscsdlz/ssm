@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.DrugHistoryDao">
     <select id="getAllDH" resultType="DrugHistory">
-        SELECT drug_history.*, realname FROM drug_history JOIN doctor_user USING (doctor_id) WHERE drug_history.account_id = #{account_id}
+        SELECT drug_history.*, realname FROM drug_history LEFT JOIN doctor_user ON (drug_history.doctor_id = doctor_user.account_id) WHERE drug_history.account_id = #{account_id}
+    </select>
+
+    <select id="countDrugs" resultType="int">
+        SELECT count(*) FROM drug_history WHERE account_id = #{account_id};
     </select>
 </mapper>

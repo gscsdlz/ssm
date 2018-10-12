@@ -2,11 +2,30 @@ package com.hospital.entity;
 
 public class RecordAuth {
     private int recordId;
-    private int fromId;
-    private int toId;
+    private int fromId; //被查看者ID
+    private int toId;  //发起查看者ID
     private int stat;
     private String realname;
+    private String address;
+    private String phone;
     private String createdAt;
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     private String updatedAt;
 
     public void setRecordId(int recordId) {
@@ -63,5 +82,20 @@ public class RecordAuth {
 
     public String getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "RecordAuth{" +
+                "recordId=" + recordId +
+                ", fromId=" + fromId +
+                ", toId=" + toId +
+                ", stat=" + stat +
+                ", realname='" + realname + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
     }
 }

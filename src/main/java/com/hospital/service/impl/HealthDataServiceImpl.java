@@ -23,4 +23,14 @@ public class HealthDataServiceImpl implements HealthDataService {
     public List<HealthData> getHealthDataByDate(int type, int account_id, String l, String r) {
         return healthDataDao.getHealthDataByDate(type, account_id, l ,r);
     }
+
+    @Override
+    public HealthData getLastHealthData(int type, int accountId) {
+        return healthDataDao.getLastHealthData(type, accountId);
+    }
+
+    @Override
+    public int countHealthData(int accountId) {
+        return healthDataDao.countHealthData(accountId);
+    }
 }

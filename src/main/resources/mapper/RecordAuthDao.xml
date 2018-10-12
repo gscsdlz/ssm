@@ -4,14 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.RecordAuthDao">
     <select id="getRecords" resultType="RecordAuth">
-        SELECT record_authorization.*, realname FROM record_authorization LEFT JOIN elder_user ON (record_authorization.from_id = elder_user.account_id) WHERE record_authorization.to_id = #{to_id}
+        SELECT record_authorization.*, realname,address,phone FROM record_authorization LEFT JOIN elder_user ON (record_authorization.from_id = elder_user.account_id) WHERE record_authorization.from_id = #{from_id}
+    </select>
+    <select id="getRecordsTo" resultType="RecordAuth">
+        SELECT record_authorization.*, realname,address,phone FROM record_authorization LEFT JOIN elder_user ON (record_authorization.from_id = elder_user.account_id) WHERE record_authorization.to_id = #{to_id} AND stat = 1
     </select>
 
     <insert id="addRecord">
         INSERT INTO record_authorization (from_id, to_id) VALUES (#{from_id}, #{to_id});
     </insert>
 
-    <update id="updateRecord">
+    <update id="recordStatChange">
+        UPDATE record_authorization SET stat = #{stat} WHERE record_id = #{record_id};
     </update>
 
     <delete id="delRecord">
