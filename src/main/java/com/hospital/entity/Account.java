@@ -3,12 +3,16 @@ package com.hospital.entity;
 public class Account {
     private String username;
     private String password;
-    private int userId;
+    private int accountId;
     private int act;
     private String updatedAt;
     private String createdAt;
 
     public static final int ELDER_USER = 1;
+    public static final int DOCTOR_USER = 2;
+    public static final int FAMILY_USER = 3;
+    public static final int GROUP_USER = 4;
+    public static final int SYSTEM_USER = 5;
 
     public void setUsername(String username) {
         this.username = username;
@@ -18,10 +22,9 @@ public class Account {
         this.password = password;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
-
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
@@ -39,8 +42,8 @@ public class Account {
         return password;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getAccountId() {
+        return accountId;
     }
 
     public void setAct(int act) {

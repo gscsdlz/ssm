@@ -13,8 +13,8 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
 
     @Override
-    public Account getUserByUsername(String usename) {
-        return accountDao.getUserByUsername(usename);
+    public Account getUserByUsername(String username) {
+        return accountDao.getUserByUsername(username);
     }
 
     @Override
