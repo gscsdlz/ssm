@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-12 16:14:44
+-- Generation Time: 2018-10-13 10:20:32
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `doctor_user` (
 --
 
 INSERT INTO `doctor_user` (`account_id`, `realname`, `phone`, `address`, `hospital_name`, `section`, `icon`, `gender`, `age`, `created_at`, `updated_at`) VALUES
-                                                                                                                                                                 (3, '胡康玲', '18181818181', '四川省成都市', NULL, NULL, NULL, 0, 30, '2018-09-27 20:04:35', '2018-09-27 20:04:35');
+                                                                                                                                                                 (3, '胡康玲', '18181818181', '四川省成都市', '华西医科', '口腔科', NULL, 0, 30, '2018-09-27 20:04:35', '2018-09-27 20:04:35');
 
 -- --------------------------------------------------------
 
@@ -434,8 +434,7 @@ INSERT INTO `position` (`id`, `account_id`, `gps_data`, `created_at`) VALUES
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
   `quesion_id` int(11) NOT NULL AUTO_INCREMENT,
-  `question` int(11) NOT NULL,
-  `question_content` int(11) NOT NULL,
+  `question` varchar(100) NOT NULL,
   `account_id` int(11) NOT NULL,
   `doctor_id` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
