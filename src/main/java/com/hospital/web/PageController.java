@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,38 +25,32 @@ public class PageController {
     @Autowired
     private HealthDataService healthDataService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @RequestMapping("/home")
     private String index(Model model) {
-        List<MainMenu> menuList = menuService.getMenu(1, "", "");
-        List<HealthData> bpList = healthDataService.getHealthData(HealthData.HTYPE_BLOOD_PRESSURE, 1);
-        List<HealthData> bsList = healthDataService.getHealthData(HealthData.HTYPE_BLOOD_SUGAR, 1);
-
-        List<BloodPressure> bpData = new ArrayList<>();
-        List<BloodSugar> bsData = new ArrayList<>();
-
-        ObjectMapper mapper = new ObjectMapper();
-        for (HealthData data : bpList) {
-            try {
-                BloodPressure t = mapper.readValue(data.getData(), BloodPressure.class);
-                t.setDate(data.getCreatedAt());
-                bpData.add(t);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        switch (Integer.parseInt(request.getSession().getAttribute("act").toString())) {
+            case Account.ELDER_USER:
+                return "redirect:/elder_user/home";
+            default:
+                return "redirect:/";
         }
+    }
 
-        for (HealthData data : bsList) {
-            try {
-                BloodSugar t = mapper.readValue(data.getData(), BloodSugar.class);
-                t.setDate(data.getCreatedAt());
-                bsData.add(t);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        model.addAttribute("menuList", menuList);
-        model.addAttribute("bpData", bpData);
-        model.addAttribute("bsData", bsData);
-        return "elder/index";
+    @RequestMapping("/")
+    private String index() {
+        System.out.println(request.getSession().getAttribute("username"));
+        System.out.println(request.getSession().getAttribute("account_id"));
+        System.out.println(request.getSession().getAttribute("act"));
+        return "home/index";
+    }
+
+    @RequestMapping("/login")
+    private String login() {
+        if (request.getSession().getAttribute("account_id") == null)
+            return "home/login";
+        else
+            return "redirect:/home";
     }
 }

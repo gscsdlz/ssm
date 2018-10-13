@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,9 @@ public class RecordAuthController {
 
     @Autowired
     private HealthDataService healthDataService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping("/apply")
     private String apply(@RequestParam Map<String, Object> param, Model model) {
@@ -58,8 +62,7 @@ public class RecordAuthController {
     @RequestMapping(value = "/do_apply", method = RequestMethod.POST, produces = "application/json;charset=utf-8;")
     private String doApply(@RequestParam Map<String, Object> param) {
         int fromId = Integer.parseInt(param.get("id").toString());
-        //TODO
-        int toId = 1;
+        int toId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         NormalResponse response = new NormalResponse();
         response.setStatus(false);
         if (fromId == toId) {
@@ -77,8 +80,8 @@ public class RecordAuthController {
 
     @RequestMapping("/invoke")
     private String invoke(Model model) {
-        //TODO
-        List<RecordAuth> data = recordAuthService.getRecords(1);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<RecordAuth> data = recordAuthService.getRecords(accountId);
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "亲人关怀", "健康档案调阅授权");
 
         model.addAttribute("data", data);
@@ -99,7 +102,9 @@ public class RecordAuthController {
 
     @RequestMapping("/show")
     private String show(Model model) {
-        List<RecordAuth> data = recordAuthService.getRecordsTo(1);
+
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<RecordAuth> data = recordAuthService.getRecordsTo(accountId);
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "亲人关怀", "健康档案查询");
 
         model.addAttribute("data", data);
@@ -113,18 +118,19 @@ public class RecordAuthController {
         ObjectMapper mapper = new ObjectMapper();
         UserRecordResponse response = new UserRecordResponse();
         response.setStatus(true);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         try {
-            HealthData data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_PRESSURE, 1);
+            HealthData data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_PRESSURE, accountId);
             BloodPressure bp = mapper.readValue(data.getData(), BloodPressure.class);
             bp.setDate(data.getCreatedAt());
             response.setBloodPressure(bp);
 
-            data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_SUGAR, 1);
+            data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_SUGAR, accountId);
             BloodSugar bs = mapper.readValue(data.getData(), BloodSugar.class);
             bs.setDate(data.getCreatedAt());
             response.setBloodSugar(bs);
 
-            data = healthDataService.getLastHealthData(HealthData.HTYPE_HEIGHT_WEIGHT, 1);
+            data = healthDataService.getLastHealthData(HealthData.HTYPE_HEIGHT_WEIGHT, accountId);
             HeightWeight hw = mapper.readValue(data.getData(), HeightWeight.class);
             hw.setDate(data.getCreatedAt());
             response.setHeightWeight(hw);

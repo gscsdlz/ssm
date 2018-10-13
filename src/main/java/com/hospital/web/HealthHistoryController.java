@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,9 @@ public class HealthHistoryController {
     @Autowired
     private HealthDataService healthDataService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @RequestMapping("/sick_history")
     private String sickHistoryShow(Model model) {
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康档案", "门诊病历");
@@ -42,8 +46,8 @@ public class HealthHistoryController {
     @ResponseBody
     @RequestMapping(value = "/get_sick_history", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     private String getSickHistory() {
-        //TODO 测试Session
-        List<SickHistory> data = sickHistoryService.getAllSH(1);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<SickHistory> data = sickHistoryService.getAllSH(accountId);
         DynamicTableViewResponse<List<SickHistory>> response = new DynamicTableViewResponse<>();
         response.setStatus(true);
         response.setTotalPage(1);
@@ -61,8 +65,8 @@ public class HealthHistoryController {
     @ResponseBody
     @RequestMapping(value = "/get_check_history", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     private String getCheckHistory() {
-        //TODO 测试Session
-        List<CheckHistory> data = checkHistoryService.getAllCH(1);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<CheckHistory> data = checkHistoryService.getAllCH(accountId);
         DynamicTableViewResponse<List<CheckHistory>> response = new DynamicTableViewResponse<>();
         response.setStatus(true);
         response.setTotalPage(1);
@@ -80,8 +84,8 @@ public class HealthHistoryController {
     @ResponseBody
     @RequestMapping(value = "/get_drug_history", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     private String getDrugHistory() {
-        //TODO 测试Session
-        List<DrugHistory> data = drugHistoryService.getAllDH(1);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<DrugHistory> data = drugHistoryService.getAllDH(accountId);
         DynamicTableViewResponse<List<DrugHistory>> response = new DynamicTableViewResponse<>();
         response.setStatus(true);
         response.setTotalPage(1);
@@ -93,20 +97,20 @@ public class HealthHistoryController {
     private String myHistoryShow(Model model) {
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康档案", "个人档案");
 
-        //TODO
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         ObjectMapper mapper = new ObjectMapper();
         try {
-            HealthData data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_PRESSURE, 1);
+            HealthData data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_PRESSURE, accountId);
             BloodPressure bp = mapper.readValue(data.getData(), BloodPressure.class);
             bp.setDate(data.getCreatedAt());
             model.addAttribute("bpData", bp);
 
-            data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_SUGAR, 1);
+            data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_SUGAR, accountId);
             BloodSugar bs = mapper.readValue(data.getData(), BloodSugar.class);
             bs.setDate(data.getCreatedAt());
             model.addAttribute("bsData", bs);
 
-            data = healthDataService.getLastHealthData(HealthData.HTYPE_HEIGHT_WEIGHT, 1);
+            data = healthDataService.getLastHealthData(HealthData.HTYPE_HEIGHT_WEIGHT, accountId);
             HeightWeight hw = mapper.readValue(data.getData(), HeightWeight.class);
             hw.setDate(data.getCreatedAt());
             model.addAttribute("hwData", hw);

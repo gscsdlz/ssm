@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.PipedOutputStream;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,9 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @RequestMapping("notice_show")
     private String noticeShow(@RequestParam Map<String, Object> param, Model model) {
 
@@ -39,8 +43,9 @@ public class NoticeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //TODO 测试Session
-        List<Notice> list = noticeService.getNotice(1, type, status);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+
+        List<Notice> list = noticeService.getNotice(accountId, type, status);
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康监护", "提醒设置");
         model.addAttribute("menuList", menuList);
         model.addAttribute("data", list);
@@ -52,8 +57,7 @@ public class NoticeController {
     @RequestMapping(value = "add_notice", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     private String addNotice(@RequestParam Map<String, Object> param) {
         int noticeType = Integer.parseInt(param.get("type").toString());
-        //TODO 测试Session
-        int accountId = 1;
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         String start = param.get("start").toString();
         String end = param.get("end").toString();
         String frequency = param.get("frequency").toString();

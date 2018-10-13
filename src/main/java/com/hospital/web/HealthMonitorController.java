@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -33,6 +34,9 @@ public class HealthMonitorController {
     @Autowired
     private AlarmService alarmService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @RequestMapping("/position")
     private String position(@RequestParam Map<String, Object> param, Model model) {
 
@@ -45,8 +49,9 @@ public class HealthMonitorController {
             date = ft.format(now.getTime());
         }
 
-        //TODO 测试用Session
-        Position p = positionService.getPosition(1, date);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+
+        Position p = positionService.getPosition(accountId, date);
 
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康监护", "地图定位");
         model.addAttribute("menuList", menuList);
@@ -71,8 +76,8 @@ public class HealthMonitorController {
         } catch (Exception e) {
 
         }
-        //TODO 测试Session
-        List<Alarm> list = alarmService.getAlarm(1, handle);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<Alarm> list = alarmService.getAlarm(accountId, handle);
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "健康监护", "异常指标");
         model.addAttribute("menuList", menuList);
         model.addAttribute("data", list);

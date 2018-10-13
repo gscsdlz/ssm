@@ -2,9 +2,7 @@ package com.hospital.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.dto.NormalResponse;
-import com.hospital.entity.ElderUser;
-import com.hospital.entity.HealthData;
-import com.hospital.entity.MainMenu;
+import com.hospital.entity.*;
 import com.hospital.service.ElderUserService;
 import com.hospital.service.HealthDataService;
 import com.hospital.service.MenuService;
@@ -17,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,16 +30,59 @@ public class ElderUserController {
     @Autowired
     private ElderUserService elderUserService;
 
+    @Autowired
+    private HealthDataService healthDataService;
+
+    @Autowired
+    private HttpServletRequest request;
+
     @RequestMapping("me")
     private String me(Model model)
     {
-        //TODO
-        ElderUser user = elderUserService.getElderUser(1);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        ElderUser user = elderUserService.getElderUser(accountId);
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "", "");
         model.addAttribute("user", user);
         model.addAttribute("menuList", menuList);
 
         return "/elder/user";
+    }
+
+    @RequestMapping("/home")
+    private String home(Model model) {
+        List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "", "");
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+
+        List<HealthData> bpList = healthDataService.getHealthData(HealthData.HTYPE_BLOOD_PRESSURE, accountId);
+        List<HealthData> bsList = healthDataService.getHealthData(HealthData.HTYPE_BLOOD_SUGAR, accountId);
+
+        List<BloodPressure> bpData = new ArrayList<>();
+        List<BloodSugar> bsData = new ArrayList<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        for (HealthData data : bpList) {
+            try {
+                BloodPressure t = mapper.readValue(data.getData(), BloodPressure.class);
+                t.setDate(data.getCreatedAt());
+                bpData.add(t);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (HealthData data : bsList) {
+            try {
+                BloodSugar t = mapper.readValue(data.getData(), BloodSugar.class);
+                t.setDate(data.getCreatedAt());
+                bsData.add(t);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("bpData", bpData);
+        model.addAttribute("bsData", bsData);
+        return "elder/index";
     }
 
     @ResponseBody
@@ -51,8 +94,8 @@ public class ElderUserController {
         NormalResponse response = new NormalResponse();
         try {
             user = mapper.readValue(info, ElderUser.class);
-            //TODO
-            user.setAccountId(1);
+            int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+            user.setAccountId(accountId);
             elderUserService.updateUser(user);
 
         } catch (Exception e) {

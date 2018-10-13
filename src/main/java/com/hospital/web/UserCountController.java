@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
@@ -32,12 +33,13 @@ public class UserCountController {
     @Autowired
     private DrugHistoryService drugHistoryService;
 
+    @Autowired
+    private HttpServletRequest request;
     @ResponseBody
     @RequestMapping("elder")
     private String elder(@RequestParam Map<String, String> param) {
         ElderUserCountResponse count = new ElderUserCountResponse();
-        //TODO
-        int accountId = 1;
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         if (param.get("id") != null) {
             accountId = Integer.parseInt(param.get("id"));
         }

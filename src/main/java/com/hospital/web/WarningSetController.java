@@ -29,6 +29,9 @@ public class WarningSetController {
     @Autowired
     private AlarmService alarmService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     private String get(@RequestParam Map<String, Object> param) {
@@ -38,9 +41,8 @@ public class WarningSetController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //TODO 测试Session
-        List<Warning> warnings = warningService.getWarning(1, currPage, 10);
-
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<Warning> warnings = warningService.getWarning(accountId, currPage, 10);
         WarningSetResponse response = new WarningSetResponse();
         response.setCurrentPage(currPage);
         //TODO 分页还没有写好
@@ -74,9 +76,9 @@ public class WarningSetController {
         }
 
         warningService.updateRows(updateStringList);
-        //TODO 测试Session
-        alarmService.removeAlarm(1);
-        alarmService.updateAlarm(1);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        alarmService.removeAlarm(accountId);
+        alarmService.updateAlarm(accountId);
         NormalResponse response = new NormalResponse();
         response.setStatus(true);
         ObjectMapper mapper = new ObjectMapper();
@@ -109,13 +111,13 @@ public class WarningSetController {
     @RequestMapping(value = "add", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     private String add(HttpServletRequest request) {
         String[] info = request.getParameterValues("info[]");
-        //TODO 测试Session
-        Map<Integer, String> errors = warningService.addRow(info, 1);
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        Map<Integer, String> errors = warningService.addRow(info, accountId);
 
 
         AddResponse response = new AddResponse();
         if (errors.size() == 0) {
-            alarmService.updateAlarm(1);
+            alarmService.updateAlarm(accountId);
             response.setStatus(true);
         } else
             response.setStatus(false);
