@@ -65,6 +65,9 @@ public class AccountController {
             case Account.ELDER_USER:
                 mv = new ModelAndView("redirect:/elder_user/me");
             break;
+            case Account.DOCTOR_USER:
+                mv = new ModelAndView("redirect:/doctor_user/me");
+                break;
             default:
                 mv = new ModelAndView();
         }

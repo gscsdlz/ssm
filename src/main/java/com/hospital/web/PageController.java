@@ -33,6 +33,8 @@ public class PageController {
         switch (Integer.parseInt(request.getSession().getAttribute("act").toString())) {
             case Account.ELDER_USER:
                 return "redirect:/elder_user/home";
+            case Account.DOCTOR_USER:
+                return "redirect:/doctor_user/home";
             default:
                 return "redirect:/";
         }
