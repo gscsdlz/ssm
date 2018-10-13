@@ -43,7 +43,7 @@ public class AccountController {
             HttpSession session = request.getSession();
             session.setAttribute("account_id", user.getAccountId());
             session.setAttribute("username", user.getUsername());
-            session.setAttribute("type", act);
+            session.setAttribute("act", act);
             response.setStatus(true);
         } else {
             response.setStatus(false);
