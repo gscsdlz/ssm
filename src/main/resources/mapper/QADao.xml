@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.dao.QADao">
+    <select id="getQuestionsByElderId" resultType="Question">
+        SELECT * FROM question WHERE account_id = #{account_id};
+    </select>
+
+    <select id="getQuestionsByDoctorId" resultType="Question">
+        SELECT * FROM question WHERE doctor_id = #{doctor_id};
+    </select>
+
+    <select id="getQuestion" resultType="Question">
+        SELECT * FROM question WHERE quesion_id = #{question_id};
+    </select>
+
+    <select id="getAnswers" resultType="Answer">
+        SELECT * FROM answer WHERE question_id = #{question_id};
+    </select>
+
+    <insert id="addQuestion">
+        INSERT INTO question (question, account_id, doctor_id) VALUES (#{question}, #{account_id}, #{doctor_id});
+    </insert>
+    <insert id="addAnswer">
+        INSERT INTO answer (answer_content, question_id, user_type) VALUES (#{answer_content}, #{question_id}, #{user_type});
+    </insert>
+
+    <delete id="removeAnswer">
+      DELETE FROM answer WHERE answer_id = #{answer_id};
+    </delete>
+
+    <delete id="removeAnswers">
+        DELETE FROM answer WHERE question_id = #{question_id};
+    </delete>
+
+    <delete id="removeQA">
+        DELETE FROM question WHERE quesion_id = #{question_id};
+    </delete>
+</mapper>

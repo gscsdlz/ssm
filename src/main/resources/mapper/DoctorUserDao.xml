@@ -6,4 +6,8 @@
     <select id="getDoctorUser" resultType="DoctorUser">
         SELECT *, account.username FROM doctor_user LEFT JOIN account USING (account_id) WHERE account_id = #{account_id};
     </select>
+
+    <select id="getAllDoctors" resultType="DoctorUser">
+        SELECT * FROM doctor_user;
+    </select>
 </mapper>

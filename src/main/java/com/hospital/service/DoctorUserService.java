@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface DoctorUserService {
     DoctorUser getDoctorUser(int accountId);
+
+    List<DoctorUser> getAllDoctors();
 }

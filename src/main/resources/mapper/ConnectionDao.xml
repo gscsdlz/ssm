@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.dao.ConnectionDao">
+    <insert id="addConnection">
+        INSERT INTO connection (account_id, doctor_id) VALUES (#{account_id}, #{doctor_id});
+    </insert>
+
+
+    <delete id="removeConnection">
+        DELETE FROM connection WHERE account_id = ${#account_id} AND doctor_id = #{doctor_id};
+    </delete>
+</mapper>
