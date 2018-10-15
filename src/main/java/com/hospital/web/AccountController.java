@@ -1,14 +1,12 @@
 package com.hospital.web;
 
 import com.hospital.dto.NormalResponse;
-import com.hospital.dto.Result;
 import com.hospital.entity.Account;
 import com.hospital.service.AccountService;
 import com.hospital.service.ElderUserService;
 import com.hospital.utils.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 

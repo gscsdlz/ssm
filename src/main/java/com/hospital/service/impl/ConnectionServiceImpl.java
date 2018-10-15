@@ -2,6 +2,7 @@ package com.hospital.service.impl;
 
 import com.hospital.dao.ConnectionDao;
 import com.hospital.entity.DoctorUser;
+import com.hospital.entity.ElderUser;
 import com.hospital.service.ConnectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,10 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public int countDoctor(int accountId) {
         return connectionDao.countDoctor(accountId);
+    }
+
+    @Override
+    public List<ElderUser> getMyElders(int accountId) {
+        return connectionDao.getMyElders(accountId);
     }
 }

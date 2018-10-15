@@ -1,6 +1,7 @@
 package com.hospital.dao;
 
 import com.hospital.entity.DoctorUser;
+import com.hospital.entity.ElderUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface ConnectionDao {
     List<DoctorUser> getMyDoctors(@Param("account_id") int accountId);
 
     int countDoctor(@Param("account_id") int accountId);
+
+    List<ElderUser> getMyElders(@Param("doctor_id") int accountId);
 }

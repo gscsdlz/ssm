@@ -1,6 +1,7 @@
 package com.hospital.service;
 
 import com.hospital.entity.DoctorUser;
+import com.hospital.entity.ElderUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface ConnectionService {
     List<DoctorUser> getMyDoctors(int accountId);
 
     int countDoctor(int accountId);
+
+    List<ElderUser> getMyElders(int accountId);
 }
