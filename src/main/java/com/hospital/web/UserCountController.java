@@ -34,6 +34,9 @@ public class UserCountController {
     private DrugHistoryService drugHistoryService;
 
     @Autowired
+    private ConnectionService connectionService;
+
+    @Autowired
     private HttpServletRequest request;
     @ResponseBody
     @RequestMapping("elder")
@@ -49,6 +52,7 @@ public class UserCountController {
         count.setSicks(sickHistoryService.countSicks(accountId));
         count.setChecks(checkHistoryService.countChecks(accountId));
         count.setDrugs(drugHistoryService.countDrugs(accountId));
+        count.setDoctor(connectionService.countDoctor(accountId));
 
         count.setStatus(true);
         return count.toString();

@@ -12,4 +12,5 @@ public interface ConnectionDao {
 
     List<DoctorUser> getMyDoctors(@Param("account_id") int accountId);
 
+    int countDoctor(@Param("account_id") int accountId);
 }

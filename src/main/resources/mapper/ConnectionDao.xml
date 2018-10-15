@@ -14,4 +14,8 @@
     <select id="getMyDoctors" resultType="DoctorUser">
         SELECT doctor_user.* FROM connection LEFT JOIN doctor_user ON (doctor_user.account_id = connection.doctor_id) WHERE connection.account_id = #{account_id}
     </select>
+
+    <select id="countDoctor" resultType="int">
+        SELECT COUNT(*) FROM connection WHERE account_id = #{account_id};
+    </select>
 </mapper>

@@ -11,4 +11,6 @@ public interface ConnectionService {
     int removeConnection(int accountId, int doctorId);
 
     List<DoctorUser> getMyDoctors(int accountId);
+
+    int countDoctor(int accountId);
 }

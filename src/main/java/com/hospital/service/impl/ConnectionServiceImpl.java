@@ -29,4 +29,9 @@ public class ConnectionServiceImpl implements ConnectionService {
     public List<DoctorUser> getMyDoctors(int accountId) {
         return connectionDao.getMyDoctors(accountId);
     }
+
+    @Override
+    public int countDoctor(int accountId) {
+        return connectionDao.countDoctor(accountId);
+    }
 }
