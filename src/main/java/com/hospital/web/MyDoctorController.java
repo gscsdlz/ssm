@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,12 +37,30 @@ public class MyDoctorController {
     private HttpServletRequest request;
 
     @RequestMapping("show")
-    private String show(Model model) {
+    private String show(@RequestParam Map<String, String> param, Model model) {
+        String name = param.get("realname") == null ? "" : param.get("realname");
+        String phone = param.get("phone") == null ? "" : param.get("phone");
 
         List<DoctorUser> doctorUserList = doctorUserService.getAllDoctors();
+
+        List<DoctorUser> res = new ArrayList<>();
+        if (name.length() == 0 && phone.length() == 0) {
+            System.out.println("ok");
+            res = doctorUserList;
+        } else {
+            for (DoctorUser user : doctorUserList) {
+                if ((user.getRealname().contains(name) && !name.isEmpty()) || (user.getPhone().contains(phone) && !phone.isEmpty())) {
+                    res.add(user);
+                }
+            }
+        }
+
         List<MainMenu> menuList = menuService.getMenu(MenuService.ELDER_MENU, "", "");
+
+        model.addAttribute("phone", phone);
+        model.addAttribute("realname", name);
         model.addAttribute("menuList", menuList);
-        model.addAttribute("data", doctorUserList);
+        model.addAttribute("data", res);
         return "elder/doctor_list";
     }
 
