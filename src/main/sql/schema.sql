@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-13 10:20:32
+-- Generation Time: 2018-10-15 15:13:14
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -90,7 +90,15 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`answer_id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `answer`
+--
+
+INSERT INTO `answer` (`answer_id`, `answer_content`, `question_id`, `user_type`, `created_at`, `updated_at`) VALUES
+                                                                                                                    (4, '你好', 4, 2, '2018-10-15 22:30:16', '2018-10-15 22:30:16'),
+                                                                                                                    (5, '你好！！！', 4, 1, '2018-10-15 22:30:35', '2018-10-15 22:30:35');
 
 -- --------------------------------------------------------
 
@@ -111,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `check_history` (
   PRIMARY KEY (`ch_id`),
   KEY `doctor_id` (`doctor_id`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `check_history`
@@ -133,9 +141,15 @@ CREATE TABLE IF NOT EXISTS `connection` (
   `doctor_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`connection_id`),
-  KEY `account_id` (`account_id`),
-  KEY `doctor_id` (`doctor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `account_id` (`account_id`,`doctor_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `connection`
+--
+
+INSERT INTO `connection` (`connection_id`, `account_id`, `doctor_id`, `created_at`) VALUES
+                                                                                           (6, 1, 3, '2018-10-15 22:28:33');
 
 -- --------------------------------------------------------
 
@@ -148,13 +162,20 @@ CREATE TABLE IF NOT EXISTS `doctor_evaluate` (
   `evaluate_id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` int(11) NOT NULL,
   `doctor_id` int(11) NOT NULL,
-  `evaluate` varchar(300) NOT NULL,
+  `evaluate` int(11) NOT NULL DEFAULT '1',
   `suggest` varchar(300) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`evaluate_id`),
   KEY `account_id` (`account_id`),
   KEY `doctor_id` (`doctor_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `doctor_evaluate`
+--
+
+INSERT INTO `doctor_evaluate` (`evaluate_id`, `account_id`, `doctor_id`, `evaluate`, `suggest`, `created_at`) VALUES
+                                                                                                                     (1, 1, 3, 1, '继续保持', '2018-10-15 23:01:33');
 
 -- --------------------------------------------------------
 
@@ -208,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `drug_history` (
   PRIMARY KEY (`dh_id`),
   KEY `doctor_id` (`doctor_id`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `drug_history`
@@ -352,10 +373,10 @@ INSERT INTO `menu` (`menu_id`, `name`, `uri`, `main_id`) VALUES
                                                                 (12, '健康档案调阅申请', '/record_auth/apply', 4),
                                                                 (13, '健康档案调阅授权', '/record_auth/invoke', 4),
                                                                 (14, '健康档案查询', '/record_auth/show', 4),
-                                                                (15, '医生专家库', '', 5),
-                                                                (16, '我的咨询', '', 5),
-                                                                (17, '查看详情', '', 6),
-                                                                (18, '查看详情', '', 7),
+                                                                (15, '医生专家库', '/my_doctor/show', 5),
+                                                                (16, '我的咨询', '/my_doctor/my_question', 5),
+                                                                (17, '查看详情', '/doctor_user/question', 6),
+                                                                (18, '查看详情', '/doctor_user/evaluate', 7),
                                                                 (19, '亲人档案', '', 8),
                                                                 (20, '异常指标信息', '', 9),
                                                                 (21, '老人定位', '', 10),
@@ -433,16 +454,23 @@ INSERT INTO `position` (`id`, `account_id`, `gps_data`, `created_at`) VALUES
 
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
-  `quesion_id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL AUTO_INCREMENT,
   `question` varchar(100) NOT NULL,
   `account_id` int(11) NOT NULL,
   `doctor_id` int(11) NOT NULL,
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
-  PRIMARY KEY (`quesion_id`),
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`question_id`),
   KEY `account_id` (`account_id`),
   KEY `doctor_id` (`doctor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `question`
+--
+
+INSERT INTO `question` (`question_id`, `question`, `account_id`, `doctor_id`, `created_at`, `updated_at`) VALUES
+                                                                                                                 (4, '测试问题1', 1, 3, '2018-10-15 22:28:52', '2018-10-15 22:28:52');
 
 -- --------------------------------------------------------
 
@@ -491,7 +519,7 @@ CREATE TABLE IF NOT EXISTS `sick_history` (
   PRIMARY KEY (`sh_id`),
   KEY `account_id` (`account_id`),
   KEY `doctor_id` (`doctor_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `sick_history`
@@ -538,6 +566,12 @@ INSERT INTO `warning` (`warning_id`, `key_name`, `min_val`, `max_val`, `used`, `
 --
 ALTER TABLE `alarm`
   ADD CONSTRAINT `alarm_warning` FOREIGN KEY (`warning_id`) REFERENCES `warning` (`warning_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- 限制表 `answer`
+--
+ALTER TABLE `answer`
+  ADD CONSTRAINT `answer_question_id_fk` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `menu`
