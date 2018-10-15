@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.QADao">
     <select id="getQuestionsByElderId" resultType="Question">
-        SELECT * FROM question WHERE account_id = #{account_id};
+        SELECT question.*, doctor_user.realname as doctor_name, elder_user.realname as elder_name FROM question LEFT JOIN doctor_user ON (doctor_user.account_id = question.doctor_id) LEFT JOIN elder_user ON (elder_user.account_id = question.account_id) WHERE question.account_id = #{account_id};
     </select>
 
     <select id="getQuestionsByDoctorId" resultType="Question">
-        SELECT * FROM question WHERE doctor_id = #{doctor_id};
+        SELECT question.*, doctor_user.realname as doctor_name, elder_user.realname as elder_name FROM question LEFT JOIN doctor_user ON (doctor_user.account_id = question.doctor_id) LEFT JOIN elder_user ON (elder_user.account_id = question.account_id) WHERE question.doctor_id = #{doctor_id};
     </select>
 
     <select id="getQuestion" resultType="Question">
-        SELECT * FROM question WHERE quesion_id = #{question_id};
+        SELECT question.*, doctor_user.realname as doctor_name, elder_user.realname as elder_name FROM question LEFT JOIN doctor_user ON (doctor_user.account_id = question.doctor_id) LEFT JOIN elder_user ON (elder_user.account_id = question.account_id) WHERE question_id = #{question_id};
     </select>
 
     <select id="getAnswers" resultType="Answer">
@@ -35,6 +35,10 @@
     </delete>
 
     <delete id="removeQA">
-        DELETE FROM question WHERE quesion_id = #{question_id};
+        DELETE FROM question WHERE question_id = #{question_id};
+    </delete>
+
+    <delete id="removeQAByUId">
+        DELETE FROM question WHERE account_id = #{account_id} AND doctor_id = #{doctor_id};
     </delete>
 </mapper>

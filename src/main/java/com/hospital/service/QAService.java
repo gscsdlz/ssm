@@ -23,4 +23,6 @@ public interface QAService {
     int removeAnswer(int answerId);
 
     int removeAnswers(int questionId);
+
+    int removeQAByUId(int accountId, int doctorId);
 }

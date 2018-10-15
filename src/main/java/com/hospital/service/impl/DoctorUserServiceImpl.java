@@ -23,4 +23,5 @@ public class DoctorUserServiceImpl implements DoctorUserService {
     public List<DoctorUser> getAllDoctors() {
         return doctorUserDao.getAllDoctors();
     }
+
 }

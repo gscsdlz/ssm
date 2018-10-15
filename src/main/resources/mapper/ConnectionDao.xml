@@ -7,8 +7,11 @@
         INSERT INTO connection (account_id, doctor_id) VALUES (#{account_id}, #{doctor_id});
     </insert>
 
-
     <delete id="removeConnection">
-        DELETE FROM connection WHERE account_id = ${#account_id} AND doctor_id = #{doctor_id};
+        DELETE FROM connection WHERE account_id = #{account_id} AND doctor_id = #{doctor_id};
     </delete>
+
+    <select id="getMyDoctors" resultType="DoctorUser">
+        SELECT doctor_user.* FROM connection LEFT JOIN doctor_user ON (doctor_user.account_id = connection.doctor_id) WHERE connection.account_id = #{account_id}
+    </select>
 </mapper>

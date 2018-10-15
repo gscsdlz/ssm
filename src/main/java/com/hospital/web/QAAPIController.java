@@ -24,7 +24,7 @@ public class QAAPIController {
 
     @RequestMapping("add_question")
     private String addQuestion(@RequestParam Map<String, String> param) {
-        String content = param.get("content");
+        String content = param.get("question");
         int doctorId = Integer.parseInt(param.get("doctor_id"));
         int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         qaService.addQuestion(accountId, doctorId, content);
@@ -35,7 +35,22 @@ public class QAAPIController {
 
     @RequestMapping("add_answer")
     private String addAnswer(@RequestParam Map<String, String> param) {
+        String answerContent = param.get("answer_content");
+        int questionId = Integer.parseInt(param.get("question_id"));
+        int act = Integer.parseInt(request.getSession().getAttribute("act").toString());
+        qaService.addAnswer(questionId, answerContent, act);
         NormalResponse response = new NormalResponse();
+        response.setStatus(true);
+        return response.toString();
+    }
+
+    @RequestMapping("del_question")
+    private String removeQuestion(@RequestParam Map<String, String> param) {
+        int questionId = Integer.parseInt(param.get("question_id"));
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        qaService.removeQA(questionId);
+        NormalResponse response = new NormalResponse();
+        response.setStatus(true);
         return response.toString();
     }
 }

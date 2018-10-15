@@ -1,9 +1,12 @@
 package com.hospital.service.impl;
 
 import com.hospital.dao.ConnectionDao;
+import com.hospital.entity.DoctorUser;
 import com.hospital.service.ConnectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ConnectionServiceImpl implements ConnectionService {
@@ -19,5 +22,11 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public int removeConnection(int accountId, int doctorId) {
         return connectionDao.removeConnection(accountId, doctorId);
+    }
+
+
+    @Override
+    public List<DoctorUser> getMyDoctors(int accountId) {
+        return connectionDao.getMyDoctors(accountId);
     }
 }

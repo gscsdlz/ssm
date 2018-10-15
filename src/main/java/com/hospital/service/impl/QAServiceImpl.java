@@ -59,4 +59,9 @@ public class QAServiceImpl implements QAService {
     public int removeAnswers(int questionId) {
         return qaDao.removeAnswers(questionId);
     }
+
+    @Override
+    public int removeQAByUId(int accountId, int doctorId) {
+        return qaDao.removeQAByUId(accountId, doctorId);
+    }
 }
