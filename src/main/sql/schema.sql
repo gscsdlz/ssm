@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-15 15:13:14
+-- Generation Time: 2018-10-16 10:49:23
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -463,14 +463,15 @@ CREATE TABLE IF NOT EXISTS `question` (
   PRIMARY KEY (`question_id`),
   KEY `account_id` (`account_id`),
   KEY `doctor_id` (`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `question`
 --
 
 INSERT INTO `question` (`question_id`, `question`, `account_id`, `doctor_id`, `created_at`, `updated_at`) VALUES
-                                                                                                                 (4, '测试问题1', 1, 3, '2018-10-15 22:28:52', '2018-10-15 22:28:52');
+                                                                                                                 (4, '测试问题1', 1, 3, '2018-10-15 22:28:52', '2018-10-15 22:28:52'),
+                                                                                                                 (5, '测试问题2', 1, 3, '2018-10-15 23:31:10', '2018-10-15 23:31:10');
 
 -- --------------------------------------------------------
 
