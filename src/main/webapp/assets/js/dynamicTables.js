@@ -18,10 +18,19 @@
             'currentPage':-1,
             'totalPage':-1,
             'dataKeys': [],
+            'userHandle': {}
         };
         var settings = $.extend({}, defaults, options);
         var b = new Base64();
         var target = $(this);
+
+        for(var functionName in settings.userHandle) {
+            eval('window.addEventListener("'+functionName+'", function(e){ ' +
+                ' settings.data = settings.userHandle.'+functionName+'();' +
+                ' initTableData(); ' +
+                '});');
+        }
+
         /**
          * 初始化表格 样式表 和表头
          */

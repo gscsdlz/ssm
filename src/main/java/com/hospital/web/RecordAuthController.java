@@ -118,7 +118,7 @@ public class RecordAuthController {
         ObjectMapper mapper = new ObjectMapper();
         UserRecordResponse response = new UserRecordResponse();
         response.setStatus(true);
-        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        int accountId = Integer.parseInt(param.get("id"));
         try {
             HealthData data = healthDataService.getLastHealthData(HealthData.HTYPE_BLOOD_PRESSURE, accountId);
             BloodPressure bp = mapper.readValue(data.getData(), BloodPressure.class);

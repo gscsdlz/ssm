@@ -15,7 +15,6 @@
         </div>
     </div>
 </div>
-<script src="/assets/js/dynamicTables.js"></script>
 <script>
     $(document).ready(function() {
         $.get("/warning_set_api/get", function (response) {

@@ -29,7 +29,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $("#sickHistory").dynamicTableView({
+        $("#sickHistory").  dynamicTableView({
            initURL: '/health_history/get_sick_history',
             keysMap: [
                 'shId', 'hospitalName', 'section', 'result', 'realName', 'method', 'createdAt'

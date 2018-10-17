@@ -1,5 +1,7 @@
 package com.hospital.entity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Evaluate {
     private int evaluateId;
     private int accountId;
@@ -77,5 +79,14 @@ public class Evaluate {
 
     public String getCreatedAt() {
         return createdAt;
+    }
+
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

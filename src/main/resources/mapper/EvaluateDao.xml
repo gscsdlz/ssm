@@ -3,27 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.EvaluateDao">
-    <select id="getAllEvaluates" resultType="Evaluate">
+    <select id="getEvaluates" resultType="Evaluate">
         SELECT doctor_evaluate.*, doctor_user.realname as doctor_name, elder_user.realname as elder_name FROM
-            connection LEFT JOIN doctor_evaluate ON (connection.doctor_id = doctor_evaluate.doctor_id)
-                        LEFT JOIN doctor_user ON (connection.doctor_id = doctor_user.account_id)
-                        LEFT JOIN elder_user ON (connection.account_id = elder_user.account_id)
-            WHERE connection.doctor_id = ${doctor_id};
+              doctor_evaluate LEFT JOIN doctor_user ON (doctor_evaluate.doctor_id = doctor_user.account_id)
+                        LEFT JOIN elder_user ON (doctor_evaluate.account_id = elder_user.account_id)
+            WHERE doctor_evaluate.account_id = ${account_id} AND doctor_evaluate.doctor_id = #{doctor_id};
     </select>
-
-    <select id="getEvaluate" resultType="Evaluate">
-        SELECT doctor_evaluate.*, doctor_user.realname as doctor_name, elder_user.realname as elder_name FROM
-          connection LEFT JOIN doctor_evaluate ON (connection.doctor_id = doctor_evaluate.doctor_id)
-                     LEFT JOIN doctor_user ON (connection.doctor_id = doctor_user.account_id)
-                     LEFT JOIN elder_user ON (connection.account_id = elder_user.account_id)
-        WHERE connection.account_id = ${account_id};
+        <select id="getMyEvaluates" resultType="Evaluate">
+            SELECT doctor_evaluate.*, doctor_user.realname as doctor_name, elder_user.realname as elder_name FROM
+            doctor_evaluate LEFT JOIN doctor_user ON (doctor_evaluate.doctor_id = doctor_user.account_id)
+                  LEFT JOIN elder_user ON (doctor_evaluate.account_id = elder_user.account_id)
+            WHERE doctor_evaluate.account_id = ${account_id};
     </select>
-
     <update id="updateEvaluate">
         UPDATE doctor_evaluate SET evaluate = #{evaluate}, suggest = #{suggest} WHERE evaluate_id = #{evaluate_id};
     </update>
 
     <delete id="delEvaluate">
-
+      DELETE FROM doctor_evaluate WHERE evaluate_id = #{evaluate_id};
     </delete>
+
+    <insert id="addEvaluate">
+        INSERT INTO doctor_evaluate (account_id, doctor_id, evaluate, suggest) VALUES (#{account_id}, #{doctor_id}, #{evaluate}, #{suggest});
+    </insert>
 </mapper>

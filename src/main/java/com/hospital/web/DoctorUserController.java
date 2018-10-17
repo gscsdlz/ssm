@@ -90,8 +90,11 @@ public class DoctorUserController {
 
     @RequestMapping("evaluate")
     private String evaluate(@RequestParam Map<String, String> param, Model model) {
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<ElderUser> elderUsers = connectionService.getMyElders(accountId);
         List<MainMenu> menuList = menuService.getMenu(MenuService.DOCTOR_MENU, "", "");
         model.addAttribute("menuList", menuList);
+        model.addAttribute("elders", elderUsers);
         return "doctor/evaluate";
     }
 }

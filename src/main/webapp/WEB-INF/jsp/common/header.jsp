@@ -35,7 +35,7 @@
     <script src="/assets/js/ace.min.js"></script>
     <script src="/assets/js/bootbox.js"></script>
     <script src="/assets/js/dynamicTableView.js"></script>
-
+    <script src="/assets/js/dynamicTables.js"></script>
 </head>
 <body class="no-skin">
 <div id="navbar" class="navbar navbar-default ace-save-state">
