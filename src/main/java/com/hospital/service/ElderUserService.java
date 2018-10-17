@@ -6,7 +6,7 @@ import com.hospital.entity.ElderUser;
 import java.util.List;
 
 public interface ElderUserService {
-    boolean addUser(int accountId);
+    int addElderUser(int accountId, String username);
 
     ElderUser getElderUser(int accountId);
 

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ElderUserDao {
-    boolean addUser(int accountId);
+    int addElderUser(@Param("account_id") int accountId, @Param("realname") String realname);
 
     ElderUser getElderUser(@Param("account_id") int accountId);
 

@@ -33,4 +33,9 @@ public class DoctorUserServiceImpl implements DoctorUserService {
                 user.getAge(), DateTime.dateNow());
     }
 
+    @Override
+    public int addDoctorUser(int accountId, String realname) {
+        return doctorUserDao.addDoctorUser(accountId, realname);
+    }
+
 }

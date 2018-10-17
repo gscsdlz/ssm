@@ -2,8 +2,7 @@ package com.hospital.web;
 
 import com.hospital.dto.NormalResponse;
 import com.hospital.entity.Account;
-import com.hospital.service.AccountService;
-import com.hospital.service.ElderUserService;
+import com.hospital.service.*;
 import com.hospital.utils.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +23,15 @@ public class AccountController {
 
     @Autowired
     private ElderUserService elderUserService;
+
+    @Autowired
+    private DoctorUserService doctorUserService;
+
+    @Autowired
+    private FamilyUserService familyUserService;
+
+    @Autowired
+    private GroupUserService groupUserService;
 
     @Autowired
     private HttpServletRequest request;
@@ -50,8 +58,39 @@ public class AccountController {
         return response.toString();
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     private String register(@RequestParam Map<String, String> param) {
+        String username = param.get("username");
+        String password = param.get("password");
+        int act = Integer.parseInt(param.get("act"));
         NormalResponse response = new NormalResponse();
+        if (accountService.getUserByUsername(username) == null) {
+            accountService.addUser(username, password, act);
+            Account account = accountService.getUserByUsername(username);
+            int accountId = account.getAccountId();
+            switch (act) {
+                case Account.ELDER_USER:
+                    elderUserService.addElderUser(accountId, username);
+                    break;
+                case Account.DOCTOR_USER:
+                    doctorUserService.addDoctorUser(accountId, username);
+                    break;
+                case Account.FAMILY_USER:
+                    familyUserService.addFamilyUser(accountId, username);
+                    break;
+                case Account.GROUP_USER:
+                    groupUserService.addGroupUser(accountId, username);
+                    break;
+            }
+            request.getSession().setAttribute("account_id", accountId);
+            request.getSession().setAttribute("username", username);
+            request.getSession().setAttribute("act", act);
+            response.setStatus(true);
+        } else {
+            response.setStatus(false);
+            response.setInfo("用户名已经被使用过了");
+        }
         return response.toString();
     }
 
@@ -62,7 +101,7 @@ public class AccountController {
         switch (Integer.parseInt(session.getAttribute("act").toString())) {
             case Account.ELDER_USER:
                 mv = new ModelAndView("redirect:/elder_user/me");
-            break;
+                break;
             case Account.DOCTOR_USER:
                 mv = new ModelAndView("redirect:/doctor_user/me");
                 break;

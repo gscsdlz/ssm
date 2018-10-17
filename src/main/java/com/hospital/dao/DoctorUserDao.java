@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface DoctorUserDao {
+    int addDoctorUser(@Param("account_id") int accountId, @Param("realname") String realname);
+
     DoctorUser getDoctorUser(@Param("account_id") int accountId);
 
     List<DoctorUser> getAllDoctors();

@@ -15,8 +15,8 @@ public class ElderUserServiceImpl implements ElderUserService {
     private ElderUserDao elderUserDao;
 
     @Override
-    public boolean addUser(int accountId) {
-        return elderUserDao.addUser(accountId);
+    public int addElderUser(int accountId, String realname) {
+        return elderUserDao.addElderUser(accountId, realname);
     }
 
     @Override

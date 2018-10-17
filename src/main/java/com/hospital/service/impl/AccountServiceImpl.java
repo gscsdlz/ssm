@@ -3,6 +3,7 @@ package com.hospital.service.impl;
 import com.hospital.dao.AccountDao;
 import com.hospital.entity.Account;
 import com.hospital.service.AccountService;
+import com.hospital.utils.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -92,7 +92,8 @@
                     act:act,
                 }, function(response) {
                     if (response.status) {
-                        alert("注册成功，即将跳转")
+                        alert("注册成功，即将跳转");
+                        window.location.href = '/user/me';
                     } else {
                         alert("注册失败，" + response.info)
                     }

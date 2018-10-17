@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.ElderUserDao">
     <insert id="addElderUser">
-        INSERT INTO elder_user (account_id) VALUES (#{account_id});
+        INSERT INTO elder_user (account_id, realname) VALUES (#{account_id}, #{realname});
     </insert>
     <select id="getElderUser" resultType="ElderUser">
         SELECT elder_user.*, username FROM elder_user LEFT JOIN account USING (account_id) WHERE account_id = #{account_id};

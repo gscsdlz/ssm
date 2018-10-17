@@ -28,8 +28,14 @@ public class PrivilegeMiddleWare extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+       /* request.getSession().setAttribute("account_id", 3);
+        request.getSession().setAttribute("username", "doctor");
+        request.getSession().setAttribute("act", 2);
+        return true;
+*/
         //登录注册相关接口和默认页面 直接放行
-        for (String uri : whiteList) {
+       for (String uri : whiteList) {
             if (request.getServletPath().startsWith(uri)) {
                 return true;
             }
