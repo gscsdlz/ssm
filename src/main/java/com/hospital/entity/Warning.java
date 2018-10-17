@@ -11,6 +11,16 @@ public class Warning {
     private String createdAt;
     private int used;
 
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    private int accountId;
+
     public void setUsed(int used) {
         this.used = used;
     }

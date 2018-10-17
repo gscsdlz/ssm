@@ -12,6 +12,8 @@ public interface AlarmService {
 
     List<Alarm> getAlarm(int accountId, int handle);
 
+    List<Alarm> getAlarmByDoctor(int doctorId);
+
     void doHandle(int alarmId, int handle);
 
     void removeAlarm(int accountId);

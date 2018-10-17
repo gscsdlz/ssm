@@ -2,10 +2,12 @@ package com.hospital.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.dao.AlarmDao;
+import com.hospital.dao.ConnectionDao;
 import com.hospital.dao.HealthDataDao;
 import com.hospital.dao.WarningDao;
 import com.hospital.entity.*;
 import com.hospital.service.AlarmService;
+import com.sun.org.apache.bcel.internal.generic.ALOAD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Autowired
     private HealthDataDao healthDataDao;
+
+    @Autowired
+    private ConnectionDao connectionDao;
 
     @Override
     public void updateAlarm(int accountId) {
@@ -133,6 +138,18 @@ public class AlarmServiceImpl implements AlarmService {
 
     public List<Alarm> getAlarm(int accountId, int handle) {
         return alarmDao.getAlarmCase(accountId, handle);
+    }
+
+    @Override
+    public List<Alarm> getAlarmByDoctor(int doctorId) {
+        List<Alarm> res = new ArrayList<>();
+        List<ElderUser> users = connectionDao.getMyElders(doctorId);
+
+        for (ElderUser user : users) {
+            List<Alarm> t = alarmDao.getAlarmCase(user.getAccountId(), Alarm.ALARM_UNHANDLE);
+            res.addAll(t);
+        }
+        return res;
     }
 
     @Override

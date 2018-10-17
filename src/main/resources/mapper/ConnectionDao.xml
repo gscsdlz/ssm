@@ -22,4 +22,8 @@
     <select id="getMyElders" resultType="ElderUser">
         SELECT elder_user.* FROM connection LEFT JOIN elder_user ON (elder_user.account_id = connection.account_id) WHERE connection.doctor_id = #{doctor_id};
     </select>
+
+    <select id="getAllDate" resultType="String">
+        SELECT created_at FROM connection WHERE doctor_id = #{doctor_id} ORDER BY created_at ASC;
+    </select>
 </mapper>

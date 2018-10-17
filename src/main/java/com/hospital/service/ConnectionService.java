@@ -5,6 +5,7 @@ import com.hospital.entity.ElderUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ConnectionService {
     int addConnection(@Param("account_id") int accountId, @Param("doctor_id") int doctorId);
@@ -16,4 +17,6 @@ public interface ConnectionService {
     int countDoctor(int accountId);
 
     List<ElderUser> getMyElders(int accountId);
+
+    Map<String, Integer> groupElder(int accountId);
 }

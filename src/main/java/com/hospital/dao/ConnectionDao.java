@@ -16,4 +16,6 @@ public interface ConnectionDao {
     int countDoctor(@Param("account_id") int accountId);
 
     List<ElderUser> getMyElders(@Param("doctor_id") int accountId);
+
+    List<String> getAllDate(@Param("doctor_id") int doctorId);
 }

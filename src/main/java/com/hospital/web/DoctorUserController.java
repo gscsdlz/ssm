@@ -2,10 +2,7 @@ package com.hospital.web;
 
 import com.hospital.dto.NormalResponse;
 import com.hospital.entity.*;
-import com.hospital.service.ConnectionService;
-import com.hospital.service.DoctorUserService;
-import com.hospital.service.MenuService;
-import com.hospital.service.QAService;
+import com.hospital.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +34,12 @@ public class DoctorUserController {
 
     @Autowired
     private ConnectionService connectionService;
+
+    @Autowired
+    private ElderUserService elderUserService;
+
+    @Autowired
+    private AlarmService alarmService;
 
     @RequestMapping("me")
     private String me(Model model) {
@@ -92,9 +96,28 @@ public class DoctorUserController {
     private String evaluate(@RequestParam Map<String, String> param, Model model) {
         int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         List<ElderUser> elderUsers = connectionService.getMyElders(accountId);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.DOCTOR_MENU, "", "");
+        List<MainMenu> menuList = menuService.getMenu(MenuService.DOCTOR_MENU, "医生评估", "查看详情");
         model.addAttribute("menuList", menuList);
         model.addAttribute("elders", elderUsers);
         return "doctor/evaluate";
+    }
+
+    @RequestMapping("home")
+    private String home(Model model) {
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        Map<String, Integer> groupData = connectionService.groupElder(accountId);
+        List<Alarm> list = alarmService.getAlarmByDoctor(accountId);
+        List<ElderUser> elderUsers = new ArrayList<>();
+        for (Alarm a : list) {
+            elderUsers.add(elderUserService.getElderUser(a.getAccountId()));
+        }
+        List<MainMenu> menuList = menuService.getMenu(MenuService.DOCTOR_MENU, "", "");
+
+        model.addAttribute("keyNameMap", Warning.keyNames);
+        model.addAttribute("menuList", menuList);
+        model.addAttribute("groupData", groupData);
+        model.addAttribute("alarms", list);
+        model.addAttribute("elderUsers", elderUsers);
+        return "doctor/index";
     }
 }
