@@ -10,4 +10,11 @@
     <select id="getAllDoctors" resultType="DoctorUser">
         SELECT * FROM doctor_user;
     </select>
+
+    <update id="updateDoctorUser">
+        UPDATE doctor_user SET realname = #{realname}, phone = #{phone},
+                               address = #{address}, hospital_name = #{hospital_name},
+                               section = #{section}, gender = #{gender},
+                               age = #{age}, updated_at = #{updated_at} WHERE account_id = #{account_id};
+    </update>
 </mapper>

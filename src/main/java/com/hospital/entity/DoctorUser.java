@@ -89,6 +89,10 @@ public class DoctorUser {
         return gender == 1 ? "男" : "女";
     }
 
+    public int getGenderInt() {
+        return gender;
+    }
+
     public int getAge() {
         return age;
     }

@@ -79,17 +79,17 @@
         {'key': '姓名', 'val': '<c:out value="${user.realname}" />', 'name': 'realname', 'type': 'text'},
         {'key': '性别', 'val': '<c:out value="${user.gender}" />', 'name': 'gender', 'type': 'radio', 'option': [
             {
-                'key': '男', 'val': '0'
+                'key': '男', 'val': '1'
             },
                 {
-                    'key': '女', 'val': '1'
+                    'key': '女', 'val': '0'
                 }
             ]},
         {'key': '年龄', 'val': '<c:out value="${user.age}" />', 'name': 'age', 'type': 'text'},
         {'key': '联系方式', 'val': '<c:out value="${user.phone}" />', 'name': 'phone', 'type': 'text'},
         {'key': '家庭住址', 'val': '<c:out value="${user.address}" />', 'name': 'address', 'type': 'text'},
-        {'key': '所属医院', 'val': '<c:out value="${user.hospitalName}" />', 'name': 'idCard', 'type': 'text'},
-        {'key': '所属科室', 'val': '<c:out value="${user.section}" />', 'name': 'ssId', 'type': 'text'},
+        {'key': '所属医院', 'val': '<c:out value="${user.hospitalName}" />', 'name': 'hospitalName', 'type': 'text'},
+        {'key': '所属科室', 'val': '<c:out value="${user.section}" />', 'name': 'section', 'type': 'text'},
     ];
     $(document).ready(function () {
         $("#infoRow").userInfo({

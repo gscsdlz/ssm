@@ -11,5 +11,5 @@ public interface DoctorUserService {
 
     List<DoctorUser> getAllDoctors();
 
-
+    int updateUser(DoctorUser user);
 }

@@ -1,5 +1,6 @@
 package com.hospital.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.dto.NormalResponse;
 import com.hospital.entity.*;
 import com.hospital.service.*;
@@ -119,5 +120,25 @@ public class DoctorUserController {
         model.addAttribute("alarms", list);
         model.addAttribute("elderUsers", elderUsers);
         return "doctor/index";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "update", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    private String update(@RequestParam Map<String, String> param) {
+        String info = param.get("json").toString();
+        ObjectMapper mapper = new ObjectMapper();
+        DoctorUser user = null;
+        try {
+            user = mapper.readValue(info, DoctorUser.class);
+            int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+            user.setAccountId(accountId);
+            doctorUserService.updateUser(user);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        NormalResponse response = new NormalResponse();
+        response.setStatus(true);
+        return response.toString();
     }
 }
