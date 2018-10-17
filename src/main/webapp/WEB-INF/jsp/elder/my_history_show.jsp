@@ -164,6 +164,23 @@
                 </div>
             </div>
         </div>
+        <hr/>
+        <div class="page-header"><h3></h3></div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <table class="table table-bordered table-hover" id="table">
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>评估医生</th>
+                            <th>健康状态</th>
+                            <th>建议</th>
+                            <th>评估时间</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -179,6 +196,16 @@
             } else {
                 alert(response.info);
             }
+        });
+
+        $("#table").dynamicTableView({
+            pagination: false,
+            autoLoadURL: '/evaluate_api/get_my',
+            currPage: 1,
+            totalPage: 1,
+            pageSize: 15,
+            initURL: '/evaluate_api/get_my',
+            keysMap: ['evaluateId', 'doctorName', 'evaluateS', 'suggest', 'createdAt'],
         })
     })
 </script>

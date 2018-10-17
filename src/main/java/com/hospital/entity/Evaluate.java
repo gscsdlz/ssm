@@ -81,6 +81,18 @@ public class Evaluate {
         return createdAt;
     }
 
+    public String getEvaluateS() {
+        if (this.evaluate == Evaluate.EVALUATE_A) {
+                return "健康";
+        } else if (this.evaluate == Evaluate.EVALUATE_B) {
+            return "亚健康";
+        } else if (this.evaluate == Evaluate.EVALUATE_C) {
+            return "差";
+        } else {
+            return "危险";
+        }
+    }
+
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
         try {
