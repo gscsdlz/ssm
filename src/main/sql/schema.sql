@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-16 10:49:23
+-- Generation Time: 2018-10-17 15:37:41
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `account`
@@ -47,7 +47,12 @@ CREATE TABLE IF NOT EXISTS `account` (
 INSERT INTO `account` (`account_id`, `username`, `password`, `act`, `created_at`, `updated_at`) VALUES
                                                                                                        (1, 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, '2018-09-19 20:41:52', '2018-09-19 20:41:52'),
                                                                                                        (2, 'root', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1, '2018-09-19 20:43:19', '2018-09-19 20:43:19'),
-                                                                                                       (3, 'doctor', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-27 20:03:42', '2018-09-27 20:03:42');
+                                                                                                       (3, 'doctor', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-09-27 20:03:42', '2018-09-27 20:03:42'),
+                                                                                                       (5, 'elderUser', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 1, '2018-10-17 23:32:33', '2018-10-17 23:32:33'),
+                                                                                                       (6, 'doctorUser', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, '2018-10-17 23:33:40', '2018-10-17 23:33:40'),
+                                                                                                       (7, 'familyUser', 'd5f12e53a182c062b6bf30c1445153faff12269a', 3, '2018-10-17 23:34:15', '2018-10-17 23:34:15'),
+                                                                                                       (8, 'groupUser', '7c4a8d09ca3762af61e59520943dc26494f8941b', 4, '2018-10-17 23:35:17', '2018-10-17 23:35:17'),
+                                                                                                       (9, 'system', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 5, '2018-10-17 23:35:59', '2018-10-17 23:35:59');
 
 -- --------------------------------------------------------
 
@@ -142,14 +147,15 @@ CREATE TABLE IF NOT EXISTS `connection` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`connection_id`),
   UNIQUE KEY `account_id` (`account_id`,`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `connection`
 --
 
 INSERT INTO `connection` (`connection_id`, `account_id`, `doctor_id`, `created_at`) VALUES
-                                                                                           (6, 1, 3, '2018-10-15 22:28:33');
+                                                                                           (6, 1, 3, '2018-10-15 22:28:33'),
+                                                                                           (7, 2, 3, '2018-10-17 21:27:27');
 
 -- --------------------------------------------------------
 
@@ -168,14 +174,14 @@ CREATE TABLE IF NOT EXISTS `doctor_evaluate` (
   PRIMARY KEY (`evaluate_id`),
   KEY `account_id` (`account_id`),
   KEY `doctor_id` (`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `doctor_evaluate`
 --
 
 INSERT INTO `doctor_evaluate` (`evaluate_id`, `account_id`, `doctor_id`, `evaluate`, `suggest`, `created_at`) VALUES
-                                                                                                                     (1, 1, 3, 1, '继续保持', '2018-10-15 23:01:33');
+                                                                                                                     (2, 1, 3, 4, '你好', '2018-10-17 21:05:18');
 
 -- --------------------------------------------------------
 
@@ -204,7 +210,8 @@ CREATE TABLE IF NOT EXISTS `doctor_user` (
 --
 
 INSERT INTO `doctor_user` (`account_id`, `realname`, `phone`, `address`, `hospital_name`, `section`, `icon`, `gender`, `age`, `created_at`, `updated_at`) VALUES
-                                                                                                                                                                 (3, '胡康玲', '18181818181', '四川省成都市', '华西医科', '口腔科', NULL, 0, 30, '2018-09-27 20:04:35', '2018-09-27 20:04:35');
+                                                                                                                                                                 (3, '胡康玲1', '18181818182', '四川省·成都市', '华西·医科', '口腔2科', NULL, 1, 33, '2018-09-27 20:04:35', '2018-10-17 22:45:02'),
+                                                                                                                                                                 (6, 'doctorUser', NULL, NULL, NULL, NULL, NULL, 0, 30, '2018-10-17 23:33:41', '2018-10-17 23:33:41');
 
 -- --------------------------------------------------------
 
@@ -270,7 +277,73 @@ CREATE TABLE IF NOT EXISTS `elder_user` (
 
 INSERT INTO `elder_user` (`account_id`, `realname`, `gender`, `age`, `address`, `phone`, `id_card`, `ss_id`, `has_allergy`, `has_trauma`, `has_operation`, `has_inheritance`, `icon`, `created_at`, `updated_at`) VALUES
                                                                                                                                                                                                                          (1, '测试1', 1, 70, '北京市·朝阳区·哒哒哒哒哒?', '12345678920', '12345678998765432', '12345678998765432', 0, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11'),
-                                                                                                                                                                                                                         (2, '测试2', 1, 70, '四川·成都', '12345678920', '12345678998765432', '12345678998765432', 1, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11');
+                                                                                                                                                                                                                         (2, '测试2', 1, 70, '四川·成都', '12345678920', '12345678998765432', '12345678998765432', 1, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11'),
+                                                                                                                                                                                                                         (5, 'elderUser', 0, 60, NULL, NULL, NULL, NULL, 0, 0, 0, 0, NULL, '2018-10-17 23:32:33', '2018-10-17 23:32:33');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `family_user`
+--
+
+DROP TABLE IF EXISTS `family_user`;
+CREATE TABLE IF NOT EXISTS `family_user` (
+  `account_id` int(11) NOT NULL,
+  `realname` varchar(30) NOT NULL,
+  `phone` varchar(20) DEFAULT '',
+  `address` varchar(20) DEFAULT '',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `family_user`
+--
+
+INSERT INTO `family_user` (`account_id`, `realname`, `phone`, `address`, `created_at`, `updated_at`) VALUES
+                                                                                                            (7, 'familyUser', '', '', '2018-10-17 23:34:15', '2018-10-17 23:34:15');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `follow`
+--
+
+DROP TABLE IF EXISTS `follow`;
+CREATE TABLE IF NOT EXISTS `follow` (
+  `follow_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_id` int(11) NOT NULL,
+  `family_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`follow_id`),
+  KEY `account_id_idx` (`account_id`),
+  KEY `family_id_idx` (`family_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `group_user`
+--
+
+DROP TABLE IF EXISTS `group_user`;
+CREATE TABLE IF NOT EXISTS `group_user` (
+  `account_id` int(11) NOT NULL,
+  `realname` varchar(20) NOT NULL,
+  `phone` varchar(20) DEFAULT '',
+  `address` varchar(100) DEFAULT '',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `group_user`
+--
+
+INSERT INTO `group_user` (`account_id`, `realname`, `phone`, `address`, `created_at`, `updated_at`) VALUES
+                                                                                                           (8, 'groupUser', '', '', '2018-10-17 23:35:17', '2018-10-17 23:35:17');
 
 -- --------------------------------------------------------
 
