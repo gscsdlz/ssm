@@ -15,4 +15,6 @@ public interface EvaluateDao {
     int updateEvaluate(@Param("evaluate_id") int evaluateId, @Param("evaluate") int evaluate, @Param("suggest") String suggest);
 
     int addEvaluate(@Param("doctor_id") int accountId, @Param("account_id") int elderId, @Param("evaluate") int evaluate, @Param("suggest") String suggest);
+
+    int countEvaluate(@Param("doctor_id") int accountId);
 }

@@ -39,27 +39,18 @@
                                 <br>
                                 <span class="line-height-1 smaller-90"> 累积加入 </span>
                         </span>
+
+                    </div>
+                    <div class="center">
+                       <span class="btn btn-app btn-sm btn-grey no-hover">
+                            <span class="line-height-1 bigger-170" id="evaluates"> 0 </span>
+                            <br>
+                            <span class="line-height-1 smaller-90"> 评估数 </span>
+                        </span>
                         <span class="btn btn-app btn-sm btn-pink no-hover">
                             <span class="line-height-1 bigger-170" id="answers"> 0 </span>
                             <br>
                             <span class="line-height-1 smaller-90"> 问答数 </span>
-                        </span>
-                    </div>
-                    <div class="center">
-                       <span class="btn btn-app btn-sm btn-grey no-hover">
-                            <span class="line-height-1 bigger-170" id="checks"> 0 </span>
-                            <br>
-                            <span class="line-height-1 smaller-90"> 检验记录数 </span>
-                        </span>
-                        <span class="btn btn-app btn-sm btn-success no-hover">
-                            <span class="line-height-1 bigger-170" id="drugs"> 0 </span>
-                            <br>
-                            <span class="line-height-1 smaller-90"> 用药记录数 </span>
-                        </span>
-                        <span class="btn btn-app btn-sm btn-primary no-hover">
-                            <span class="line-height-1 bigger-170" id="sicks"> 0 </span>
-                            <br>
-                            <span class="line-height-1 smaller-90"> 病历记录数 </span>
                         </span>
                     </div>
                 </div>
@@ -99,12 +90,10 @@
 
         $.get("/user_count/doctor", function (response) {
             if (response.status) {
-                $("#healthDataCount").html(response.healthDataCount);
+                $("#elder").html(response.elder);
                 $("#join").html(response.join);
-                $("#sicks").html(response.sicks);
-                $("#checks").html(response.checks);
-                $("#drugs").html(response.drugs);
-                $("#doctor").html(response.doctor);
+                $("#evaluates").html(response.evaluates);
+                $("#answers").html(response.answers);
             } else {
                 alert(response.info);
             }

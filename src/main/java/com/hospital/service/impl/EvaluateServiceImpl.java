@@ -2,7 +2,6 @@ package com.hospital.service.impl;
 
 import com.hospital.dao.EvaluateDao;
 import com.hospital.entity.Evaluate;
-import com.hospital.entity.SickHistory;
 import com.hospital.service.EvaluateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +55,10 @@ public class EvaluateServiceImpl implements EvaluateService {
             res.add(Integer.parseInt(id));
         }
         return res;
+    }
+
+    @Override
+    public int countEvaluate(int accountId) {
+        return evaluateDao.countEvaluate(accountId);
     }
 }

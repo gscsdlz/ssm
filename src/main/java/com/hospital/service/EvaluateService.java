@@ -15,4 +15,6 @@ public interface EvaluateService {
     Map<Integer, String> addEvaluate(int accountId, int elderId, int evaluate, String suggest);
 
     List<Integer> delRows(String[] delList);
+
+    int countEvaluate(int accountId);
 }

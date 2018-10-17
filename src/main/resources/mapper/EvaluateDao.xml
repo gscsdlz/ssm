@@ -26,4 +26,8 @@
     <insert id="addEvaluate">
         INSERT INTO doctor_evaluate (account_id, doctor_id, evaluate, suggest) VALUES (#{account_id}, #{doctor_id}, #{evaluate}, #{suggest});
     </insert>
+
+    <select id="countEvaluate" resultType="int">
+        SELECT COUNT(*) FROM doctor_evaluate WHERE doctor_id = #{doctor_id};
+    </select>
 </mapper>

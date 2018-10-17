@@ -71,4 +71,12 @@ public class AccountController {
         }
         return mv;
     }
+
+    @RequestMapping("logout")
+    private String logout() {
+        request.getSession().removeAttribute("account_id");
+        request.getSession().removeAttribute("act");
+        request.getSession().removeAttribute("username");
+        return "redirect:/login";
+    }
 }
