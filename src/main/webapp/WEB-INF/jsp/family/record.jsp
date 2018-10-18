@@ -49,7 +49,13 @@
                 <div class="page-header">
                     <h3>老人档案<small>从左侧列表中选择老人</small></h3>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-4">
+                            <div class="page-header"><p>详细信息</p></div>
+                            <div id="info">
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
                             <div class="page-header">
                                 <p>测量数据</p>
                             </div>
@@ -209,6 +215,21 @@
     </div>
 </div>
 <script>
+    let keyMap = [
+        {'key': '姓名', 'name': 'realname'},
+        {'key': '性别', 'name': 'gender'},
+        {'key': '年龄', 'name': 'age'},
+        {'key': '联系方式', 'name': 'phone'},
+        {'key': '家庭住址', 'name': 'address'},
+        {'key': '身份证号', 'name': 'idCard'},
+        {'key': '社保编号', 'name': 'ssId'},
+        {'key': '有无过敏史', 'name': 'hasAllergy'},
+        {'key': '有无外伤', 'name': 'hasTrauma'},
+        {'key': '有无手术史', 'name': 'hasOperation'},
+        {'key': '有无遗传病', 'name': 'hasInheritance'},
+    ];
+
+
     $(document).ready(function () {
 
         $("[unfollow]").click(function() {
@@ -267,6 +288,20 @@
                 $("#doctor").html(response.doctor);
             } else {
                 alert(response.info);
+            }
+        })
+
+        $.get("/elder_user/put_info_to_family", {id: id}, function (response) {
+            if (response.status) {
+                let str = '';
+                for(let i = 0; i < keyMap.length; i++) {
+                    str += '' +
+                        '<div class="profile-info-row">' +
+                        '   <div class="profile-info-name">' + keyMap[i].key + '</div>' +
+                        '   <div class="profile-info-value"><span class="editable editable-click">' + response.data[keyMap[i].name] + '</span></div>' +
+                        '</div>'
+                }
+                $("#info").html(str);
             }
         })
     }

@@ -107,7 +107,7 @@
         $("#infoRow").userInfo({
             'data': infoData,
             'updateURL': '/elder_user/update'
-        })
+        });
 
         $.get("/user_count/elder", function (response) {
             if (response.status) {

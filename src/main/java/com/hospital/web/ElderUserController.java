@@ -1,6 +1,7 @@
 package com.hospital.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hospital.dto.DynamicTableViewResponse;
 import com.hospital.dto.NormalResponse;
 import com.hospital.entity.*;
 import com.hospital.service.ElderUserService;
@@ -104,6 +105,17 @@ public class ElderUserController {
         if (user != null) {
             response.setStatus(true);
         }
+        return response.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "put_info_to_family", method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/json;charset=utf-8")
+    private String getInfoByFamilyUser(@RequestParam Map<String, String> param) {
+        int accountId = Integer.parseInt(param.get("id"));
+        ElderUser user = elderUserService.getElderUser(accountId);
+        DynamicTableViewResponse<ElderUser> response = new DynamicTableViewResponse<>();
+        response.setData(user);
+        response.setStatus(true);
         return response.toString();
     }
 }

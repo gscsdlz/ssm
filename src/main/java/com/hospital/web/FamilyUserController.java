@@ -37,7 +37,7 @@ public class FamilyUserController {
     private String elderRecord(Model model) {
         int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         List<ElderUser> list = followService.getHomeElders(accountId);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.FAMILY_MENU, "", "");
+        List<MainMenu> menuList = menuService.getMenu(MenuService.FAMILY_MENU, "老人信息", "亲人档案");
 
         model.addAttribute("elders", list);
         model.addAttribute("menuList", menuList);
