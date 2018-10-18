@@ -26,4 +26,8 @@
     <select id="getElderUserByRealnameOrPhone" resultType="ElderUser">
         SELECT * FROM elder_user WHERE realname = #{realname} OR phone = #{phone}
     </select>
+
+    <select id="getElderUserByIdCard" resultType="ElderUser">
+        SELECT * FROM elder_user WHERE id_card = #{id_card};
+    </select>
 </mapper>

@@ -25,4 +25,6 @@ public interface ElderUserDao {
                         );
 
     List<ElderUser> getElderUserByRealnameOrPhone(@Param("realname") String realname, @Param("phone") String phone);
+
+    ElderUser getElderUserByIdCard(@Param("id_card") String id);
 }

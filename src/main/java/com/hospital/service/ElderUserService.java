@@ -13,4 +13,6 @@ public interface ElderUserService {
     int updateUser(ElderUser user);
 
     List<ElderUser> getElderUserByRealnameOrPhone(String realname, String phone);
+
+    ElderUser getElderUserByIdCard(String idCard);
 }

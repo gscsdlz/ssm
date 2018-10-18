@@ -45,4 +45,9 @@ public class ElderUserServiceImpl implements ElderUserService {
     public List<ElderUser> getElderUserByRealnameOrPhone(String realname, String phone) {
         return elderUserDao.getElderUserByRealnameOrPhone(realname, phone);
     }
+
+    @Override
+    public ElderUser getElderUserByIdCard(String idCard) {
+        return elderUserDao.getElderUserByIdCard(idCard);
+    }
 }
