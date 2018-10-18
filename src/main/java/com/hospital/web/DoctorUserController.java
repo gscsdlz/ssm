@@ -110,7 +110,15 @@ public class DoctorUserController {
         List<Alarm> list = alarmService.getAlarmByDoctor(accountId);
         List<ElderUser> elderUsers = new ArrayList<>();
         for (Alarm a : list) {
-            elderUsers.add(elderUserService.getElderUser(a.getAccountId()));
+            boolean find = false;
+            for(ElderUser user : elderUsers) {
+                if (user.getAccountId() == a.getAccountId()) {
+                    find = true;
+                    break;
+                }
+            }
+            if(!find)
+                elderUsers.add(elderUserService.getElderUser(a.getAccountId()));
         }
         List<MainMenu> menuList = menuService.getMenu(MenuService.DOCTOR_MENU, "", "");
 
