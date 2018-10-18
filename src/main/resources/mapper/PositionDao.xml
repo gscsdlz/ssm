@@ -6,4 +6,8 @@
     <select id="getPosition" resultType="Position">
         SELECT * FROM position WHERE account_id = #{account_id} AND created_at = #{date};
     </select>
+
+    <select id="queryLastPosition" resultType="Position">
+        SELECT * FROM position WHERE account_id = #{account_id} ORDER BY created_at DESC LIMIT 1;
+    </select>
 </mapper>
