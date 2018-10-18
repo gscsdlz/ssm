@@ -7,6 +7,7 @@ import com.hospital.dao.HealthDataDao;
 import com.hospital.dao.WarningDao;
 import com.hospital.entity.*;
 import com.hospital.service.AlarmService;
+import com.hospital.service.FollowService;
 import com.sun.org.apache.bcel.internal.generic.ALOAD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class AlarmServiceImpl implements AlarmService {
 
     @Autowired
     private ConnectionDao connectionDao;
+
+    @Autowired
+    private FollowService followService;
 
     @Override
     public void updateAlarm(int accountId) {
@@ -144,6 +148,18 @@ public class AlarmServiceImpl implements AlarmService {
     public List<Alarm> getAlarmByDoctor(int doctorId) {
         List<Alarm> res = new ArrayList<>();
         List<ElderUser> users = connectionDao.getMyElders(doctorId);
+
+        for (ElderUser user : users) {
+            List<Alarm> t = alarmDao.getAlarmCase(user.getAccountId(), Alarm.ALARM_UNHANDLE);
+            res.addAll(t);
+        }
+        return res;
+    }
+
+    @Override
+    public List<Alarm> getAlarmByFamily(int familyId) {
+        List<Alarm> res = new ArrayList<>();
+        List<ElderUser> users = followService.getHomeElders(familyId);
 
         for (ElderUser user : users) {
             List<Alarm> t = alarmDao.getAlarmCase(user.getAccountId(), Alarm.ALARM_UNHANDLE);

@@ -1,6 +1,7 @@
 package com.hospital.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hospital.dto.DynamicTableViewResponse;
 import com.hospital.dto.NormalResponse;
 import com.hospital.entity.*;
 import com.hospital.service.*;
@@ -46,8 +47,7 @@ public class FamilyUserController {
     private String me(Model model) {
         int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
         FamilyUser user = familyUserService.getFamilyUser(accountId);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.DOCTOR_MENU, "", "");
-        System.out.println(user);
+        List<MainMenu> menuList = menuService.getMenu(MenuService.FAMILY_MENU, "", "");
         model.addAttribute("user", user);
         model.addAttribute("menuList", menuList);
         return "family/user";
@@ -141,6 +141,30 @@ public class FamilyUserController {
         }
         NormalResponse response = new NormalResponse();
         response.setStatus(true);
+        return response.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "get_data", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    private String getAlarmData() {
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<Alarm> list = alarmService.getAlarmByFamily(accountId);
+        DynamicTableViewResponse<List<Alarm>> response = new DynamicTableViewResponse<>();
+        response.setStatus(true);
+
+        response.setData(list);
+        return response.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "get_user_data", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    private String getUserData() {
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<ElderUser> list = followService.getHomeElders(accountId);
+        DynamicTableViewResponse<List<ElderUser>> response = new DynamicTableViewResponse<>();
+        response.setStatus(true);
+
+        response.setData(list);
         return response.toString();
     }
 }

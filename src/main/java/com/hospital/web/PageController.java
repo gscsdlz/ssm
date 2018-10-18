@@ -35,6 +35,12 @@ public class PageController {
                 return "redirect:/elder_user/home";
             case Account.DOCTOR_USER:
                 return "redirect:/doctor_user/home";
+            case Account.FAMILY_USER:
+                return "redirect:/family_user/home";
+            case Account.GROUP_USER:
+                return "redirect:/group_user/home";
+            case Account.SYSTEM_USER:
+                return "redirect:/system_user/home";
             default:
                 return "redirect:/";
         }
