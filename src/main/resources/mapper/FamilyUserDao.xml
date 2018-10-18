@@ -6,4 +6,12 @@
     <insert id="addFamilyUser">
           INSERT INTO family_user (account_id, realname) VALUES (#{account_id}, #{realname});
     </insert>
+
+    <select id="getFamilyUser" resultType="FamilyUser">
+        SELECT *, account.username FROM family_user LEFT JOIN account USING (account_id) WHERE account_id = #{account_id};
+    </select>
+
+    <update id="updateFamilyUser">
+        UPDATE family_user SET realname = #{realname}, phone = #{phone}, address = #{address}, updated_at = #{updated_at} WHERE account_id = #{account_id};
+    </update>
 </mapper>

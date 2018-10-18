@@ -2,6 +2,7 @@ package com.hospital.web;
 
 import com.hospital.dto.DoctorUserCountResponse;
 import com.hospital.dto.ElderUserCountResponse;
+import com.hospital.dto.FamilyUserCountResponse;
 import com.hospital.entity.DrugHistory;
 import com.hospital.entity.HealthData;
 import com.hospital.service.*;
@@ -45,6 +46,9 @@ public class UserCountController {
     private EvaluateService evaluateService;
 
     @Autowired
+    private FollowService followService;
+
+    @Autowired
     private HttpServletRequest request;
     @RequestMapping("elder")
     private String elder(@RequestParam Map<String, String> param) {
@@ -77,6 +81,20 @@ public class UserCountController {
         count.setElder(connectionService.groupElder(accountId).size());
         count.setAnswers(qaService.getQuestionsByDoctorId(accountId).size());
         count.setEvaluates(evaluateService.countEvaluate(accountId));
+        count.setStatus(true);
+        return count.toString();
+    }
+
+    @RequestMapping("family")
+    private String family(@RequestParam Map<String, String> param) {
+        FamilyUserCountResponse count = new FamilyUserCountResponse();
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        if (param.get("id") != null) {
+            accountId = Integer.parseInt(param.get("id"));
+        }
+
+        count.setJoin(accountService.countJoin(accountId));
+        count.setFollows(followService.getHomeElders(accountId).size());
         count.setStatus(true);
         return count.toString();
     }

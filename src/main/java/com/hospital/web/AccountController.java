@@ -105,6 +105,12 @@ public class AccountController {
             case Account.DOCTOR_USER:
                 mv = new ModelAndView("redirect:/doctor_user/me");
                 break;
+            case Account.FAMILY_USER:
+                mv = new ModelAndView("redirect:/family_user/me");
+                break;
+            case Account.GROUP_USER:
+                mv = new ModelAndView("redirect:/group_user/me");
+                break;
             default:
                 mv = new ModelAndView();
         }

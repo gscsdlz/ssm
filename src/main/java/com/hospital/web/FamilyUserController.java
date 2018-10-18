@@ -1,12 +1,16 @@
 package com.hospital.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hospital.dto.NormalResponse;
 import com.hospital.entity.*;
 import com.hospital.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -35,12 +39,24 @@ public class FamilyUserController {
     @Autowired
     private PositionService positionService;
 
-    private String me() {
-        return "";
+    @Autowired
+    private FamilyUserService familyUserService;
+
+    @RequestMapping("me")
+    private String me(Model model) {
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        FamilyUser user = familyUserService.getFamilyUser(accountId);
+        List<MainMenu> menuList = menuService.getMenu(MenuService.DOCTOR_MENU, "", "");
+        System.out.println(user);
+        model.addAttribute("user", user);
+        model.addAttribute("menuList", menuList);
+        return "family/user";
     }
 
+    @RequestMapping("/home")
     private String home() {
-        return "";
+
+        return "family/index";
     }
 
     @RequestMapping("record")
@@ -106,5 +122,25 @@ public class FamilyUserController {
         model.addAttribute("elders", list);
         model.addAttribute("menuList", menuList);
         return "family/position";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "update", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    private String update(@RequestParam Map<String, String> param) {
+        String info = param.get("json").toString();
+        ObjectMapper mapper = new ObjectMapper();
+        FamilyUser user = null;
+        try {
+            user = mapper.readValue(info, FamilyUser.class);
+            int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+            user.setAccountId(accountId);
+            familyUserService.updateUser(user);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        NormalResponse response = new NormalResponse();
+        response.setStatus(true);
+        return response.toString();
     }
 }

@@ -1,8 +1,9 @@
 package com.hospital.service.impl;
 
 import com.hospital.dao.FamilyUserDao;
+import com.hospital.entity.FamilyUser;
 import com.hospital.service.FamilyUserService;
-import com.sun.xml.internal.ws.developer.UsesJAXBContext;
+import com.hospital.utils.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,15 @@ public class FamilyUserServiceImpl implements FamilyUserService {
     @Override
     public int addFamilyUser(int accountId, String username) {
         return familyUserDao.addFamilyUser(accountId, username);
+    }
+
+    @Override
+    public FamilyUser getFamilyUser(int accountId) {
+        return familyUserDao.getFamilyUser(accountId);
+    }
+
+    @Override
+    public int updateUser(FamilyUser user) {
+        return familyUserDao.updateFamilyUser(user.getAccountId(), user.getRealname(), user.getPhone(), user.getAddress(), DateTime.dateNow());
     }
 }

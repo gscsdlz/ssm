@@ -1,16 +1,34 @@
 package com.hospital.entity;
 
 public class FamilyUser {
-    private int accountId;
+    private String username;
     private String realname;
     private String phone;
     private String address;
     private String createdAt;
     private String updatedAt;
+    private int accountId;
 
-    public void setaccountId(int accountId) {
+    public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
 
     public void setRealname(String realname) {
         this.realname = realname;
@@ -32,9 +50,6 @@ public class FamilyUser {
         this.updatedAt = updatedAt;
     }
 
-    public int getaccountId() {
-        return accountId;
-    }
 
     public String getRealname() {
         return realname;
@@ -54,5 +69,17 @@ public class FamilyUser {
 
     public String getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "FamilyUser{" +
+                ", username='" + username + '\'' +
+                ", realname='" + realname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
     }
 }
