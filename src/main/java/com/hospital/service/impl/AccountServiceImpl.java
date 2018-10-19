@@ -27,4 +27,14 @@ public class AccountServiceImpl implements AccountService {
     public int countJoin(int accountId) {
         return accountDao.countJoin(accountId);
     }
+
+    @Override
+    public int disable(int accountId, int disable) {
+        return accountDao.disable(accountId, disable);
+    }
+
+    @Override
+    public int resetPassword(int accountId) {
+        return accountDao.resetPassword(accountId);
+    }
 }

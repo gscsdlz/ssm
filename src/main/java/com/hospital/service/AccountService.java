@@ -8,4 +8,8 @@ public interface AccountService {
     int addUser(String username, String password, int act);
 
     int countJoin(int accountId);
+
+    int disable(int accountId, int disable);
+
+    int resetPassword(int accountId);
 }

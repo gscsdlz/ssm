@@ -5,14 +5,26 @@ public class Account {
     private String password;
     private int accountId;
     private int act;
+    private int disable;
     private String updatedAt;
     private String createdAt;
+
+    public void setDisable(int disable) {
+        this.disable = disable;
+    }
+
+    public int getDisable() {
+        return disable;
+    }
 
     public static final int ELDER_USER = 1;
     public static final int DOCTOR_USER = 2;
     public static final int FAMILY_USER = 3;
     public static final int GROUP_USER = 4;
     public static final int SYSTEM_USER = 5;
+
+    public static final int USER_DISABLE = 1;
+    public static final int USER_NOT_DISABLE = 0;
 
     public void setUsername(String username) {
         this.username = username;

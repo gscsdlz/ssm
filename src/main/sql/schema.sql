@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-18 15:17:28
+-- Generation Time: 2018-10-19 12:12:19
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -196,6 +196,24 @@ CREATE TABLE IF NOT EXISTS `check_history` (
 
 INSERT INTO `check_history` (`ch_id`, `account_id`, `hospital_name`, `section`, `check_name`, `check_reason`, `doctor_id`, `created_at`) VALUES
                                                                                                                                                 (1, 1, '郫县人民医院', '骨科', '骨质疏松', '诊断骨质', 3, '2018-09-27 20:36:00');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `complaint`
+--
+
+DROP TABLE IF EXISTS `complaint`;
+CREATE TABLE IF NOT EXISTS `complaint` (
+  `complaint_id` int(11) NOT NULL AUTO_INCREMENT,
+  `elder_id` int(11) NOT NULL,
+  `content` varchar(100) NOT NULL,
+  `handle_time` datetime DEFAULT NULL,
+  `handle` int(11) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `handle_content` varchar(100) DEFAULT '',
+  PRIMARY KEY (`complaint_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1003,6 +1021,27 @@ INSERT INTO `warning` (`warning_id`, `key_name`, `min_val`, `max_val`, `used`, `
                                                                                                                   (5, 'systolic', 90, 120, 1, 1, '2018-09-25 20:47:03'),
                                                                                                                   (8, 'diastolic', 60, 70, 1, 1, '2018-09-25 20:56:02'),
                                                                                                                   (9, 'systolic', 10, 140, 1, 2, '2018-10-18 22:59:21');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `work_order`
+--
+
+DROP TABLE IF EXISTS `work_order`;
+CREATE TABLE IF NOT EXISTS `work_order` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `elder_id` int(11) NOT NULL,
+  `account_id` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `content` varchar(300) NOT NULL,
+  `price` float NOT NULL,
+  `service_time` datetime NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`order_id`),
+  KEY `elder_id` (`elder_id`),
+  KEY `account_id` (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 限制导出的表
