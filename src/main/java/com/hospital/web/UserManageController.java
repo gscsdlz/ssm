@@ -47,7 +47,8 @@ public class UserManageController {
         ElderUser user = elderUserService.getElderUser(elderId);
         List<DoctorUser> doctors = connectionService.getMyDoctors(elderId);
         List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "" ,"");
-
+        List<ElderUser> elderUsers = elderUserService.getAllElderUser();
+        model.addAttribute("elders", elderUsers);
         model.addAttribute("user", user);
         model.addAttribute("doctors", doctors);
         model.addAttribute("menuList", menuList);
@@ -65,9 +66,10 @@ public class UserManageController {
         DoctorUser user = doctorUserService.getDoctorUser(doctorId);
         List<ElderUser> elders = connectionService.getMyElders(doctorId);
         List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "" ,"");
-
+        List<DoctorUser> doctorUserList = doctorUserService.getAllDoctors();
         model.addAttribute("user", user);
-        model.addAttribute("doctors", elders);
+        model.addAttribute("elders", elders);
+        model.addAttribute("doctors", doctorUserList);
         model.addAttribute("menuList", menuList);
         return "group/doctor";
     }

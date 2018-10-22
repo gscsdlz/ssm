@@ -50,4 +50,9 @@ public class ElderUserServiceImpl implements ElderUserService {
     public ElderUser getElderUserByIdCard(String idCard) {
         return elderUserDao.getElderUserByIdCard(idCard);
     }
+
+    @Override
+    public List<ElderUser> getAllElderUser() {
+        return elderUserDao.getAllElderUser();
+    }
 }

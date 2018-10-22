@@ -30,4 +30,8 @@
     <select id="getElderUserByIdCard" resultType="ElderUser">
         SELECT * FROM elder_user WHERE id_card = #{id_card};
     </select>
+
+    <select id="getAllElderUser" resultType="ElderUser">
+        SELECT * FROM elder_user;
+    </select>
 </mapper>

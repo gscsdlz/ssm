@@ -95,8 +95,11 @@ public class ElderUserController {
         NormalResponse response = new NormalResponse();
         try {
             user = mapper.readValue(info, ElderUser.class);
-            int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
-            user.setAccountId(accountId);
+            if (Integer.parseInt(request.getSession().getAttribute("act").toString()) == Account.ELDER_USER) {
+                int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+                user.setAccountId(accountId);
+            }
+
             elderUserService.updateUser(user);
 
         } catch (Exception e) {

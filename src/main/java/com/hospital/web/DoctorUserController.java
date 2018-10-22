@@ -138,8 +138,10 @@ public class DoctorUserController {
         DoctorUser user = null;
         try {
             user = mapper.readValue(info, DoctorUser.class);
-            int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
-            user.setAccountId(accountId);
+            if (Integer.parseInt(request.getSession().getAttribute("act").toString()) == Account.DOCTOR_USER) {
+                int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+                user.setAccountId(accountId);
+            }
             doctorUserService.updateUser(user);
 
         } catch (Exception e) {
