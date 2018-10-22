@@ -3,11 +3,10 @@ package com.hospital.web;
 import com.hospital.entity.DoctorUser;
 import com.hospital.entity.ElderUser;
 import com.hospital.entity.MainMenu;
-import com.hospital.service.ConnectionService;
-import com.hospital.service.DoctorUserService;
-import com.hospital.service.ElderUserService;
-import com.hospital.service.MenuService;
+import com.hospital.entity.Position;
+import com.hospital.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +35,9 @@ public class UserManageController {
     @Autowired
     private ConnectionService connectionService;
 
+    @Autowired
+    private PositionService positionService;
+
     @RequestMapping("elder")
     private String elderShow(@RequestParam Map<String, String> param, Model model) {
         int elderId = 0;
@@ -46,7 +48,7 @@ public class UserManageController {
         }
         ElderUser user = elderUserService.getElderUser(elderId);
         List<DoctorUser> doctors = connectionService.getMyDoctors(elderId);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "" ,"");
+        List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "档案管理" ,"老人档案");
         List<ElderUser> elderUsers = elderUserService.getAllElderUser();
         model.addAttribute("elders", elderUsers);
         model.addAttribute("user", user);
@@ -65,12 +67,32 @@ public class UserManageController {
         }
         DoctorUser user = doctorUserService.getDoctorUser(doctorId);
         List<ElderUser> elders = connectionService.getMyElders(doctorId);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "" ,"");
+        List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "档案管理" ,"家庭医生");
         List<DoctorUser> doctorUserList = doctorUserService.getAllDoctors();
         model.addAttribute("user", user);
         model.addAttribute("elders", elders);
         model.addAttribute("doctors", doctorUserList);
         model.addAttribute("menuList", menuList);
         return "group/doctor";
+    }
+
+    @RequestMapping("position")
+    private String position(@RequestParam Map<String, String> param, Model model) {
+        int elderId = 0;
+        try {
+            elderId = Integer.parseInt(param.get("id"));
+        } catch (Exception e) {
+            ;
+        }
+        Position pos = positionService.queryLastPosition(elderId);
+        ElderUser user = elderUserService.getElderUser(elderId);
+        List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "档案管理" ,"老人定位");
+        List<ElderUser> elderUsers = elderUserService.getAllElderUser();
+
+        model.addAttribute("position", pos);
+        model.addAttribute("elders", elderUsers);
+        model.addAttribute("user", user);
+        model.addAttribute("menuList", menuList);
+        return "group/position";
     }
 }

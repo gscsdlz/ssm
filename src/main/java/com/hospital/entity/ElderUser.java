@@ -78,7 +78,7 @@ public class ElderUser {
     }
 
     public String getGender() {
-        return gender == 0 ? "男" : "女";
+        return gender == 1 ? "男" : "女";
     }
 
     public int getGenderInt() {

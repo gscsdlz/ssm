@@ -88,10 +88,10 @@
         {'key': '姓名', 'val': '<c:out value="${user.realname}" />', 'name': 'realname', 'type': 'text'},
         {'key': '性别', 'val': '<c:out value="${user.gender}" />', 'name': 'gender', 'type': 'radio', 'option': [
                 {
-                    'key': '男', 'val': '0'
+                    'key': '男', 'val': '1'
                 },
                 {
-                    'key': '女', 'val': '1'
+                    'key': '女', 'val': '0'
                 }
             ]},
         {'key': '年龄', 'val': '<c:out value="${user.age}" />', 'name': 'age', 'type': 'text'},
