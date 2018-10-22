@@ -1,10 +1,7 @@
 package com.hospital.web;
 
 import com.hospital.dto.NormalResponse;
-import com.hospital.entity.Answer;
-import com.hospital.entity.DoctorUser;
-import com.hospital.entity.MainMenu;
-import com.hospital.entity.Question;
+import com.hospital.entity.*;
 import com.hospital.service.ConnectionService;
 import com.hospital.service.DoctorUserService;
 import com.hospital.service.MenuService;
@@ -90,7 +87,13 @@ public class MyDoctorController {
     @ResponseBody
     @RequestMapping(value = "unconnection", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     private String removeConnection(@RequestParam Map<String, String> param) {
-        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+
+        int accountId = 0;
+        if (Integer.parseInt(request.getSession().getAttribute("act").toString()) == Account.ELDER_USER) {
+            accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        } else {
+            accountId = Integer.parseInt(param.get("elder_id"));
+        }
         int doctorId = Integer.parseInt(param.get("doctor_id"));
 
         connectionService.removeConnection(accountId, doctorId);

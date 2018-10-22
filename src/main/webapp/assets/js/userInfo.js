@@ -87,6 +87,8 @@
                     }
                 }
                 str += '</div>'
+            } else if (type === 'hidden'){
+                str += '<input readonly type="text" name="' + name + '" value="' + value + '" class="form-control"/>'
             } else {
                 str += '<input type="' + type + '" name="' + name + '" value="' + value + '" class="form-control"/>'
             }
