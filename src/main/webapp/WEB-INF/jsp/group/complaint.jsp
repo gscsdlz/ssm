@@ -19,9 +19,8 @@
 </div>
 <script>
     $(document).ready(function () {
-        let handle = $("#handle").html().indexOf("待处投诉") === -1 ? 1 : 0;
 
-        $.get("/complaint/get", {handle: handle}, function (response) {
+        $.get("/complaint/get", {handle: ${handle}}, function (response) {
             if (response.status) {
                 $("#table").dynamicTables({
                     title: ['编号', '老人姓名', '内容', '创建时间', '处理状态', '处理意见', '处理时间'],

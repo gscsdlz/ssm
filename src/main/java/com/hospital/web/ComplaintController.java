@@ -41,7 +41,7 @@ public class ComplaintController {
 
         List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "投诉管理", "待处投诉");
         model.addAttribute("menuList", menuList);
-        model.addAttribute("handle", Complaint.UNHANDLE);
+        model.addAttribute("handle", 0);
         return "group/complaint";
     }
 
@@ -49,14 +49,14 @@ public class ComplaintController {
     private String handle(Model model) {
         List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "投诉管理", "已处理投诉");
         model.addAttribute("menuList", menuList);
-        model.addAttribute("handle", Complaint.HANDLE);
+        model.addAttribute("handle", 1);
         return "group/complaint";
     }
 
     @ResponseBody
     @RequestMapping(value = "get", method = RequestMethod.GET, produces = "application/json;charset=utf-8;")
     private String getComplaint(@RequestParam Map<String, String> param) {
-        int handle = Complaint.UNHANDLE;
+        int handle = 0;
         try {
             handle = Integer.parseInt(param.get("handle"));
         } catch (Exception e) {

@@ -11,8 +11,6 @@ public class Complaint {
     private String createdAt;
     private int handle;
 
-    public static int HANDLE = 1;
-    public static int UNHANDLE = 0;
 
     public String getRealname() {
         return realname;
