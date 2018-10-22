@@ -4,7 +4,8 @@ public class WorkOrder {
     private int orderId;
     private String elderName;
     private String accountId;
-    private String username;
+    private String groupName;
+    private int elderId;
     private int type;
     private String content;
     private float price;
@@ -35,13 +36,6 @@ public class WorkOrder {
         this.accountId = accountId;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public int getType() {
         return type;
@@ -81,5 +75,21 @@ public class WorkOrder {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public int getElderId() {
+        return elderId;
+    }
+
+    public void setElderId(int elderId) {
+        this.elderId = elderId;
     }
 }

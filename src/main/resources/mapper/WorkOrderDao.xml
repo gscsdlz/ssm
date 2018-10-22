@@ -3,4 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.WorkOrderDao">
+    <select id="getAllWorkOrder" resultType="WorkOrder">
+        SELECT work_order.*, elder_user.realname as elder_name, group_user.realname as group_name FROM
+              work_order LEFT JOIN elder_user ON (work_order.elder_id = elder_user.account_id)
+            LEFT JOIN group_user ON (work_order.account_id = group_user.account_id)
+    </select>
+
+    <insert id="addWorkOrder">
+        INSERT INTO work_order (elder_id, account_id, type, content, price, service_time) VALUES (
+                                                                                                  #{elder_id},
+                                                                                                  #{account_id},
+                                                                                                  #{type},
+                                                                                                  #{content},
+                                                                                                  #{price},
+                                                                                                  #{service_time}
+                                                                                                )
+    </insert>
+
+    <delete id="deleteWorkOrder">
+      DELETE FROM work_order WHERE order_id = #{order_id};
+    </delete>
+
+    <update id="updateWorkOrder">
+      UPDATE work_order SET type = #{type}, content = #{content}, price = #{price}, service_time = #{service_time} WHERE order_id = #{order_id};
+    </update>
 </mapper>

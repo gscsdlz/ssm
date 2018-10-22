@@ -8,7 +8,17 @@ import java.util.List;
 public interface WorkOrderDao {
     List<WorkOrder> getAllWorkOrder();
 
-    List<WorkOrder> getAllWorkOrderByType(@Param("type") int type);
+    int addWorkOrder(@Param("elder_id") int elderId,
+                     @Param("account_id") int accountId,
+                     @Param("type") int type,
+                     @Param("content") String content,
+                     @Param("price") float price);
 
-    int deleteWorkOrder(@Param("order_is") int orderId);
+    int deleteWorkOrder(@Param("order_id") int orderId);
+
+    int updateWorkOrder(@Param("order_id") int orderId,
+                        @Param("type") int type,
+                        @Param("content") String content,
+                        @Param("price") float price,
+                        @Param("service_time") String serviceTime);
 }
