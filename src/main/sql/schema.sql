@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-19 12:12:19
+-- Generation Time: 2018-10-22 14:59:01
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -161,14 +161,6 @@ CREATE TABLE IF NOT EXISTS `answer` (
   KEY `question_id` (`question_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `answer`
---
-
-INSERT INTO `answer` (`answer_id`, `answer_content`, `question_id`, `user_type`, `created_at`, `updated_at`) VALUES
-                                                                                                                    (4, '你好', 4, 2, '2018-10-15 22:30:16', '2018-10-15 22:30:16'),
-                                                                                                                    (5, '你好！！！', 4, 1, '2018-10-15 22:30:35', '2018-10-15 22:30:35');
-
 -- --------------------------------------------------------
 
 --
@@ -208,12 +200,20 @@ CREATE TABLE IF NOT EXISTS `complaint` (
   `complaint_id` int(11) NOT NULL AUTO_INCREMENT,
   `elder_id` int(11) NOT NULL,
   `content` varchar(100) NOT NULL,
-  `handle_time` datetime DEFAULT NULL,
-  `handle` int(11) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `handle` int(11) NOT NULL DEFAULT '0',
   `handle_content` varchar(100) DEFAULT '',
+  `handle_time` datetime DEFAULT NULL,
   PRIMARY KEY (`complaint_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `complaint`
+--
+
+INSERT INTO `complaint` (`complaint_id`, `elder_id`, `content`, `created_at`, `handle`, `handle_content`, `handle_time`) VALUES
+                                                                                                                                (2, 1, '123', '2018-08-22 21:57:54', 0, '', NULL),
+                                                                                                                                (3, 1, '456', '2018-09-22 21:57:54', 0, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -230,14 +230,6 @@ CREATE TABLE IF NOT EXISTS `connection` (
   PRIMARY KEY (`connection_id`),
   UNIQUE KEY `account_id` (`account_id`,`doctor_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `connection`
---
-
-INSERT INTO `connection` (`connection_id`, `account_id`, `doctor_id`, `created_at`) VALUES
-                                                                                           (6, 1, 3, '2018-10-15 22:28:33'),
-                                                                                           (7, 2, 3, '2018-10-17 21:27:27');
 
 -- --------------------------------------------------------
 
@@ -292,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `doctor_user` (
 --
 
 INSERT INTO `doctor_user` (`account_id`, `realname`, `phone`, `address`, `hospital_name`, `section`, `icon`, `gender`, `age`, `created_at`, `updated_at`) VALUES
-                                                                                                                                                                 (3, '胡康玲1', '18181818182', '四川省·成都市', '华西·医科', '口腔2科', NULL, 1, 33, '2018-09-27 20:04:35', '2018-10-17 22:45:02'),
+                                                                                                                                                                 (3, '胡康玲', '18181818182', '四川省·成都市', '华西·医科', '口腔2科', NULL, 0, 34, '2018-09-27 20:04:35', '2018-10-22 20:42:15'),
                                                                                                                                                                  (6, 'doctorUser', NULL, NULL, NULL, NULL, NULL, 0, 30, '2018-10-17 23:33:41', '2018-10-17 23:33:41');
 
 -- --------------------------------------------------------
@@ -358,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `elder_user` (
 --
 
 INSERT INTO `elder_user` (`account_id`, `realname`, `gender`, `age`, `address`, `phone`, `id_card`, `ss_id`, `has_allergy`, `has_trauma`, `has_operation`, `has_inheritance`, `icon`, `created_at`, `updated_at`) VALUES
-                                                                                                                                                                                                                         (1, '测试1', 1, 70, '北京市·朝阳区·哒哒哒哒哒?', '12345678920', '12345678998765432', '12345678998765432', 0, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11'),
+                                                                                                                                                                                                                         (1, '测试1', 0, 72, '北京市·朝阳区·哒哒哒哒哒?', '12345678920', '12345678998765432', '12345678998765432', 0, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11'),
                                                                                                                                                                                                                          (2, '测试2', 1, 70, '四川·成都', '12345678920', '12345678998765433', '12345678998765432', 1, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11'),
                                                                                                                                                                                                                          (5, 'elderUser', 0, 60, NULL, NULL, '123123123123123123', NULL, 0, 0, 0, 0, NULL, '2018-10-17 23:32:33', '2018-10-17 23:32:33');
 
@@ -843,14 +835,13 @@ INSERT INTO `menu` (`menu_id`, `name`, `uri`, `main_id`) VALUES
                                                                 (19, '亲人档案', '/family_user/record', 8),
                                                                 (20, '异常指标信息', '/family_user/alarm', 9),
                                                                 (21, '老人定位', '/family_user/position', 10),
-                                                                (22, '老人档案', '', 11),
-                                                                (23, '家庭医生', '', 11),
-                                                                (24, '老人定位', '', 11),
-                                                                (25, '工单信息', '', 12),
-                                                                (26, '工单处理', '', 12),
-                                                                (27, '待处投诉', '', 13),
-                                                                (28, '已处理投诉', '', 13),
-                                                                (29, '总投诉量', '', 13),
+                                                                (22, '老人档案', '/user_manage/elder', 11),
+                                                                (23, '家庭医生', '/user_manage/doctor', 11),
+                                                                (24, '老人定位', '/user_manage/position', 11),
+                                                                (26, '工单处理', '/work_order/show', 12),
+                                                                (27, '待处投诉', '/complaint/un_handle', 13),
+                                                                (28, '已处理投诉', '/complaint/handle', 13),
+                                                                (29, '总投诉量', '/complaint/stat', 13),
                                                                 (30, '基础数据统计', '', 15),
                                                                 (31, '老人档案', '', 15),
                                                                 (32, '医生档案', '', 15),
@@ -927,14 +918,6 @@ CREATE TABLE IF NOT EXISTS `question` (
   KEY `account_id` (`account_id`),
   KEY `doctor_id` (`doctor_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `question`
---
-
-INSERT INTO `question` (`question_id`, `question`, `account_id`, `doctor_id`, `created_at`, `updated_at`) VALUES
-                                                                                                                 (4, '测试问题1', 1, 3, '2018-10-15 22:28:52', '2018-10-15 22:28:52'),
-                                                                                                                 (5, '测试问题2', 1, 3, '2018-10-15 23:31:10', '2018-10-15 23:31:10');
 
 -- --------------------------------------------------------
 
@@ -1036,12 +1019,19 @@ CREATE TABLE IF NOT EXISTS `work_order` (
   `type` int(11) NOT NULL,
   `content` varchar(300) NOT NULL,
   `price` float NOT NULL,
-  `service_time` datetime NOT NULL,
+  `service_time` varchar(30) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`order_id`),
   KEY `elder_id` (`elder_id`),
   KEY `account_id` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `work_order`
+--
+
+INSERT INTO `work_order` (`order_id`, `elder_id`, `account_id`, `type`, `content`, `price`, `service_time`, `created_at`) VALUES
+                                                                                                                                 (2, 2, 8, 2, '测试', 152, '2018-12-24 ', '2018-10-22 22:55:52');
 
 --
 -- 限制导出的表
