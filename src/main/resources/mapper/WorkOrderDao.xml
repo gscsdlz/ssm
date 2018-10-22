@@ -25,6 +25,6 @@
     </delete>
 
     <update id="updateWorkOrder">
-      UPDATE work_order SET type = #{type}, content = #{content}, price = #{price}, service_time = #{service_time} WHERE order_id = #{order_id};
+      UPDATE work_order SET type = #{type}, content = #{content}, price = #{price}, service_time = #{service_time}, elder_id = #{elder_id} WHERE order_id = #{order_id};
     </update>
 </mapper>

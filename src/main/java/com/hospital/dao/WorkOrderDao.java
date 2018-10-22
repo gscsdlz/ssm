@@ -12,11 +12,13 @@ public interface WorkOrderDao {
                      @Param("account_id") int accountId,
                      @Param("type") int type,
                      @Param("content") String content,
-                     @Param("price") float price);
+                     @Param("price") float price,
+                     @Param("service_time") String serviceTime);
 
     int deleteWorkOrder(@Param("order_id") int orderId);
 
     int updateWorkOrder(@Param("order_id") int orderId,
+                        @Param("elder_id") int elderId,
                         @Param("type") int type,
                         @Param("content") String content,
                         @Param("price") float price,
