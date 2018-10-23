@@ -3,6 +3,8 @@ package com.hospital.dao;
 import com.hospital.entity.Account;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface AccountDao {
     Account getUserByUsername(String username);
 
@@ -13,4 +15,6 @@ public interface AccountDao {
     int disable(@Param("account_id") int accountId, @Param("disable") int disable);
 
     int resetPassword(@Param("account_id") int accountId);
+
+    List<Account> getAllAccount();
 }

@@ -2,6 +2,8 @@ package com.hospital.service;
 
 import com.hospital.entity.Account;
 
+import java.util.List;
+
 public interface AccountService {
     Account getUserByUsername(String username);
 
@@ -12,4 +14,6 @@ public interface AccountService {
     int disable(int accountId, int disable);
 
     int resetPassword(int accountId);
+
+    List<Account> getAllUser();
 }

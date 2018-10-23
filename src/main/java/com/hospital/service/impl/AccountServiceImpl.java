@@ -7,6 +7,8 @@ import com.hospital.utils.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -36,5 +38,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public int resetPassword(int accountId) {
         return accountDao.resetPassword(accountId);
+    }
+
+    @Override
+    public List<Account> getAllUser() {
+        return accountDao.getAllAccount();
     }
 }

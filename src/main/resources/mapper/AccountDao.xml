@@ -22,4 +22,8 @@
     <update id="disable">
         UPDATE account SET disable = #{disable} WHERE account_id = #{account_id};
     </update>
+
+    <select id="getAllAccount" resultType="Account">
+        SELECT * FROM account;
+    </select>
 </mapper>
