@@ -127,7 +127,7 @@ public class FamilyUserController {
     @ResponseBody
     @RequestMapping(value = "update", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     private String update(@RequestParam Map<String, String> param) {
-        String info = param.get("json").toString();
+        String info = param.get("json");
         ObjectMapper mapper = new ObjectMapper();
         FamilyUser user = null;
         try {

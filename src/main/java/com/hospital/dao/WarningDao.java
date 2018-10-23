@@ -8,9 +8,10 @@ import java.util.List;
 public interface WarningDao {
     List<Warning> getWarning(@Param("account_id") int accountId, @Param("page") int page, @Param("total") int total);
 
-    List<Warning> getWarnings(@Param("account_id") int accountId);
+    List<Warning> getAllWarnings();
 
     List<Warning> getWarningForAlarm(@Param("account_id") int accountId);
+
 
     int getWaringTotal(@Param("account_id") int accountId);
 

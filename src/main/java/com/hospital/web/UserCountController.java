@@ -3,6 +3,7 @@ package com.hospital.web;
 import com.hospital.dto.DoctorUserCountResponse;
 import com.hospital.dto.ElderUserCountResponse;
 import com.hospital.dto.FamilyUserCountResponse;
+import com.hospital.dto.GroupUserCountResponse;
 import com.hospital.entity.DrugHistory;
 import com.hospital.entity.HealthData;
 import com.hospital.service.*;
@@ -47,6 +48,12 @@ public class UserCountController {
 
     @Autowired
     private FollowService followService;
+
+    @Autowired
+    private ComplaintService complaintService;
+
+    @Autowired
+    private WorkOrderService workOrderService;
 
     @Autowired
     private HttpServletRequest request;
@@ -95,6 +102,17 @@ public class UserCountController {
 
         count.setJoin(accountService.countJoin(accountId));
         count.setFollows(followService.getHomeElders(accountId).size());
+        count.setStatus(true);
+        return count.toString();
+    }
+
+    @RequestMapping("group")
+    private String group() {
+        GroupUserCountResponse count = new GroupUserCountResponse();
+        int accountId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        count.setJoin(accountService.countJoin(accountId));
+        count.setComplaints(complaintService.getAllComplaint().size());
+        count.setWorkOrders(workOrderService.getAll().size());
         count.setStatus(true);
         return count.toString();
     }

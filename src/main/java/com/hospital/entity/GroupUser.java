@@ -2,6 +2,7 @@ package com.hospital.entity;
 
 public class GroupUser {
     private int accountId;
+    private String username;
     private String realname;
     private String phone;
     private String address;
@@ -54,5 +55,13 @@ public class GroupUser {
 
     public String getUpdatedAt() {
         return updatedAt;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

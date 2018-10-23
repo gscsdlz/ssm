@@ -6,4 +6,12 @@
     <insert id="addGroupUser">
         INSERT INTO group_user (account_id, realname) VALUES (#{account_id}, #{realname});
     </insert>
+
+    <select id="getGroupUserById" resultType="GroupUser">
+        SELECT group_user.*, username FROM group_user LEFT JOIN account ON (account.account_id = group_user.account_id) WHERE group_user.account_id = #{account_id};
+    </select>
+
+    <update id="updateGroupUser">
+        UPDATE group_user SET realname = #{realname}, phone = #{phone},address = #{address},updated_at = #{updated_at} WHERE account_id = #{account_id};
+    </update>
 </mapper>

@@ -8,6 +8,8 @@ import java.util.Map;
 public interface WarningService {
     List<Warning> getWarning(int accountId, int page, int total);
 
+    List<Warning> getWarning();
+
     int getTotal(int accountId);
 
     void updateRows(List<String[]> args);

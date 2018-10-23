@@ -1,6 +1,5 @@
 package com.hospital.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.dao.HealthDataDao;
 import com.hospital.dao.WarningDao;
 import com.hospital.entity.*;
@@ -27,6 +26,11 @@ public class WarningServiceImpl implements WarningService {
     public List<Warning> getWarning(int accountId, int page, int total) {
         int p = (page - 1) * total;
         return warningDao.getWarning(accountId, p, total);
+    }
+
+    @Override
+    public List<Warning> getWarning() {
+        return warningDao.getAllWarnings();
     }
 
     @Override
