@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 2018-10-22 14:59:01
+-- Generation Time: 2018-10-23 14:47:32
 -- 服务器版本： 5.7.19
 -- PHP Version: 7.1.9
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`account_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `account`
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`answer_id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `complaint` (
 
 INSERT INTO `complaint` (`complaint_id`, `elder_id`, `content`, `created_at`, `handle`, `handle_content`, `handle_time`) VALUES
                                                                                                                                 (2, 1, '123', '2018-08-22 21:57:54', 0, '', NULL),
-                                                                                                                                (3, 1, '456', '2018-09-22 21:57:54', 0, '', NULL);
+                                                                                                                                (3, 1, '456', '2018-09-22 21:57:54', 1, '！', '2018-10-22 23:11:10');
 
 -- --------------------------------------------------------
 
@@ -229,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `connection` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`connection_id`),
   UNIQUE KEY `account_id` (`account_id`,`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `doctor_user` (
 
 INSERT INTO `doctor_user` (`account_id`, `realname`, `phone`, `address`, `hospital_name`, `section`, `icon`, `gender`, `age`, `created_at`, `updated_at`) VALUES
                                                                                                                                                                  (3, '胡康玲', '18181818182', '四川省·成都市', '华西·医科', '口腔2科', NULL, 0, 34, '2018-09-27 20:04:35', '2018-10-22 20:42:15'),
-                                                                                                                                                                 (6, 'doctorUser', NULL, NULL, NULL, NULL, NULL, 0, 30, '2018-10-17 23:33:41', '2018-10-17 23:33:41');
+                                                                                                                                                                 (6, 'doctorUser', '', '', '', '', NULL, 1, 30, '2018-10-17 23:33:41', '2018-10-23 22:46:08');
 
 -- --------------------------------------------------------
 
@@ -350,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `elder_user` (
 --
 
 INSERT INTO `elder_user` (`account_id`, `realname`, `gender`, `age`, `address`, `phone`, `id_card`, `ss_id`, `has_allergy`, `has_trauma`, `has_operation`, `has_inheritance`, `icon`, `created_at`, `updated_at`) VALUES
-                                                                                                                                                                                                                         (1, '测试1', 0, 72, '北京市·朝阳区·哒哒哒哒哒?', '12345678920', '12345678998765432', '12345678998765432', 0, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11'),
+                                                                                                                                                                                                                         (1, '测试1', 1, 72, '北京市·朝阳区·哒哒哒哒哒?', '12345678920', '12345678998765432', '12345678998765432', 0, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11'),
                                                                                                                                                                                                                          (2, '测试2', 1, 70, '四川·成都', '12345678920', '12345678998765433', '12345678998765432', 1, 0, 1, 0, NULL, '2018-10-08 19:52:11', '2018-10-08 19:52:11'),
                                                                                                                                                                                                                          (5, 'elderUser', 0, 60, NULL, NULL, '123123123123123123', NULL, 0, 0, 0, 0, NULL, '2018-10-17 23:32:33', '2018-10-17 23:32:33');
 
@@ -425,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `group_user` (
 --
 
 INSERT INTO `group_user` (`account_id`, `realname`, `phone`, `address`, `created_at`, `updated_at`) VALUES
-                                                                                                           (8, 'groupUser', '', '', '2018-10-17 23:35:17', '2018-10-17 23:35:17');
+                                                                                                           (8, 'groupUser', '10086', '中国移动', '2018-10-17 23:35:17', '2018-10-23 20:23:29');
 
 -- --------------------------------------------------------
 
@@ -787,8 +787,7 @@ INSERT INTO `main_menu` (`main_id`, `main_name`, `icon`, `type`) VALUES
                                                                         (11, '档案管理', '', 4),
                                                                         (12, '工单管理', '', 4),
                                                                         (13, '投诉管理', '', 4),
-                                                                        (14, '预警管理', '', 4),
-                                                                        (15, '基础数据', '', 5),
+                                                                        (15, '档案管理', '', 5),
                                                                         (16, '调度过程', '', 5),
                                                                         (17, '决策分析', '', 5),
                                                                         (18, '个体预警', '', 5);
@@ -842,13 +841,10 @@ INSERT INTO `menu` (`menu_id`, `name`, `uri`, `main_id`) VALUES
                                                                 (27, '待处投诉', '/complaint/un_handle', 13),
                                                                 (28, '已处理投诉', '/complaint/handle', 13),
                                                                 (29, '总投诉量', '/complaint/stat', 13),
-                                                                (30, '基础数据统计', '', 15),
-                                                                (31, '老人档案', '', 15),
-                                                                (32, '医生档案', '', 15),
-                                                                (33, '养老院档案', '', 15),
-                                                                (34, '查看详情', '', 16),
-                                                                (35, '查看详情', '', 17),
-                                                                (36, '查看详情', '', 18);
+                                                                (30, '基础数据统计', '/system_user/stat', 15),
+                                                                (31, '老人档案', '/user_manage/elder', 15),
+                                                                (32, '家庭医生', '/user_manage/doctor', 15),
+                                                                (36, '查看详情', '/system_user/alarm', 18);
 
 -- --------------------------------------------------------
 
@@ -917,7 +913,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   PRIMARY KEY (`question_id`),
   KEY `account_id` (`account_id`),
   KEY `doctor_id` (`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
