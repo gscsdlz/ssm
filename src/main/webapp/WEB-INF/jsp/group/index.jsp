@@ -3,7 +3,7 @@
 <%@ include file="../common/header.jsp" %>
 <div class="page-header">
     <h1>
-
+个体预警
     </h1>
 </div>
 <div class="row">

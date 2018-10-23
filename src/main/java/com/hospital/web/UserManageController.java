@@ -47,7 +47,8 @@ public class UserManageController {
         }
         ElderUser user = elderUserService.getElderUser(elderId);
         List<DoctorUser> doctors = connectionService.getMyDoctors(elderId);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "档案管理" ,"老人档案");
+        int act = Integer.parseInt(request.getSession().getAttribute("act").toString());
+        List<MainMenu> menuList = menuService.getMenu(act, "档案管理" ,"老人档案");
         List<ElderUser> elderUsers = elderUserService.getAllElderUser();
         model.addAttribute("elders", elderUsers);
         model.addAttribute("user", user);
@@ -66,7 +67,8 @@ public class UserManageController {
         }
         DoctorUser user = doctorUserService.getDoctorUser(doctorId);
         List<ElderUser> elders = connectionService.getMyElders(doctorId);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "档案管理" ,"家庭医生");
+        int act = Integer.parseInt(request.getSession().getAttribute("act").toString());
+        List<MainMenu> menuList = menuService.getMenu(act, "档案管理" ,"家庭医生");
         List<DoctorUser> doctorUserList = doctorUserService.getAllDoctors();
         model.addAttribute("user", user);
         model.addAttribute("elders", elders);
@@ -85,7 +87,8 @@ public class UserManageController {
         }
         Position pos = positionService.queryLastPosition(elderId);
         ElderUser user = elderUserService.getElderUser(elderId);
-        List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "档案管理" ,"老人定位");
+        int act = Integer.parseInt(request.getSession().getAttribute("act").toString());
+        List<MainMenu> menuList = menuService.getMenu(act, "档案管理" ,"老人定位");
         List<ElderUser> elderUsers = elderUserService.getAllElderUser();
 
         model.addAttribute("position", pos);

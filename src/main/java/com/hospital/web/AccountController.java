@@ -65,6 +65,12 @@ public class AccountController {
         String password = param.get("password");
         int act = Integer.parseInt(param.get("act"));
         NormalResponse response = new NormalResponse();
+
+        if (act == Account.SYSTEM_USER) {
+            response.setStatus(false);
+            response.setInfo("系统用户不能自行注册");
+            return response.toString();
+        }
         if (accountService.getUserByUsername(username) == null) {
             accountService.addUser(username, password, act);
             Account account = accountService.getUserByUsername(username);
