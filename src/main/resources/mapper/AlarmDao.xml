@@ -4,7 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.dao.AlarmDao">
     <select id="getAlarm" resultType="Alarm">
-        SELECT * FROM alarm LEFT JOIN warninn ON (alarm.warning_id = warning.warning_id) WHERE account_id = #{account_id};
+        SELECT * FROM alarm LEFT JOIN warning ON (alarm.warning_id = warning.warning_id) WHERE account_id = #{account_id};
+    </select>
+
+    <select id="getAllAlarm" resultType="Alarm">
+        SELECT * FROM alarm LEFT JOIN warning ON (alarm.warning_id = warning.warning_id) WHERE handle = 0;
     </select>
 
     <select id="getAlarmCase" resultType="Alarm">

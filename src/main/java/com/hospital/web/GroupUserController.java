@@ -2,8 +2,9 @@ package com.hospital.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.dto.NormalResponse;
-import com.hospital.entity.GroupUser;
-import com.hospital.entity.MainMenu;
+import com.hospital.entity.*;
+import com.hospital.service.AlarmService;
+import com.hospital.service.ElderUserService;
 import com.hospital.service.GroupUserService;
 import com.hospital.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +33,33 @@ public class GroupUserController {
     @Autowired
     private GroupUserService groupUserService;
 
+    @Autowired
+    private AlarmService alarmService;
+
+    @Autowired
+    private ElderUserService elderUserService;
+
     @RequestMapping("home")
     private String home(Model model) {
         List<MainMenu> menuList = menuService.getMenu(MenuService.GROUP_MENU, "", "");
+        List<Alarm> list = alarmService.getAllAlarm();
+        List<ElderUser> elderUsers = new ArrayList<>();
+        for (Alarm a : list) {
+            boolean find = false;
+            for(ElderUser user : elderUsers) {
+                if (user.getAccountId() == a.getAccountId()) {
+                    find = true;
+                    break;
+                }
+            }
+            if(!find)
+                elderUsers.add(elderUserService.getElderUser(a.getAccountId()));
+        }
+
         model.addAttribute("menuList", menuList);
+        model.addAttribute("alarms", list);
+        model.addAttribute("elderUsers", elderUsers);
+        model.addAttribute("keyNameMap", Warning.keyNames);
         return "group/index";
     }
 

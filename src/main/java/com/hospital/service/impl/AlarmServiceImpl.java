@@ -181,4 +181,9 @@ public class AlarmServiceImpl implements AlarmService {
             alarmDao.removeAlarm(id);
         }
     }
+
+    @Override
+    public List<Alarm> getAllAlarm() {
+        return alarmDao.getAllAlarm();
+    }
 }
