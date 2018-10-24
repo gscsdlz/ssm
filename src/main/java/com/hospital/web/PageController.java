@@ -48,9 +48,6 @@ public class PageController {
 
     @RequestMapping("/")
     private String index() {
-        System.out.println(request.getSession().getAttribute("username"));
-        System.out.println(request.getSession().getAttribute("account_id"));
-        System.out.println(request.getSession().getAttribute("act"));
         return "home/index";
     }
 

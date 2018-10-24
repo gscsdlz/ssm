@@ -49,7 +49,6 @@ public class MyDoctorController {
 
         List<DoctorUser> res = new ArrayList<>();
         if (name.length() == 0 && phone.length() == 0) {
-            System.out.println("ok");
             res = doctorUserList;
         } else {
             for (DoctorUser user : doctorUserList) {
