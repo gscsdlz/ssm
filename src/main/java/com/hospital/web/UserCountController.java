@@ -1,9 +1,6 @@
 package com.hospital.web;
 
-import com.hospital.dto.DoctorUserCountResponse;
-import com.hospital.dto.ElderUserCountResponse;
-import com.hospital.dto.FamilyUserCountResponse;
-import com.hospital.dto.GroupUserCountResponse;
+import com.hospital.dto.*;
 import com.hospital.entity.DrugHistory;
 import com.hospital.entity.HealthData;
 import com.hospital.service.*;
@@ -21,6 +18,9 @@ import java.util.Map;
 @ResponseBody
 @RequestMapping(value = "user_count", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/json;charset=utf-8")
 public class UserCountController {
+
+    @Autowired
+    private DoctorUserService doctorUserService;
 
     @Autowired
     private HealthDataService healthDataService;
@@ -114,6 +114,17 @@ public class UserCountController {
         count.setComplaints(complaintService.getAllComplaint().size());
         count.setWorkOrders(workOrderService.getAll().size());
         count.setStatus(true);
+        return count.toString();
+    }
+
+    //首页用
+    @RequestMapping("index")
+    private String index() {
+        IndexCountResponse count = new IndexCountResponse();
+        count.setDoctors(doctorUserService.getAllDoctors().size());
+        count.setComplaints(complaintService.getAllComplaint().size());
+        count.setHealthData(healthDataService.countAllHealthData());
+        count.setWorkOrders(workOrderService.getAll().size());
         return count.toString();
     }
 }

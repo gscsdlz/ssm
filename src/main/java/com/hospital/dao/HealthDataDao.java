@@ -13,4 +13,6 @@ public interface HealthDataDao {
     HealthData getLastHealthData(@Param("type") int type, @Param("account_id") int accountId);
 
     int countHealthData(@Param("account_id") int accountId);
+
+    int countAllHealthData();
 }

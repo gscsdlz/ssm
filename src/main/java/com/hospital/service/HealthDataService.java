@@ -12,4 +12,6 @@ public interface HealthDataService {
     HealthData getLastHealthData(int type, int accountId);
 
     int countHealthData(int accountId);
+
+    int countAllHealthData();
 }

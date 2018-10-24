@@ -15,4 +15,7 @@
     <select id="countHealthData" resultType="int">
             SELECT count(*) FROM health_data WHERE account_id = #{account_id};
     </select>
+    <select id="countAllHealthData" resultType="int">
+      SELECT count(*) FROM health_data;
+    </select>
 </mapper>

@@ -33,4 +33,9 @@ public class HealthDataServiceImpl implements HealthDataService {
     public int countHealthData(int accountId) {
         return healthDataDao.countHealthData(accountId);
     }
+
+    @Override
+    public int countAllHealthData() {
+        return healthDataDao.countAllHealthData();
+    }
 }

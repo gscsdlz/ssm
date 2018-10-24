@@ -33,7 +33,7 @@
                         <nav class="navbar h-100 navbar-expand-lg">
                             <a class="navbar-brand" href="#"><img src="/assets/home/img/core-img/logo.png" alt="Logo"></a>
                             <div class="collapse navbar-collapse" id="medilifeMenu">
-                                <ul class="navbar-nav ml-auto">
+                                <ul class="navbar-nav ml-auto" id="menu">
                                     <li class="nav-item active">
                                         <a class="nav-link" href="/">主页</a>
                                     </li>
@@ -61,3 +61,10 @@
         </div>
     </div>
 </header>
+<script>
+    $(document).ready(function() {
+        let menuId = parseInt("${menu}");
+        $("#menu").children().removeClass("active");
+        $("#menu").children().eq(menuId - 1).addClass("active");
+    })
+</script>

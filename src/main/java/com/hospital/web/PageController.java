@@ -29,7 +29,7 @@ public class PageController {
     private HttpServletRequest request;
 
     @RequestMapping("/home")
-    private String index(Model model) {
+    private String home(Model model) {
         switch (Integer.parseInt(request.getSession().getAttribute("act").toString())) {
             case Account.ELDER_USER:
                 return "redirect:/elder_user/home";
@@ -47,7 +47,8 @@ public class PageController {
     }
 
     @RequestMapping("/")
-    private String index() {
+    private String index(Model model) {
+        model.addAttribute("menu", 1);
         return "home/index";
     }
 
@@ -57,5 +58,23 @@ public class PageController {
             return "home/login";
         else
             return "redirect:/home";
+    }
+
+    @RequestMapping("/page/services")
+    private String services(Model model) {
+        model.addAttribute("menu", 2);
+        return "home/services";
+    }
+
+    @RequestMapping("/page/about")
+    private String about(Model model) {
+        model.addAttribute("menu", 3);
+        return "home/about";
+    }
+
+    @RequestMapping("/page/contact")
+    private String contact(Model model) {
+        model.addAttribute("menu", 4);
+        return "home/contact";
     }
 }
