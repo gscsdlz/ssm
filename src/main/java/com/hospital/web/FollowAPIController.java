@@ -5,6 +5,7 @@ import com.hospital.entity.ElderUser;
 import com.hospital.service.ElderUserService;
 import com.hospital.service.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,8 +39,14 @@ public class FollowAPIController {
             response.setInfo("找不到这样的用户");
         } else {
             int familyId = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
-            followService.addHomeElder(familyId, user.getAccountId());
-            response.setStatus(true);
+            try {
+                followService.addHomeElder(familyId, user.getAccountId());
+                response.setStatus(true);
+            } catch (DuplicateKeyException e) {
+                response.setStatus(false);
+                response.setInfo("不能重复关注");
+            }
+
         }
         return response.toString();
     }
