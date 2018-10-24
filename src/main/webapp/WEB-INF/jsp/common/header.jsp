@@ -65,10 +65,12 @@
                     </a>
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <c:if test="${Integer.parseInt(sessionScope.get(\"act\").toString()) != 5}">
                         <li>
                             <a href="/user/me"><i class="ace-icon fa fa-cog"></i>个人中心</a>
                         </li>
                             <li class="divider"></li>
+                        </c:if>
                         <li>
                             <a href="/user/logout"><i class="ace-icon fa fa-power-off"></i>退出登录</a>
                         </li>
