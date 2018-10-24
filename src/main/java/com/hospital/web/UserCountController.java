@@ -125,6 +125,7 @@ public class UserCountController {
         count.setComplaints(complaintService.getAllComplaint().size());
         count.setHealthData(healthDataService.countAllHealthData());
         count.setWorkOrders(workOrderService.getAll().size());
+        count.setStatus(true);
         return count.toString();
     }
 }
