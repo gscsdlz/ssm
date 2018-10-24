@@ -116,16 +116,4 @@ public class UserCountController {
         count.setStatus(true);
         return count.toString();
     }
-
-    //首页用
-    @RequestMapping("index")
-    private String index() {
-        IndexCountResponse count = new IndexCountResponse();
-        count.setDoctors(doctorUserService.getAllDoctors().size());
-        count.setComplaints(complaintService.getAllComplaint().size());
-        count.setHealthData(healthDataService.countAllHealthData());
-        count.setWorkOrders(workOrderService.getAll().size());
-        count.setStatus(true);
-        return count.toString();
-    }
 }

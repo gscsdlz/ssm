@@ -146,7 +146,7 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-cool-fact-area text-center mb-100">
                     <i class="icon-blood-transfusion-2"></i>
-                    <h2><span class="counter" id="healthData"> 0 </span></h2>
+                    <h2><span class="counter"> ${healthData} </span></h2>
                     <h6>总测量次数</h6>
                     <p>本平台目前所有用户累计测量次数</p>
                 </div>
@@ -155,7 +155,7 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-cool-fact-area text-center mb-100">
                     <i class="icon-atoms"></i>
-                    <h2><span class="counter" id="workOrders"> 0 </span></h2>
+                    <h2><span class="counter"> ${workOrders} </span></h2>
                     <h6>社区服务统计</h6>
                     <p>本平台目前为老人提供的各种服务统计</p>
                 </div>
@@ -164,7 +164,7 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-cool-fact-area text-center mb-100">
                     <i class="icon-microscope"></i>
-                    <h2><span class="counter" id="complaints"> 0 </span></h2>
+                    <h2><span class="counter"> ${complaints} </span></h2>
                     <h6>反馈研究</h6>
                     <p>本平台目前处理的反馈数量</p>
                 </div>
@@ -173,7 +173,7 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-cool-fact-area text-center mb-100">
                     <i class="icon-doctor-1"></i>
-                    <h2><span class="counter" id="doctors"> 0 </span></h2>
+                    <h2><span class="counter"> ${doctors} </span></h2>
                     <h6>医生数量</h6>
                     <p>本平台目前所拥有的医生数量</p>
                 </div>
@@ -181,18 +181,6 @@
         </div>
     </div>
 </section>
-<script>
-    $(document).ready(function() {
-        $.get("user_count/index", function(response) {
-            if (response.status) {
-                $("#healthData").html(response.healthData);
-                $("#workOrders").html(response.workOrders);
-                $("#complaints").html(response.complaints);
-                $("#doctors").html(response.doctors);
-            }
-        })
-    })
-</script>
 <div class="medilife-features-area section-padding-100">
     <div class="container">
         <div class="row align-items-center">

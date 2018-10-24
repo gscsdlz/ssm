@@ -27,7 +27,6 @@ public class PrivilegeMiddleWare extends HandlerInterceptorAdapter {
         whiteList.add("/page/services");
         whiteList.add("/page/about");
         whiteList.add("/page/contact");
-        whiteList.add("/user_count/index");
     }
 
     @Override

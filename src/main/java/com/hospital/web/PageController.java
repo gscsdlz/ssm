@@ -2,8 +2,7 @@ package com.hospital.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.entity.*;
-import com.hospital.service.HealthDataService;
-import com.hospital.service.MenuService;
+import com.hospital.service.*;
 import com.hospital.service.impl.MenuServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +27,15 @@ public class PageController {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private DoctorUserService doctorUserService;
+
+    @Autowired
+    private ComplaintService complaintService;
+
+    @Autowired
+    private WorkOrderService workOrderService;
+
     @RequestMapping("/home")
     private String home(Model model) {
         switch (Integer.parseInt(request.getSession().getAttribute("act").toString())) {
@@ -48,6 +56,10 @@ public class PageController {
 
     @RequestMapping("/")
     private String index(Model model) {
+        model.addAttribute("doctors", doctorUserService.getAllDoctors().size());
+        model.addAttribute("complaints", complaintService.getAllComplaint().size());
+        model.addAttribute("healthData", healthDataService.countAllHealthData());
+        model.addAttribute("workOrders", workOrderService.getAll().size());
         model.addAttribute("menu", 1);
         return "home/index";
     }
