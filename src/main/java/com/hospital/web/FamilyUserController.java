@@ -54,8 +54,9 @@ public class FamilyUserController {
     }
 
     @RequestMapping("/home")
-    private String home() {
-
+    private String home(Model model) {
+        List<MainMenu> menuList = menuService.getMenu(MenuService.FAMILY_MENU, "", "");
+        model.addAttribute("menuList", menuList);
         return "family/index";
     }
 
